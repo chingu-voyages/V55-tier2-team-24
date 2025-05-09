@@ -34,22 +34,11 @@ Everyone on your team should add their name along with a link to their GitHub
 your repo access and to practice PR'ing with your team _before_ you start
 coding!
 
-### Developers
-
 - Ivan Rebolledo (Developer): [GitHub](https://github.com/ivannissimrch) / [LinkedIn](https://www.linkedin.com/in/ivan-rebolledo-012b17244/)
-- Stephanie Leon: [GitHub](https://github.com/stefleon33) / [LinkedIn](https://www.linkedin.com/in/stephanie-leon33/)
+- Stephanie Leon (Developer): [GitHub](https://github.com/stefleon33) / [LinkedIn](https://www.linkedin.com/in/stephanie-leon33/)
+- Nathan Walker (Scrum Master): [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://www.linkedin.com/in/nathan-walker-770517106/)
 - Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
 - Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
-
-### Product Owner
-
 - Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
-
-### Scrum Masters
-
-- Nathan Walker: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://www.linkedin.com/in/nathan-walker-770517106/)
-- Nathalie : [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
-
-### UI/UX Designer
-
+- Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
 - Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
