@@ -37,7 +37,11 @@ coding!
 - Ivan Rebolledo (Developer): [GitHub](https://github.com/ivannissimrch) / [LinkedIn](https://www.linkedin.com/in/ivan-rebolledo-012b17244/)
 - Stephanie Leon (Developer): [GitHub](https://github.com/stefleon33) / [LinkedIn](https://www.linkedin.com/in/stephanie-leon33/)
 - Nathan Walker (Scrum Master): [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://www.linkedin.com/in/nathan-walker-770517106/)
+
 - Christin Martin (Developer): [GitHub](https://github.com/Christin-paige) / [LinkedIn](https://www.linkedin.com/in/christin-martin/)
+
+- Maria Nathalie Chejin (Shadow Scrum Master): [GitHub](https://github.com/nath8815) / [LinkedIn](http://linkedin.com/in/marianathaliechejin)
+
 - Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
 - Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
 - Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
