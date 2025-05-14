@@ -1,45 +1,42 @@
-# voyage-tasks
+# Resource Helper
 
-Your project's `readme` is as important to success as your code. For
-this reason you should put as much care into its creation and maintenance
-as you would any other component of the application.
+# Overview
 
-If you are unsure of what should go into the `readme` let this article,
-written by an experienced Chingu, be your starting point -
-[Keys to a well written README](https://tinyurl.com/yk3wubft).
+# Features
 
-And before we go there's "one more thing"! Once you decide what to include
-in your `readme` feel free to replace the text we've provided here.
+# Running The Project
 
-> Own it & Make it your Own!
+1. Clone this project locally
+2. Open a terminal and CD into the directory with the repository
+3. In the terminal, type "npm install"
+4. Once installed, type "npm run dev" to run the project.
+5. You should be able to see the locally hosted site at http://localhost:5173/
 
-## Team Documents
+# Live version
 
-You may find these helpful as you work together to organize your project.
+# Tech Stack
 
-- [Team Project Ideas](./docs/team_project_ideas.md)
-- [Team Decision Log](./docs/team_decision_log.md)
+- Vite
+- React
+- TypeScript
+- Tailwind CSS
 
-Meeting Agenda templates (located in the `/docs` directory in this repo):
+# Our Team
 
-- Meeting - Voyage Kickoff --> ./docs/meeting-voyage_kickoff.docx
-- Meeting - App Vision & Feature Planning --> ./docs/meeting-vision_and_feature_planning.docx
-- Meeting - Sprint Retrospective, Review, and Planning --> ./docs/meeting-sprint_retrospective_review_and_planning.docx
-- Meeting - Sprint Open Topic Session --> ./docs/meeting-sprint_open_topic_session.docx
+### UI/UX Developer
 
-## Our Team
+- Jennie Glass (UX/UI Designer) [LinkedIn](https://www.linkedin.com/in/jennie-glass-design/)
 
-Everyone on your team should add their name along with a link to their GitHub
-& optionally their LinkedIn profiles below. Do this in Sprint #1 to validate
-your repo access and to practice PR'ing with your team _before_ you start
-coding!
+### Scrum Master
+
+- Nathan Walker (Scrum Master): [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://www.linkedin.com/in/nathan-walker-770517106/)
+- Maria Nathalie Chejin (Shadow Scrum Master): [GitHub](https://github.com/nath8815) / [LinkedIn](http://linkedin.com/in/marianathaliechejin)
+
+### Voyage Guide
+
+### Developers
 
 - Ivan Rebolledo (Developer): [GitHub](https://github.com/ivannissimrch) / [LinkedIn](https://www.linkedin.com/in/ivan-rebolledo-012b17244/)
 - Stephanie Leon (Developer): [GitHub](https://github.com/stefleon33) / [LinkedIn](https://www.linkedin.com/in/stephanie-leon33/)
 - Christin Martin (Developer): [GitHub](https://github.com/Christin-paige) / [LinkedIn](https://www.linkedin.com/in/christin-martin/)
 - Ramon Zambrano (Developer): [GitHub](https://github.com/r-alejo-z95) / [LinkedIn](https://linkedin.com/in/ralejo-zambrano/)
-- Nathan Walker (Scrum Master): [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://www.linkedin.com/in/nathan-walker-770517106/)
-- Maria Nathalie Chejin (Shadow Scrum Master): [GitHub](https://github.com/nath8815) / [LinkedIn](http://linkedin.com/in/marianathaliechejin)
-- Jennie Glass [LinkedIn](https://www.linkedin.com/in/jennie-glass-design/)
-- Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
-- Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
