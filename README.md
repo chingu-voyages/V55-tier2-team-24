@@ -23,6 +23,10 @@
 
 # Our Team
 
+### Product Owner
+
+- Viral Barot (Product Owner) [LinkedIn](https://www.linkedin.com/in/viral-barot-mba/)
+
 ### UI/UX Developer
 
 - Jennie Glass (UX/UI Designer) [LinkedIn](https://www.linkedin.com/in/jennie-glass-design/)
