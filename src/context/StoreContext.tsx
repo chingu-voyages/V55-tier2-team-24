@@ -26,9 +26,28 @@ export default function StoreContextProvider({
       return resource.name.toLowerCase().includes(searchQuery.toLowerCase());
     });
     console.log(results);
-    setStore((prev) => {
-      return { ...prev, filteredResources: results };
-    });
+    if (results.length === 0) {
+      console.log("no resources found");
+      setStore((prev) => {
+        return {
+          ...prev,
+          filteredResources: [
+            {
+              author: "",
+              name: "No resources found",
+              appliedTags: [""],
+              url: "",
+              createdAt: "",
+              id: "",
+            },
+          ],
+        };
+      });
+    } else {
+      setStore((prev) => {
+        return { ...prev, filteredResources: results };
+      });
+    }
   }
 
   function clearFilterResources() {

@@ -3,6 +3,7 @@ import { useStoreContext } from "../context/StoreContext";
 export default function Resources() {
   const { store } = useStoreContext();
   const filteredResources = store.filteredResources;
+  console.log(filteredResources);
 
   return (
     <section className="">
