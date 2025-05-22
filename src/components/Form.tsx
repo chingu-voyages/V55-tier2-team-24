@@ -34,6 +34,14 @@ export default function Form() {
     searchRef?.current?.focus();
   }
 
+  function handleInputClear() {
+    const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
+    setPlaceHolder(searchPlaceHolders[randomNumber]);
+    filterResources(query);
+    setQuery("");
+    searchRef?.current?.focus();
+  }
+
   return (
     <section
       className="flex col p-8 justify-center items-start gap-6 w-[401px] h-80 mt-10 rounded-[8px] border-[0px] border-[#E5E7EB] bg-[#1F2937] 
@@ -65,7 +73,7 @@ export default function Form() {
             {query.length > 0 ? (
               <MdClear
                 className="absolute right-1  top-1/4 fill-red-600  hover:-scale-125"
-                onClick={() => setQuery("")}
+                onClick={handleInputClear}
               />
             ) : (
               ""
