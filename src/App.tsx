@@ -1,5 +1,5 @@
-import Footer from "./components/Footer"; //temporary
-import Header from "./components/Header"; //temporary
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 import Form from "./components/Form";
 import StoreContextProvider from "./context/StoreContext";
 import Resources from "./components/Resources";
