@@ -72,7 +72,7 @@ export default function Form() {
             />
             {query.length > 0 ? (
               <MdClear
-                className="absolute right-1  top-1/4 fill-red-600  hover:-scale-125"
+                className="absolute right-1  top-1/4 fill-red-600  hover:-scale-125 hover:cursor-pointer"
                 onClick={handleInputClear}
               />
             ) : (
@@ -83,13 +83,13 @@ export default function Form() {
         <div className="flex flex-col">
           <button
             type="submit"
-            className="flex h-12 py-3.5 bg-[#374151] text-[#F3F4F6] justify-center"
+            className="flex h-12 py-3.5 bg-[#374151] text-[#F3F4F6] justify-center hover:cursor-pointer"
           >
             Search
           </button>
           <button
             type="button"
-            className="bg-[hsla(221,_39%,_11%,_1)] text-[#D1D5DB] flex justify-center  h-12 py-3.5"
+            className="bg-[hsla(221,_39%,_11%,_1)] text-[#D1D5DB] flex justify-center  h-12 py-3.5 hover:cursor-pointer"
             onClick={clearFilterResources}
           >
             Clear Search Results
