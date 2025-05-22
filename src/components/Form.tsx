@@ -23,6 +23,7 @@ export default function Form() {
     const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
     setPlaceHolder(searchPlaceHolders[randomNumber]);
     searchRef?.current?.focus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -37,7 +38,6 @@ export default function Form() {
   function handleInputClear() {
     const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
     setPlaceHolder(searchPlaceHolders[randomNumber]);
-    filterResources(query);
     setQuery("");
     searchRef?.current?.focus();
   }
@@ -71,10 +71,15 @@ export default function Form() {
               className=" bg-[hsla(221,_39%,_11%,_1)] text-[#ADAEBC] font-[Inter] text-[18px] not-italic font-normal leading-[28px] inline-flex h-[62px] pl-[20px] justify-end items-center w-full pr-1"
             />
             {query.length > 0 ? (
-              <MdClear
-                className="absolute right-1  top-1/4 fill-red-600  hover:-scale-125 hover:cursor-pointer"
-                onClick={handleInputClear}
-              />
+              <button
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleInputClear();
+                }}
+              >
+                <MdClear className="absolute right-1  top-1/4 fill-red-600  hover:-scale-125 hover:cursor-pointer" />
+              </button>
             ) : (
               ""
             )}

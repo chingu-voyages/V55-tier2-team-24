@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="absolute bottom-0 flex items-center text-white text-sm px-2 py-3 w-full h-20 border-t-1 border-gray-400">
+    <footer className=" flex items-center text-white text-sm px-2 py-3 w-full h-20 border-t-1 border-gray-400">
       <section className="w-[70%] m-3">
         <a
           className="flex  gap-x-2 hover:underline underline-offset-2"

@@ -15,7 +15,6 @@ export default function App() {
         <section>
           <Resources />
         </section>
-
         <Footer />
       </main>
     </StoreContextProvider>
