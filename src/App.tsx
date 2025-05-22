@@ -7,7 +7,7 @@ import Resources from "./components/Resources";
 export default function App() {
   return (
     <StoreContextProvider>
-      <main className="w-full min-h-screen flex flex-col items-center  bg-[#111827] ">
+      <main className="w-full min-h-screen flex flex-col items-center  bg-slate-950 ">
         <Header />
         <section className="flex-grow flex w-2xl p-4 justify-center">
           <Form />
