@@ -1,7 +1,23 @@
+import Footer from "./components/Footer"; //temporary
+import Header from "./components/Header"; //temporary
+import Form from "./components/Form";
+import StoreContextProvider from "./context/StoreContext";
+import Resources from "./components/Resources";
+
 export default function App() {
   return (
-    <main className="h-screen w-full bg-blue-100 flex items-center justify-center">
-      <h1 className=" text-2xl text-red-500">Resource Helper</h1>
-    </main>
+    <StoreContextProvider>
+      <main className="w-full min-h-screen flex flex-col items-center  bg-[#111827] ">
+        <Header />
+        <section className="flex-grow flex w-2xl p-4 justify-center">
+          <Form />
+        </section>
+        <section>
+          <Resources />
+        </section>
+
+        <Footer />
+      </main>
+    </StoreContextProvider>
   );
 }
