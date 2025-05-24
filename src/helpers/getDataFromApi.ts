@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { Resources, Tags } from "../Types";
+import isValidUrl from "./isValidUrl";
 
 export default async function getDataFromApi(): Promise<
   [Tags[], Resources[]] | undefined
@@ -11,7 +12,14 @@ export default async function getDataFromApi(): Promise<
     ]);
     const tagsData = tags.data;
     const resourcesData = resources.data;
-    return [tagsData, resourcesData];
+
+    const validResources = resourcesData.filter((resource) =>
+      isValidUrl(resource)
+    );
+    console.log(validResources);
+    //return valid resources
+
+    return [tagsData, validResources];
   } catch (error) {
     console.error("Error fetching data:", error);
   }
