@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { LoginButton } from "./LoginButton";
 
 export default function Header() {
   const [currentDate, setCurrentDate] = useState("");
@@ -15,6 +16,7 @@ export default function Header() {
         <h1>Resource Helper</h1>
         <span className="text-sm px-6">{currentDate}</span>
       </section>
+      <LoginButton />
       <section className="w-[5%] flex">
         <img
           src="https://placehold.co/400"
