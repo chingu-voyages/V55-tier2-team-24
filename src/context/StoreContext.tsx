@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect } from "react";
 import type { Store, StoreContext } from "../Types";
 import { usePersistedState } from "../hooks/usePersistedState";
 import getDataFromApi from "../helpers/getDataFromApi";
+import { FALLBACK_RESOURCES, FALLBACK_TAGS } from "../helpers/fallbackData";
 
 export const storeContext = createContext<StoreContext>({
   store: { filteredResources: [], tags: [], resources: [], lastUpdate: "" },
@@ -16,8 +17,8 @@ export default function StoreContextProvider({
 }) {
   const [store, setStore] = usePersistedState<Store>("store", {
     filteredResources: [],
-    tags: [],
-    resources: [],
+    tags: FALLBACK_TAGS,
+    resources: FALLBACK_RESOURCES,
     lastUpdate: "",
   });
 
