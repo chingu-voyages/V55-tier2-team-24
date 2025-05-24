@@ -12,13 +12,9 @@ export default async function getDataFromApi(): Promise<
     ]);
     const tagsData = tags.data;
     const resourcesData = resources.data;
-
     const validResources = resourcesData.filter((resource) =>
       isValidUrl(resource)
     );
-    console.log(validResources);
-    //return valid resources
-
     return [tagsData, validResources];
   } catch (error) {
     console.error("Error fetching data:", error);
