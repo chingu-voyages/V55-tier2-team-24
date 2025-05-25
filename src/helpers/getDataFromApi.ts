@@ -10,7 +10,9 @@ export default async function getDataFromApi(): Promise<
       axios.get<Tags[]>("https://seshatbe.up.railway.app/tags"),
       axios.get<Resources[]>("https://seshatbe.up.railway.app/resources"),
     ]);
-    const tagsData = tags.data;
+    const tagsData = tags.data.map((tag) => {
+      return { ...tag, selected: false };
+    });
     const resourcesData = resources.data;
     const validResources = resourcesData.filter((resource) =>
       isValidUrl(resource)

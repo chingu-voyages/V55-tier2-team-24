@@ -1,6 +1,7 @@
 export interface Tags {
   tag: string;
   id: string;
+  selected: boolean;
 }
 
 export interface Resources {
@@ -23,4 +24,5 @@ export interface StoreContext {
   store: Store;
   filterResources: (query: string) => void;
   clearFilterResources: () => void;
+  filterResourcesByTag: (tags: Tags[]) => void;
 }

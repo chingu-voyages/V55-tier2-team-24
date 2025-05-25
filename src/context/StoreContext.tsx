@@ -1,13 +1,20 @@
 import React, { createContext, useContext, useEffect } from "react";
-import type { Store, StoreContext } from "../Types";
+import type { Store, StoreContext, Tags } from "../Types";
 import { usePersistedState } from "../hooks/usePersistedState";
 import getDataFromApi from "../helpers/getDataFromApi";
 import { FALLBACK_RESOURCES, FALLBACK_TAGS } from "../helpers/fallbackData";
 
 export const storeContext = createContext<StoreContext>({
-  store: { filteredResources: [], tags: [], resources: [], lastUpdate: "" },
+  store: {
+    filteredResources: [],
+    tags: [],
+    resources: [],
+    lastUpdate: "",
+  },
+
   filterResources: () => undefined,
   clearFilterResources: () => undefined,
+  filterResourcesByTag: () => undefined,
 });
 
 export default function StoreContextProvider({
@@ -23,32 +30,38 @@ export default function StoreContextProvider({
   });
 
   function filterResources(searchQuery: string) {
-    const results = store.resources.filter((resource) => {
-      return resource.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const noCommasSearchQuery = searchQuery.replace(/,/g, "");
+    //next update so it can filter using that numbers
+
+    const words = noCommasSearchQuery.split(" ").map((w) => w.trim());
+    const results = store.resources.filter((post) => {
+      const match = words.some((word) =>
+        post.name.toLowerCase().includes(word)
+      );
+      return match;
     });
-    console.log(results);
     if (results.length === 0) {
-      console.log("no resources found");
-      setStore((prev) => {
-        return {
-          ...prev,
-          filteredResources: [
-            {
-              author: "",
-              name: "No resources found",
-              appliedTags: [""],
-              url: "",
-              createdAt: "",
-              id: "",
-            },
-          ],
-        };
-      });
-    } else {
-      setStore((prev) => {
-        return { ...prev, filteredResources: results };
-      });
+      console.log("no results found");
     }
+
+    setStore((prev) => {
+      return { ...prev, filteredResources: results };
+    });
+  }
+
+  function filterResourcesByTag(tags: Tags[]) {
+    const results = store.resources.filter((post) => {
+      const match = tags.some((tag) => post.appliedTags.includes(tag.id));
+      return match;
+    });
+
+    console.log(results);
+
+    //update results don't replace
+
+    // setStore((prev) => {
+    //   return { ...prev, filteredResources: results };
+    // });
   }
 
   function clearFilterResources() {
@@ -63,7 +76,6 @@ export default function StoreContextProvider({
       console.log("fetching data");
       getDataFromApi()
         .then((data) => {
-          console.log(data);
           if (data) {
             setStore((prev) => {
               return {
@@ -83,7 +95,12 @@ export default function StoreContextProvider({
   }, []);
   return (
     <storeContext.Provider
-      value={{ store, filterResources, clearFilterResources }}
+      value={{
+        store,
+        filterResources,
+        clearFilterResources,
+        filterResourcesByTag,
+      }}
     >
       {children}
     </storeContext.Provider>

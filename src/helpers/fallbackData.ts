@@ -336,81 +336,101 @@ export const FALLBACK_TAGS = [
   {
     tag: "General",
     id: "1048176100892737618",
+    selected: false,
   },
   {
     tag: "HTML",
     id: "1048172063774486548",
+    selected: false,
   },
   {
     tag: "CSS",
     id: "1048172108204744765",
+    selected: false,
   },
   {
     tag: "JavaScript",
     id: "1048172157009678337",
+    selected: false,
   },
   {
     tag: "React",
     id: "1048172208079519764",
+    selected: false,
   },
   {
     tag: "TypeScript",
     id: "1048172283451162664",
+    selected: false,
   },
   {
     tag: "Python",
     id: "1048172446408245249",
+    selected: false,
   },
   {
     tag: "Node.js",
     id: "1048172489555071017",
+    selected: false,
   },
   {
     tag: "Next.js",
     id: "1048172720367620157",
+    selected: false,
   },
   {
     tag: "Vue",
     id: "1048173016460304416",
+    selected: false,
   },
   {
     tag: "Git",
     id: "1048174499905937428",
+    selected: false,
   },
   {
     tag: "Github",
     id: "1048174538191544320",
+    selected: false,
   },
   {
     tag: "JS Frameworks",
     id: "1050431772405534750",
+    selected: false,
   },
   {
     tag: "SQL",
     id: "1050431949119950880",
+    selected: false,
   },
   {
     tag: "Career",
     id: "1050431984058499112",
+    selected: false,
   },
   {
     tag: "UI/UX Design",
     id: "1185919811176382536",
+    selected: false,
   },
   {
     tag: "Ruby",
     id: "1198230083568140350",
+    selected: false,
   },
   {
     tag: "Golang",
     id: "1303349202444615730",
+    selected: false,
   },
   {
     tag: "⚙ DevOps",
     id: "1346156359862845542",
+    selected: false,
   },
   {
     tag: "🤖 AI",
     id: "1352255739208536064",
+    selected: false,
   },
 ];

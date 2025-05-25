@@ -1,29 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import { useStoreContext } from "../context/StoreContext";
 import { MdClear } from "react-icons/md";
+import {
+  searchPlaceHolders,
+  resultsPlaceHolders,
+} from "../helpers/placeHolders";
 
 export default function Form() {
   const searchRef = useRef<HTMLInputElement | null>(null);
   const [query, setQuery] = useState("");
   const [placeholder, setPlaceHolder] = useState("");
   const { filterResources, clearFilterResources } = useStoreContext();
-  const searchPlaceHolders = [
-    "Ready to search! 😊",
-    "type a keyword, like javascript",
-    "Skills issues? search to unlock some knowledged",
-    "type something preferably not sgshgaf",
-  ];
-  const resultsPlaceHolders = [
-    "Nice!, here is what I found",
-    "Aha this is what I found!",
-    "Are you still searching?",
-  ];
 
   useEffect(() => {
     const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
     setPlaceHolder(searchPlaceHolders[randomNumber]);
     searchRef?.current?.focus();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -41,6 +33,17 @@ export default function Form() {
     setQuery("");
     searchRef?.current?.focus();
   }
+
+  // filterResourcesByTag([
+  //   {
+  //     tag: "JavaScript",
+  //     id: "1048172157009678337",
+  //   },
+  //   {
+  //     tag: "Git",
+  //     id: "1048174499905937428",
+  //   },
+  // ]);
 
   return (
     <section
