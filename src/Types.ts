@@ -18,11 +18,12 @@ export interface Store {
   tags: Tags[];
   resources: Resources[];
   lastUpdate: string;
+  query: string;
 }
 
 export interface StoreContext {
   store: Store;
-  filterResources: (query: string) => void;
   clearFilterResources: () => void;
-  filterResourcesByTag: (tags: Tags[]) => void;
+  handleClickedTags: (Tags: Tags) => void;
+  searchResources: (query: string) => void;
 }

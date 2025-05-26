@@ -8,9 +8,9 @@ import {
 
 export default function Form() {
   const searchRef = useRef<HTMLInputElement | null>(null);
-  const [query, setQuery] = useState("");
   const [placeholder, setPlaceHolder] = useState("");
-  const { filterResources, clearFilterResources } = useStoreContext();
+  const [userInput, setUserInput] = useState("");
+  const { clearFilterResources, searchResources } = useStoreContext();
 
   useEffect(() => {
     const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
@@ -18,36 +18,29 @@ export default function Form() {
     searchRef?.current?.focus();
   }, []);
 
+  function handleUserInput(event: React.ChangeEvent<HTMLInputElement>) {
+    setUserInput(event.target.value);
+  }
+
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const randomNumber = Math.floor(Math.random() * resultsPlaceHolders.length);
     setPlaceHolder(resultsPlaceHolders[randomNumber]);
-    filterResources(query);
-    setQuery("");
+    searchResources(userInput);
     searchRef?.current?.focus();
   }
 
   function handleInputClear() {
     const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
     setPlaceHolder(searchPlaceHolders[randomNumber]);
-    setQuery("");
+    searchResources("");
+    setUserInput("");
     searchRef?.current?.focus();
   }
 
-  // filterResourcesByTag([
-  //   {
-  //     tag: "JavaScript",
-  //     id: "1048172157009678337",
-  //   },
-  //   {
-  //     tag: "Git",
-  //     id: "1048174499905937428",
-  //   },
-  // ]);
-
   return (
     <section
-      className="flex col p-8 justify-center items-start gap-6 w-[401px] h-80 mt-10 rounded-[8px] border-[0px] border-[#E5E7EB] bg-[#1F2937] 
+      className="flex p-8 justify-center items-start gap-6 w-[401px] h-80 mt-10 rounded-[8px] border-[0px] border-[#E5E7EB] bg-[#1F2937] 
     [box-shadow:0px_4px_6px_0px_rgba(0,_0,_0,_0.10),_0px_10px_15px_0px_rgba(0,_0,_0,_0.10)]
 "
     >
@@ -65,15 +58,15 @@ export default function Form() {
           <div className="relative">
             <input
               required
-              onChange={(event) => setQuery(event.target.value)}
-              value={query}
+              onChange={(event) => handleUserInput(event)}
+              value={userInput}
               ref={searchRef}
               name="search"
               id="search-input"
               placeholder={placeholder}
               className=" bg-[hsla(221,_39%,_11%,_1)] text-[#ADAEBC] font-[Inter] text-[18px] not-italic font-normal leading-[28px] inline-flex h-[62px] pl-[20px] justify-end items-center w-full pr-1"
             />
-            {query.length > 0 ? (
+            {userInput.length > 0 ? (
               <button
                 type="button"
                 onClick={(event) => {

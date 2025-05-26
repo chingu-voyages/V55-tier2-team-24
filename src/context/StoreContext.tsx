@@ -10,11 +10,11 @@ export const storeContext = createContext<StoreContext>({
     tags: [],
     resources: [],
     lastUpdate: "",
+    query: "",
   },
-
-  filterResources: () => undefined,
   clearFilterResources: () => undefined,
-  filterResourcesByTag: () => undefined,
+  searchResources: () => undefined,
+  handleClickedTags: () => undefined,
 });
 
 export default function StoreContextProvider({
@@ -23,50 +23,58 @@ export default function StoreContextProvider({
   children: React.ReactNode;
 }) {
   const [store, setStore] = usePersistedState<Store>("store", {
-    filteredResources: [],
+    filteredResources: FALLBACK_RESOURCES,
     tags: FALLBACK_TAGS,
     resources: FALLBACK_RESOURCES,
     lastUpdate: "",
+    query: "",
   });
 
-  function filterResources(searchQuery: string) {
-    const noCommasSearchQuery = searchQuery.replace(/,/g, "");
-    //next update so it can filter using that numbers
+  function combineFilters(query: string, tags: Tags[]) {
+    const words = query
+      .replace(/,/g, "")
+      .toLowerCase()
+      .split(" ")
+      .filter(Boolean);
+    const selectedTags = tags.filter((tag) => tag.selected);
 
-    const words = noCommasSearchQuery.split(" ").map((w) => w.trim());
     const results = store.resources.filter((post) => {
-      const match = words.some((word) =>
-        post.name.toLowerCase().includes(word)
-      );
-      return match;
-    });
-    if (results.length === 0) {
-      console.log("no results found");
-    }
+      const matchQuery =
+        words.length === 0 ||
+        words.some((word) => post.name.toLowerCase().includes(word));
+      const matchesTags =
+        selectedTags.length === 0 ||
+        selectedTags.some((tag) => post.appliedTags.includes(tag.id));
 
-    setStore((prev) => {
-      return { ...prev, filteredResources: results };
+      return matchQuery && matchesTags;
     });
+
+    setStore((prev) => ({ ...prev, filteredResources: results }));
   }
 
-  function filterResourcesByTag(tags: Tags[]) {
-    const results = store.resources.filter((post) => {
-      const match = tags.some((tag) => post.appliedTags.includes(tag.id));
-      return match;
-    });
+  function searchResources(query: string) {
+    setStore((prev) => ({ ...prev, query: query }));
+    combineFilters(query, store.tags);
+  }
 
-    console.log(results);
+  function handleClickedTags(clickedTag: Tags) {
+    const updatedTags = store.tags.map((tag) =>
+      tag.id === clickedTag.id ? { ...tag, selected: !tag.selected } : tag
+    );
 
-    //update results don't replace
-
-    // setStore((prev) => {
-    //   return { ...prev, filteredResources: results };
-    // });
+    setStore((prev) => ({ ...prev, tags: updatedTags }));
+    combineFilters(store.query, updatedTags);
   }
 
   function clearFilterResources() {
     setStore((prev) => {
-      return { ...prev, filteredResources: [] };
+      const clearedTags = prev.tags.map((tag) => ({ ...tag, selected: false }));
+      return {
+        ...prev,
+        filteredResources: store.resources,
+        tags: clearedTags,
+        query: "",
+      };
     });
   }
 
@@ -82,6 +90,7 @@ export default function StoreContextProvider({
                 ...prev,
                 tags: data[0],
                 resources: data[1],
+                filteredResources: data[1],
                 lastUpdate: new Date().toLocaleDateString(),
               };
             });
@@ -97,9 +106,9 @@ export default function StoreContextProvider({
     <storeContext.Provider
       value={{
         store,
-        filterResources,
         clearFilterResources,
-        filterResourcesByTag,
+        searchResources,
+        handleClickedTags,
       }}
     >
       {children}

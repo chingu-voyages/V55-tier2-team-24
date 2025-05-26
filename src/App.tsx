@@ -6,8 +6,6 @@ import Resources from "./components/Resources";
 import TagsContainer from "./components/TagsContainer";
 
 export default function App() {
-  // const [isClicked, toggleIsClicked] = useToggle();
-
   return (
     <StoreContextProvider>
       <main className="w-full min-h-screen flex flex-col items-center  bg-slate-950 ">
