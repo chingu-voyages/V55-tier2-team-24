@@ -1,6 +1,6 @@
 import { useStoreContext } from "../context/StoreContext";
 
-export default function Resources() {
+export default function ResourcesC() {
   const { store } = useStoreContext();
   const filteredResources = store.filteredResources;
   if (filteredResources.length === store.resources.length) {
