@@ -1,6 +1,7 @@
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Form from "./components/Form";
+import Prompt from "./components/Prompt";
 import StoreContextProvider from "./context/StoreContext";
 import Resources from "./components/Resources";
 import TagsContainer from "./components/TagsContainer";
@@ -16,6 +17,9 @@ export default function App() {
         </section>
         <section>
           <Resources />
+        </section>
+        <section>
+          <Prompt />
         </section>
         <Footer />
       </main>
