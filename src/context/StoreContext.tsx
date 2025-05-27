@@ -1,13 +1,20 @@
 import React, { createContext, useContext, useEffect } from "react";
-import type { Store, StoreContext } from "../Types";
+import type { Store, StoreContext, Tags } from "../Types";
 import { usePersistedState } from "../hooks/usePersistedState";
 import getDataFromApi from "../helpers/getDataFromApi";
 import { FALLBACK_RESOURCES, FALLBACK_TAGS } from "../helpers/fallbackData";
 
 export const storeContext = createContext<StoreContext>({
-  store: { filteredResources: [], tags: [], resources: [], lastUpdate: "" },
-  filterResources: () => undefined,
+  store: {
+    filteredResources: [],
+    tags: [],
+    resources: [],
+    lastUpdate: "",
+    query: "",
+  },
   clearFilterResources: () => undefined,
+  searchResources: () => undefined,
+  handleClickedTags: () => undefined,
 });
 
 export default function StoreContextProvider({
@@ -16,44 +23,58 @@ export default function StoreContextProvider({
   children: React.ReactNode;
 }) {
   const [store, setStore] = usePersistedState<Store>("store", {
-    filteredResources: [],
+    filteredResources: FALLBACK_RESOURCES,
     tags: FALLBACK_TAGS,
     resources: FALLBACK_RESOURCES,
     lastUpdate: "",
+    query: "",
   });
 
-  function filterResources(searchQuery: string) {
-    const results = store.resources.filter((resource) => {
-      return resource.name.toLowerCase().includes(searchQuery.toLowerCase());
+  function combineFilters(query: string, tags: Tags[]) {
+    const words = query
+      .replace(/,/g, "")
+      .toLowerCase()
+      .split(" ")
+      .filter(Boolean);
+    const selectedTags = tags.filter((tag) => tag.selected);
+
+    const results = store.resources.filter((post) => {
+      const matchQuery =
+        words.length === 0 ||
+        words.some((word) => post.name.toLowerCase().includes(word));
+      const matchesTags =
+        selectedTags.length === 0 ||
+        selectedTags.some((tag) => post.appliedTags.includes(tag.id));
+
+      return matchQuery && matchesTags;
     });
-    console.log(results);
-    if (results.length === 0) {
-      console.log("no resources found");
-      setStore((prev) => {
-        return {
-          ...prev,
-          filteredResources: [
-            {
-              author: "",
-              name: "No resources found",
-              appliedTags: [""],
-              url: "",
-              createdAt: "",
-              id: "",
-            },
-          ],
-        };
-      });
-    } else {
-      setStore((prev) => {
-        return { ...prev, filteredResources: results };
-      });
-    }
+
+    setStore((prev) => ({ ...prev, filteredResources: results }));
+  }
+
+  function searchResources(query: string) {
+    setStore((prev) => ({ ...prev, query: query }));
+    combineFilters(query, store.tags);
+  }
+
+  function handleClickedTags(clickedTag: Tags) {
+    const updatedTags = store.tags.map((tag) =>
+      tag.id === clickedTag.id ? { ...tag, selected: !tag.selected } : tag
+    );
+
+    setStore((prev) => ({ ...prev, tags: updatedTags }));
+    combineFilters(store.query, updatedTags);
   }
 
   function clearFilterResources() {
     setStore((prev) => {
-      return { ...prev, filteredResources: [] };
+      const clearedTags = prev.tags.map((tag) => ({ ...tag, selected: false }));
+      return {
+        ...prev,
+        filteredResources: store.resources,
+        tags: clearedTags,
+        query: "",
+      };
     });
   }
 
@@ -63,13 +84,13 @@ export default function StoreContextProvider({
       console.log("fetching data");
       getDataFromApi()
         .then((data) => {
-          console.log(data);
           if (data) {
             setStore((prev) => {
               return {
                 ...prev,
                 tags: data[0],
                 resources: data[1],
+                filteredResources: data[1],
                 lastUpdate: new Date().toLocaleDateString(),
               };
             });
@@ -83,7 +104,12 @@ export default function StoreContextProvider({
   }, []);
   return (
     <storeContext.Provider
-      value={{ store, filterResources, clearFilterResources }}
+      value={{
+        store,
+        clearFilterResources,
+        searchResources,
+        handleClickedTags,
+      }}
     >
       {children}
     </storeContext.Provider>

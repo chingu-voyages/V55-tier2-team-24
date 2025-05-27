@@ -1,50 +1,46 @@
 import { useEffect, useRef, useState } from "react";
 import { useStoreContext } from "../context/StoreContext";
 import { MdClear } from "react-icons/md";
+import {
+  searchPlaceHolders,
+  resultsPlaceHolders,
+} from "../helpers/placeHolders";
 
 export default function Form() {
   const searchRef = useRef<HTMLInputElement | null>(null);
-  const [query, setQuery] = useState("");
   const [placeholder, setPlaceHolder] = useState("");
-  const { filterResources, clearFilterResources } = useStoreContext();
-  const searchPlaceHolders = [
-    "Ready to search! 😊",
-    "type a keyword, like javascript",
-    "Skills issues? search to unlock some knowledged",
-    "type something preferably not sgshgaf",
-  ];
-  const resultsPlaceHolders = [
-    "Nice!, here is what I found",
-    "Aha this is what I found!",
-    "Are you still searching?",
-  ];
+  const [userInput, setUserInput] = useState("");
+  const { clearFilterResources, searchResources } = useStoreContext();
 
   useEffect(() => {
     const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
     setPlaceHolder(searchPlaceHolders[randomNumber]);
     searchRef?.current?.focus();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  function handleUserInput(event: React.ChangeEvent<HTMLInputElement>) {
+    setUserInput(event.target.value);
+  }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const randomNumber = Math.floor(Math.random() * resultsPlaceHolders.length);
     setPlaceHolder(resultsPlaceHolders[randomNumber]);
-    filterResources(query);
-    setQuery("");
+    searchResources(userInput);
     searchRef?.current?.focus();
   }
 
   function handleInputClear() {
     const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
     setPlaceHolder(searchPlaceHolders[randomNumber]);
-    setQuery("");
+    searchResources("");
+    setUserInput("");
     searchRef?.current?.focus();
   }
 
   return (
     <section
-      className="flex col p-8 justify-center items-start gap-6 w-[401px] h-80 mt-10 rounded-[8px] border-[0px] border-[#E5E7EB] bg-[#1F2937] 
+      className="flex p-8 justify-center items-start gap-6 w-[401px] h-80 mt-10 rounded-[8px] border-[0px] border-[#E5E7EB] bg-[#1F2937] 
     [box-shadow:0px_4px_6px_0px_rgba(0,_0,_0,_0.10),_0px_10px_15px_0px_rgba(0,_0,_0,_0.10)]
 "
     >
@@ -62,15 +58,15 @@ export default function Form() {
           <div className="relative">
             <input
               required
-              onChange={(event) => setQuery(event.target.value)}
-              value={query}
+              onChange={(event) => handleUserInput(event)}
+              value={userInput}
               ref={searchRef}
               name="search"
               id="search-input"
               placeholder={placeholder}
               className=" bg-[hsla(221,_39%,_11%,_1)] text-[#ADAEBC] font-[Inter] text-[18px] not-italic font-normal leading-[28px] inline-flex h-[62px] pl-[20px] justify-end items-center w-full pr-1"
             />
-            {query.length > 0 ? (
+            {userInput.length > 0 ? (
               <button
                 type="button"
                 onClick={(event) => {

@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { Resources, Tags } from "../Types";
+import isValidUrl from "./isValidUrl";
 
 export default async function getDataFromApi(): Promise<
   [Tags[], Resources[]] | undefined
@@ -9,9 +10,14 @@ export default async function getDataFromApi(): Promise<
       axios.get<Tags[]>("https://seshatbe.up.railway.app/tags"),
       axios.get<Resources[]>("https://seshatbe.up.railway.app/resources"),
     ]);
-    const tagsData = tags.data;
+    const tagsData = tags.data.map((tag) => {
+      return { ...tag, selected: false };
+    });
     const resourcesData = resources.data;
-    return [tagsData, resourcesData];
+    const validResources = resourcesData.filter((resource) =>
+      isValidUrl(resource)
+    );
+    return [tagsData, validResources];
   } catch (error) {
     console.error("Error fetching data:", error);
   }

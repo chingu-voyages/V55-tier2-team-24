@@ -1,6 +1,7 @@
 export interface Tags {
   tag: string;
   id: string;
+  selected: boolean;
 }
 
 export interface Resources {
@@ -17,10 +18,12 @@ export interface Store {
   tags: Tags[];
   resources: Resources[];
   lastUpdate: string;
+  query: string;
 }
 
 export interface StoreContext {
   store: Store;
-  filterResources: (query: string) => void;
   clearFilterResources: () => void;
+  handleClickedTags: (Tags: Tags) => void;
+  searchResources: (query: string) => void;
 }
