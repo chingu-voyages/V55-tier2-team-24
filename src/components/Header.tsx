@@ -17,16 +17,6 @@ export default function Header() {
         <span className="text-sm px-6">{currentDate}</span>
       </section>
       <LoginButton />
-      
-      {/*
-      <section className="w-[5%] flex">
-        <img
-          src="https://placehold.co/400"
-          alt="Placeholder user icon"
-          className="h-full rounded-full"
-        />
-      </section>}
-      */}
     </header>
   );
 }
