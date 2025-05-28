@@ -11,6 +11,7 @@ export interface Resources {
   url: string;
   createdAt: string;
   id: string;
+  resourceType: string;
 }
 
 export interface Store {
