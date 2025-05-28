@@ -1,28 +1,31 @@
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import Form from "./components/Form";
-import Prompt from "./components/Prompt";
-import StoreContextProvider from "./context/StoreContext";
-import Resources from "./components/Resources";
-import TagsContainer from "./components/TagsContainer";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import RootLayout from "./pages/Root.tsx";
+import Home from "./pages/Home.tsx";
+import Resources from "./pages/Resources.tsx";
+import StoreContextProvider from "./context/StoreContext.js";
 
 export default function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <RootLayout />,
+      children: [
+        {
+          path: "",
+
+          element: <Home />,
+        },
+        {
+          path: "Resources",
+          element: <Resources />,
+        },
+      ],
+    },
+  ]);
+
   return (
     <StoreContextProvider>
-      <main className="w-full min-h-screen flex flex-col items-center  bg-slate-950 ">
-        <Header />
-        <section className="flex-grow flex w-full p-4 justify-center">
-          <Form />
-          <TagsContainer />
-        </section>
-        <section>
-          <Resources />
-        </section>
-        <section>
-          <Prompt />
-        </section>
-        <Footer />
-      </main>
+      <RouterProvider router={router} />
     </StoreContextProvider>
   );
 }

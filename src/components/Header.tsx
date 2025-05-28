@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { LoginButton } from "./LoginButton";
+import { NavLink } from "react-router-dom";
 
 export default function Header() {
   const [currentDate, setCurrentDate] = useState("");
@@ -15,6 +16,10 @@ export default function Header() {
       <section className="w-[95%] text-2xl m-3 text-white flex items-center">
         <h1>DevVault</h1>
         <span className="text-sm px-6">{currentDate}</span>
+        <div className=" flex gap-4">
+          <NavLink to={"/"}>Home</NavLink>
+          <NavLink to={"/Resources"}>Resources</NavLink>
+        </div>
       </section>
       <LoginButton />
     </header>
