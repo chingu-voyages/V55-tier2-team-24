@@ -1,5 +1,6 @@
 import Logo from "../../public/images/logo.png";
 import HomeForm from "../components/HomeForm";
+import Prompt from "../components/Prompt";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       </p>
 
       <HomeForm />
+      <Prompt />
     </div>
   );
 }
