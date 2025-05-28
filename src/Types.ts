@@ -27,4 +27,5 @@ export interface StoreContext {
   clearFilterResources: () => void;
   handleClickedTags: (Tags: Tags) => void;
   searchResources: (query: string) => void;
+  updateQuery: (query: string) => void;
 }
