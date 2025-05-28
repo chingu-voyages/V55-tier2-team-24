@@ -14,10 +14,15 @@ export default async function getDataFromApi(): Promise<
       return { ...tag, selected: false };
     });
     const resourcesData = resources.data;
-    const validResources = resourcesData.filter((resource) =>
+    const validUrlResources = resourcesData.filter((resource) =>
       isValidUrl(resource)
     );
-    return [tagsData, validResources];
+    const uniqueResources = Array.from(
+      new Map(
+        validUrlResources.map((resource) => [resource.id, resource])
+      ).values()
+    );
+    return [tagsData, uniqueResources];
   } catch (error) {
     console.error("Error fetching data:", error);
   }
