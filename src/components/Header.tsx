@@ -13,20 +13,10 @@ export default function Header() {
   return (
     <header className="sticky top-0 flex px-2 py-3 w-full h-20 border-b-1 border-gray-400">
       <section className="w-[95%] text-2xl m-3 text-white flex items-center">
-        <h1>Resource Helper</h1>
+        <h1>DevVault</h1>
         <span className="text-sm px-6">{currentDate}</span>
       </section>
       <LoginButton />
-      
-      {/*
-      <section className="w-[5%] flex">
-        <img
-          src="https://placehold.co/400"
-          alt="Placeholder user icon"
-          className="h-full rounded-full"
-        />
-      </section>}
-      */}
     </header>
   );
 }
