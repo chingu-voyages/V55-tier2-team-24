@@ -12,6 +12,7 @@ export const LoginButton = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
     return !!localStorage.getItem("name");
   });
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
   const handleLogin = async () => {
     try {
@@ -23,7 +24,7 @@ export const LoginButton = () => {
       const photoURL = result.user.photoURL;
 
       if (displayName) {
-        setUserName(displayName);
+        setUserName(userName);
         localStorage.setItem("name", displayName);
       }
       if (photoURL) {
@@ -47,36 +48,51 @@ export const LoginButton = () => {
     console.log("User signed out successfully.");
   };
 
+  const toggleDropdown = () => {
+    setShowDropdown(prev =>!prev);
+  };
+
   return (
-    <div className="flex items-center sm:space-x-3">
-      {isLoggedIn ? (
+    <div className="items-center sm:space-x-3">
+      {!isLoggedIn ? (
         <button
-          onClick={handleLogout}
-          className="text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-2 rounded-full border-2 border-neutral-50 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-300 focus:border-neutral-300 focus:outline-none dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
+          onClick={handleLogin}
+          className="text-xs sm:text-sm px-3 py-1 mr-4 mt-2 sm:px-4 sm:py-2 rounded-full border-2 border-neutral-50 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-300 focus:border-neutral-300 focus:outline-none dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
           type="button"
           aria-label="Login with Google"
         >
-          LOGOUT
-        </button>
-      ) : (
-        <button
-          onClick={handleLogin}
-          className="text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-2 rounded-full border-2 border-neutral-50 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-300 focus:border-neutral-300 focus:outline-none dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
-          type="button"
-          aria-label="Logout"
-        >
           LOGIN
         </button>
+      ) : (
+        <>
+        <button
+          onClick={toggleDropdown}
+          
+          type="button"
+          aria-label="User logout menu"
+        >
+          <img 
+           src={avatar}
+           alt="user's avatar"
+           className="block w-10 h-15 sm:w-30 md:w-15 rounded-full mr-4 overflow-hidden border-2 border-gray-500 focus:outline-none focus:border-white"
+           />
+        
+        </button>
+       <div className="rounded-lg mr-4 mt-1 flex flex-col items-center absolute right-0 bg-white shadow-lg">
+      {showDropdown && (
+        <div>
+          <button 
+            onClick={handleLogout}
+            className="block rounded-lg px-4 py-2 text-gray-800 hover:bg-gray-400 hover:text-white"
+            >
+              LOGOUT
+              </button>
+          </div>
       )}
-      {userName && (
-        <div className="mr-4 flex items-center">
-          <img
-            src={avatar}
-            alt="User's avatar"
-            className="w-25 sm:w-30 md:w-15 m-2 aspect-square object-cover rounded-full "
-          />
-        </div>
-      )}
+      </div>
+      </>
+  )}
+    
     </div>
   );
 };

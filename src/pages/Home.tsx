@@ -1,6 +1,6 @@
-import Logo from "../../public/images/logo.png";
+import Logo from "/images/logo.png";
 import HomeForm from "../components/HomeForm";
-import Prompt from "../components/Prompt";
+import ChatBotContainer from "../components/ChatbotContainer";
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
       </p>
 
       <HomeForm />
-      <Prompt />
+      <ChatBotContainer />
     </div>
   );
 }
