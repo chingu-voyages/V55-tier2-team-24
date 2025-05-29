@@ -11,6 +11,7 @@ export interface Resources {
   url: string;
   createdAt: string;
   id: string;
+  resourceType: string;
 }
 
 export interface Store {
@@ -26,4 +27,5 @@ export interface StoreContext {
   clearFilterResources: () => void;
   handleClickedTags: (Tags: Tags) => void;
   searchResources: (query: string) => void;
+  updateQuery: (query: string) => void;
 }

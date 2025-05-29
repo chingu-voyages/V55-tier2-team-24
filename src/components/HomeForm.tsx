@@ -10,9 +10,9 @@ import { useNavigate } from "react-router-dom";
 export default function HomeForm() {
   const searchRef = useRef<HTMLInputElement | null>(null);
   const [placeholder, setPlaceHolder] = useState("");
-  const [userInput, setUserInput] = useState("");
-  const { searchResources } = useStoreContext();
-  let navigate = useNavigate();
+
+  const { searchResources, store, updateQuery } = useStoreContext();
+  const navigate = useNavigate();
   useEffect(() => {
     const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
     setPlaceHolder(searchPlaceHolders[randomNumber]);
@@ -20,14 +20,14 @@ export default function HomeForm() {
   }, []);
 
   function handleUserInput(event: React.ChangeEvent<HTMLInputElement>) {
-    setUserInput(event.target.value);
+    updateQuery(event.target.value);
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const randomNumber = Math.floor(Math.random() * resultsPlaceHolders.length);
     setPlaceHolder(resultsPlaceHolders[randomNumber]);
-    searchResources(userInput);
+    searchResources(store.query);
     searchRef?.current?.focus();
     navigate("Resources");
   }
@@ -36,7 +36,7 @@ export default function HomeForm() {
     const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
     setPlaceHolder(searchPlaceHolders[randomNumber]);
     searchResources("");
-    setUserInput("");
+    updateQuery("");
     searchRef?.current?.focus();
   }
 
@@ -59,16 +59,17 @@ export default function HomeForm() {
           </label>
           <div className="relative">
             <input
+              autoComplete="off"
               required
               onChange={(event) => handleUserInput(event)}
-              value={userInput}
+              value={store.query}
               ref={searchRef}
               name="search"
               id="search-input"
               placeholder={placeholder}
               className=" bg-[hsla(221,_39%,_11%,_1)] text-[#ADAEBC] font-[Inter] text-[18px] not-italic font-normal leading-[28px] inline-flex h-[62px] pl-[20px] justify-end items-center w-full pr-1"
             />
-            {userInput.length > 0 ? (
+            {store.query.length > 0 ? (
               <button
                 type="button"
                 onClick={(event) => {
