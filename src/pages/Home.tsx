@@ -1,4 +1,4 @@
-import Logo from "../../public/images/logo.png";
+import Logo from "/images/logo.png";
 import HomeForm from "../components/HomeForm";
 import Prompt from "../components/Prompt";
 
