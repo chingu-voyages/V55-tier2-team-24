@@ -1,6 +1,6 @@
 import { auth, provider } from "../../utils/firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
-import { use, useState } from "react";
+import { useState } from "react";
 
 export const LoginButton = () => {
   const [userName, setUserName] = useState<string>(
@@ -24,7 +24,7 @@ export const LoginButton = () => {
       const photoURL = result.user.photoURL;
 
       if (displayName) {
-        setUserName(displayName);
+        setUserName(userName);
         localStorage.setItem("name", displayName);
       }
       if (photoURL) {
