@@ -8,13 +8,19 @@ export default async function getDataFromApi(): Promise<
 > {
   try {
     const [tags, resources] = await Promise.all([
-      axios.get<Tags[]>("https://seshatbe.up.railway.app/tags"),
-      axios.get<Resources[]>("https://seshatbe.up.railway.app/resources"),
+      axios.get<Tags[]>(
+        "https://resources-helper-temp-api.vercel.app/api/tags"
+      ),
+      axios.get<Resources[]>(
+        "https://resources-helper-temp-api.vercel.app/api/resources"
+      ),
     ]);
     const tagsData = tags.data.map((tag) => {
       return { ...tag, selected: false };
     });
     const resourcesData = resources.data;
+
+    console.log(resources.data.length);
 
     const validUrlResources = resourcesData.filter((resource) =>
       isValidUrl(resource)
@@ -30,6 +36,7 @@ export default async function getDataFromApi(): Promise<
         resourcesWithType.map((resource) => [resource.id, resource])
       ).values()
     );
+    console.log(uniqueResources);
     return [tagsData, uniqueResources];
   } catch (error) {
     console.error("Error fetching data:", error);

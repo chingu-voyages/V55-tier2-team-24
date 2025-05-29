@@ -1,0 +1,15 @@
+export const KEYWORDS_MAP: Record<string, string[]> = {
+  js: ["javascript"],
+  ts: ["typescript"],
+  frontend: ["html", "css", "javascript", "react"],
+  react: ["components", "hooks", "props", "state", "context", "jsx"],
+  github: ["pull request", "merging"],
+  node: ["express", "api", "backend"],
+  framework: ["react", "next", "angular"],
+  // chingu: ["tutorial hell", "projects", "team work", "10x developer"],
+  ai: ["chatgpt", "openai", "prompt"],
+  post: ["blog"],
+  styles: ["css", "tailwind"],
+  jim: ["jdmedlock"],
+  andre: ["andresc1310"],
+};
