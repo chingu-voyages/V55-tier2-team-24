@@ -8,12 +8,8 @@ export default async function getDataFromApi(): Promise<
 > {
   try {
     const [tags, resources] = await Promise.all([
-      axios.get<Tags[]>(
-        "https://resources-helper-temp-api.vercel.app/api/tags"
-      ),
-      axios.get<Resources[]>(
-        "https://resources-helper-temp-api.vercel.app/api/resources"
-      ),
+      axios.get<Tags[]>("https://seshatbe.up.railway.app/tags"),
+      axios.get<Resources[]>("https://seshatbe.up.railway.app/resources"),
     ]);
     const tagsData = tags.data.map((tag) => {
       return { ...tag, selected: false };

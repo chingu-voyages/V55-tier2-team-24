@@ -49,7 +49,7 @@ export default function StoreContextProvider({
 
     const fuse = new Fuse(store.resources, {
       keys: ["name", "description", "author", "resourceType"],
-      threshold: 0.3,
+      threshold: 0.1,
       includeScore: true,
       minMatchCharLength: 2,
       isCaseSensitive: false,
