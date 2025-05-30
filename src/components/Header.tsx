@@ -7,19 +7,35 @@ export default function Header() {
 
   useEffect(() => {
     const today = new Date();
-    const dateString = today.toLocaleDateString("en-US");
+    const dateString = today.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
     setCurrentDate(dateString);
   }, []);
 
   return (
-    <header className="sticky top-0 flex px-2 py-3 w-full h-20 border-b-1 border-gray-400">
-      <section className="w-[95%] text-2xl m-3 text-white flex items-center">
-        <h1>DevVault</h1>
-        <span className="text-sm px-6">{currentDate}</span>
-        <div className=" flex gap-4">
-          <NavLink to={"/"}>Home</NavLink>
-          <NavLink to={"/Resources"}>Resources</NavLink>
+    <header className="sticky top-0 flex px-2 py-3 w-full h-20 border-1 border-[#E5E7EB] bg-[#F9FAFB] items-center">
+      <section className="w-[95%] ml-4 flex items-center justify-between">
+        <NavLink
+          to={"/"}
+          className="text-[#41A3C9] hover:text-[#41A3C9]/90 text-2xl font-bold"
+        >
+          DevVault
+        </NavLink>
+        <div className="flex gap-10 text-gray-800">
+          <NavLink to={"/"} className="hover:text-gray-600">
+            Home
+          </NavLink>
+          <NavLink to={"/Resources"} className="hover:text-gray-600">
+            Discover
+          </NavLink>
+          <NavLink to={"/About"} className="hover:text-gray-600">
+            About
+          </NavLink>
         </div>
+        <span className="text-sm px-6">{currentDate}</span>
       </section>
       <LoginButton />
     </header>
