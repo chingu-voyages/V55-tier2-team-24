@@ -1,7 +1,10 @@
 export const searchPlaceHolders = [
   "Ready to search! 😊",
-  "type a keyword, like javascript",
-  "type something preferably not sgshgaf",
+  "Type a keyword, like Javascript",
+  "Type a skill, like React",
+  "What do you want to learn today?",
+  "Search for a topic, like CSS",
+  "Looking for something specific?",
 ];
 export const resultsPlaceHolders = [
   "Nice!, here is what I found",
