@@ -67,6 +67,7 @@ export const LoginButton = () => {
         <>
           <button
             onClick={toggleDropdown}
+            className="cursor-pointer"
             type="button"
             aria-label="User logout menu"
           >
