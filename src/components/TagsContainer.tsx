@@ -8,14 +8,14 @@ export default function TagsContainer() {
     handleClickedTags(tagClicked);
   }
   return (
-    <div className="bg-white flex w-1/4  h-1/4">
+    <div className="bg-amber-200  flex w-full  flex-wrap">
       {store.tags.map((tag, idx) => {
-        if (idx < 5) {
+        if (idx < 20) {
           return (
             <button
               onClick={() => handleTagClick(tag)}
               key={tag.id}
-              className={`w-24 h-12  m-2 hover:scale-125  ${
+              className={`h-12 m-1 hover:scale-105  ${
                 tag.selected === true ? "bg-red-700" : "bg-amber-400"
               }`}
             >

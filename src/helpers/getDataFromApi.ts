@@ -16,6 +16,8 @@ export default async function getDataFromApi(): Promise<
     });
     const resourcesData = resources.data;
 
+    console.log(resources.data.length);
+
     const validUrlResources = resourcesData.filter((resource) =>
       isValidUrl(resource)
     );
@@ -30,6 +32,7 @@ export default async function getDataFromApi(): Promise<
         resourcesWithType.map((resource) => [resource.id, resource])
       ).values()
     );
+    console.log(uniqueResources);
     return [tagsData, uniqueResources];
   } catch (error) {
     console.error("Error fetching data:", error);

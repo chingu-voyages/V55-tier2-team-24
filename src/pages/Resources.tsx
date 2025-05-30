@@ -5,11 +5,11 @@ import TagsContainer from "../components/TagsContainer";
 export default function Resources() {
   return (
     <main className="flex  flex-grow bg-white w-full">
-      <aside className=" flex flex-col flex-grow bg-amber-200 w-1/4">
+      <aside className=" flex flex-col items-center bg-amber-200 w-[40%]">
         <Form />
         <TagsContainer />
       </aside>
-      <section className=" flex flex-col flex-grow bg-red-600 w-3/4">
+      <section className=" flex flex-col items-center justify-items-start flex-grow  w-[60%]">
         <ResourcesC />
       </section>
     </main>
