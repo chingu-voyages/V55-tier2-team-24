@@ -1,6 +1,10 @@
+"use client";
+
+import type React from "react";
+
 import { useEffect, useRef, useState } from "react";
 import { useStoreContext } from "../context/StoreContext";
-import { MdClear } from "react-icons/md";
+import { MdClear, MdSearch } from "react-icons/md";
 import {
   searchPlaceHolders,
   resultsPlaceHolders,
@@ -13,6 +17,7 @@ export default function HomeForm() {
 
   const { searchResources, store, updateQuery } = useStoreContext();
   const navigate = useNavigate();
+
   useEffect(() => {
     const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
     setPlaceHolder(searchPlaceHolders[randomNumber]);
@@ -41,58 +46,52 @@ export default function HomeForm() {
   }
 
   return (
-    <section
-      className="flex p-8 justify-center items-start gap-6 w-[401px] h-80 mt-10 rounded-[8px] border-[0px] border-[#E5E7EB] bg-[#1F2937] 
-    [box-shadow:0px_4px_6px_0px_rgba(0,_0,_0,_0.10),_0px_10px_15px_0px_rgba(0,_0,_0,_0.10)]
-"
-    >
-      <form role="search" onSubmit={handleSubmit}>
-        <div>
-          <h2 className="text-[#F3F4F6] font-[Inter] text-[18px] not-italic font-normal leading-[normal] pt-[3px] pr-[127px] pb-[4px] pl-0">
-            Find Learning Resources
-          </h2>
-          <label
-            htmlFor="search-input"
-            className="py-4 text-[#9CA3AF] font-[Inter] text-[14px] not-italic font-normal leading-[14px]"
-          >
-            Type the skill or topic you want to learn…
-          </label>
-          <div className="relative">
-            <input
-              autoComplete="off"
-              required
-              onChange={(event) => handleUserInput(event)}
-              value={store.query}
-              ref={searchRef}
-              name="search"
-              id="search-input"
-              placeholder={placeholder}
-              className=" bg-[hsla(221,_39%,_11%,_1)] text-[#ADAEBC] font-[Inter] text-[18px] not-italic font-normal leading-[28px] inline-flex h-[62px] pl-[20px] justify-end items-center w-full pr-1"
-            />
-            {store.query.length > 0 ? (
-              <button
-                type="button"
-                onClick={(event) => {
-                  event.stopPropagation();
-                  handleInputClear();
-                }}
-              >
-                <MdClear className="absolute right-1  top-1/4 fill-red-600  hover:-scale-125 hover:cursor-pointer" />
-              </button>
-            ) : (
-              ""
-            )}
-          </div>
+    <div className="w-4/5 md:w-full max-w-3xl bg-white rounded-sm shadow-gray-300 shadow-lg p-6">
+      <form
+        role="search"
+        onSubmit={handleSubmit}
+        className="w-full flex flex-col md:flex-row items-center justify-between gap-6"
+      >
+        <div className="relative w-full md:w-2/3">
+          <input
+            autoComplete="off"
+            required
+            onChange={(event) => handleUserInput(event)}
+            value={store.query}
+            ref={searchRef}
+            name="search"
+            id="search-input"
+            placeholder={placeholder}
+            className="w-full px-4 py-3 text-lg border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-[#41A3C9] focus:border-transparent pr-10"
+            aria-label="Search for developer resources"
+          />
+          {store.query.length > 0 ? (
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                handleInputClear();
+              }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-red-600"
+              aria-label="Clear search"
+            >
+              <MdClear className="text-xl" />
+            </button>
+          ) : (
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+              <MdSearch className="text-xl" />
+            </span>
+          )}
         </div>
-        <div className="flex flex-col">
+        <div className="w-full md:w-1/3">
           <button
             type="submit"
-            className="flex h-12 py-3.5 bg-[#374151] text-[#F3F4F6] justify-center hover:cursor-pointer"
+            className="w-full bg-[#41A3C9] hover:bg-[#41A3C9]/90 text-white font-medium py-3 px-4 rounded-sm transition duration-200 flex items-center justify-center cursor-pointer"
           >
-            Search
+            <MdSearch className="mr-2 text-xl" /> Search
           </button>
         </div>
       </form>
-    </section>
+    </div>
   );
 }
