@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 
 export default function RootLayout() {
   return (
-    <main className="w-full min-h-screen flex flex-col items-center  bg-slate-950 ">
+    <main className="w-full min-h-screen flex flex-col items-center ">
       <Header />
       <Outlet />
       <Footer />
