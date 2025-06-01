@@ -20,6 +20,8 @@ export interface Store {
   resources: Resources[];
   lastUpdate: string;
   query: string;
+  authors: string[];
+  resourcesType: string[];
 }
 
 export interface StoreContext {
@@ -28,4 +30,7 @@ export interface StoreContext {
   handleClickedTags: (Tags: Tags) => void;
   searchResources: (query: string) => void;
   updateQuery: (query: string) => void;
+  handleAuthorSelected: (selectedAuthor: string) => void;
+  handleResourceTypeSelected: (resourceTypeSelected: string) => void;
+  resetFilters: () => void;
 }

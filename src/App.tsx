@@ -1,8 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./pages/Root.tsx";
 import Home from "./pages/Home.tsx";
-import Resources from "./pages/Resources.tsx";
 import StoreContextProvider from "./context/StoreContext.js";
+import About from "./pages/About.tsx";
+import Discover from "./pages/Discover.tsx";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -16,8 +17,12 @@ export default function App() {
           element: <Home />,
         },
         {
-          path: "Resources",
-          element: <Resources />,
+          path: "Discover",
+          element: <Discover />,
+        },
+        {
+          path: "About",
+          element: <About />,
         },
       ],
     },

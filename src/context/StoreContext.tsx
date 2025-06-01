@@ -14,11 +14,16 @@ export const storeContext = createContext<StoreContext>({
     resources: [],
     lastUpdate: "",
     query: "",
+    authors: [],
+    resourcesType: [],
   },
   clearFilterResources: () => undefined,
   searchResources: () => undefined,
   handleClickedTags: () => undefined,
   updateQuery: () => undefined,
+  handleAuthorSelected: () => undefined,
+  handleResourceTypeSelected: () => undefined,
+  resetFilters: () => undefined,
 });
 
 export default function StoreContextProvider({
@@ -32,23 +37,27 @@ export default function StoreContextProvider({
     resources: FALLBACK_RESOURCES,
     lastUpdate: "",
     query: "",
+    authors: [],
+    resourcesType: [],
   });
 
-  function combineFilters(query: string, tags: Tags[]) {
+  function combineFilters(
+    query: string,
+    tags: Tags[],
+    selectedAuthors: string[],
+    selectedTypes: string[]
+  ) {
     const words = query
-      .replace(/,/g, "")
+      .replace(/[^\w\s]/g, "")
       .toLowerCase()
       .split(" ")
       .filter(Boolean);
     const importantWords = removeStopwords(words, eng);
-    console.log(importantWords, "important words");
     const expandedWords = expandSearch(importantWords);
-    // console.log(expandedWords, "expanded words");
     const selectedTags = tags.filter((tag) => tag.selected);
-    console.log(selectedTags, "selected tags");
 
     const fuse = new Fuse(store.resources, {
-      keys: ["name", "description", "author", "resourceType"],
+      keys: ["name", "author", "resourceType"],
       threshold: 0.1,
       includeScore: true,
       minMatchCharLength: 2,
@@ -56,36 +65,41 @@ export default function StoreContextProvider({
       ignoreLocation: true,
     });
 
-    const uniqueFuseResults = new Set<Resources>();
+    //Filter by whole frases first to get a better result do this latter?
+    const uniqueResultsMatched = new Set<Resources>();
     expandedWords.forEach((word) => {
       const matches = fuse.search(word);
-
       matches.forEach((match) => {
-        uniqueFuseResults.add(match.item);
+        //add score to results to show most relevant results?
+        uniqueResultsMatched.add(match.item);
       });
     });
 
-    const fusedResults = expandedWords.length
-      ? Array.from(uniqueFuseResults)
-      : store.resources;
-
-    console.log(fusedResults, "fuse results");
+    const fusedResults =
+      expandedWords.length > 0
+        ? Array.from(uniqueResultsMatched)
+        : store.resources;
 
     const results = fusedResults.filter((post) => {
-      return (
+      const matchesTags =
         selectedTags.length === 0 ||
-        selectedTags.some((tag) => post.appliedTags.includes(tag.id))
-      );
-    });
+        selectedTags.some((tag) => post.appliedTags.includes(tag.id));
 
-    console.log(results);
+      const matchesAuthor =
+        selectedAuthors.length === 0 || selectedAuthors.includes(post.author);
+
+      const matchResourceType =
+        selectedTypes.length === 0 || selectedTypes.includes(post.resourceType);
+
+      return matchesTags && matchesAuthor && matchResourceType;
+    });
 
     setStore((prev) => ({ ...prev, filteredResources: results }));
   }
 
   function searchResources(query: string) {
     setStore((prev) => ({ ...prev, query: query }));
-    combineFilters(query, store.tags);
+    combineFilters(query, store.tags, store.authors, store.resourcesType);
   }
 
   function handleClickedTags(clickedTag: Tags) {
@@ -94,7 +108,37 @@ export default function StoreContextProvider({
     );
 
     setStore((prev) => ({ ...prev, tags: updatedTags }));
-    combineFilters(store.query, updatedTags);
+    combineFilters(
+      store.query,
+      updatedTags,
+      store.authors,
+      store.resourcesType
+    );
+  }
+
+  function handleAuthorSelected(selectedAuthor: string) {
+    const isSelected = store.authors.includes(selectedAuthor);
+    const updatedAuthors = isSelected
+      ? store.authors.filter((author) => author !== selectedAuthor)
+      : [...store.authors, selectedAuthor];
+    setStore((prev) => ({ ...prev, authors: updatedAuthors }));
+    combineFilters(
+      store.query,
+      store.tags,
+      updatedAuthors,
+      store.resourcesType
+    );
+  }
+
+  function handleResourceTypeSelected(resourceTypeSelected: string) {
+    const isSelected = store.resourcesType.includes(resourceTypeSelected);
+    const updateResourcesType = isSelected
+      ? store.resourcesType.filter(
+          (resourceType) => resourceType !== resourceTypeSelected
+        )
+      : [...store.resourcesType, resourceTypeSelected];
+    setStore((prev) => ({ ...prev, resourcesType: updateResourcesType }));
+    combineFilters(store.query, store.tags, store.authors, updateResourcesType);
   }
 
   function clearFilterResources() {
@@ -102,15 +146,33 @@ export default function StoreContextProvider({
       const clearedTags = prev.tags.map((tag) => ({ ...tag, selected: false }));
       return {
         ...prev,
-        filteredResources: store.resources,
         tags: clearedTags,
+        authors: [],
+        resourcesType: [],
         query: "",
+        filteredResources: prev.resources,
       };
     });
   }
 
   function updateQuery(query: string) {
     setStore((prev) => ({ ...prev, query }));
+  }
+
+  function resetFilters() {
+    const clearedTags = FALLBACK_TAGS.map((tag) => ({
+      ...tag,
+      selected: false,
+    }));
+
+    setStore((prev) => ({
+      ...prev,
+      authors: [],
+      resourcesType: [],
+      tags: clearedTags,
+    }));
+
+    combineFilters(store.query, clearedTags, [], []);
   }
 
   useEffect(() => {
@@ -145,6 +207,9 @@ export default function StoreContextProvider({
         searchResources,
         handleClickedTags,
         updateQuery,
+        handleAuthorSelected,
+        handleResourceTypeSelected,
+        resetFilters,
       }}
     >
       {children}
