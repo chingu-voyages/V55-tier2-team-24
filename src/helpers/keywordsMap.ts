@@ -2,6 +2,8 @@ export const KEYWORDS_MAP: Record<string, string[]> = {
   js: ["javascript"],
   ts: ["typescript"],
   frontend: ["html", "css", "javascript", "react"],
+  backend: ["node", "sql", "database", "express"],
+  design: ["ux/ui"],
   react: ["hooks", "jsx"],
   github: ["pull request", "merging"],
   framework: ["react", "next", "angular"],

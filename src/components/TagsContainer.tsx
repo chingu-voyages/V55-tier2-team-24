@@ -3,27 +3,43 @@ import type { Tags } from "../Types";
 import { storeContext } from "../context/StoreContext";
 
 export default function TagsContainer() {
+  const tagsToDisplay = [
+    "react",
+    "typescript",
+    "🤖 ai",
+    "css",
+    "python",
+    "javascript",
+    "next.js",
+  ];
   const { handleClickedTags, store } = useContext(storeContext);
   function handleTagClick(tagClicked: Tags) {
     handleClickedTags(tagClicked);
   }
   return (
-    <div className="bg-amber-200  flex w-full  flex-wrap">
-      {store.tags.map((tag, idx) => {
-        if (idx < 20) {
-          return (
-            <button
-              onClick={() => handleTagClick(tag)}
-              key={tag.id}
-              className={`h-12 m-1 hover:scale-105  ${
-                tag.selected === true ? "bg-red-700" : "bg-amber-400"
-              }`}
-            >
-              {tag.tag}
-            </button>
-          );
-        }
-      })}
-    </div>
+    <>
+      <div className="flex flex-col w-80 gap-2">
+        <h4>Tags</h4>
+        <section>
+          {store.tags.map((tag) => {
+            console.log(tag.tag);
+            if (tagsToDisplay.includes(tag.tag.toLocaleLowerCase())) {
+              console.log(tag.tag);
+              return (
+                <button
+                  onClick={() => handleTagClick(tag)}
+                  key={tag.id}
+                  className={` m-1 hover:scale-105  p-1 rounded-sm ${
+                    tag.selected === true ? "bg-red-700" : "bg-gray-200"
+                  }`}
+                >
+                  {tag.tag}
+                </button>
+              );
+            }
+          })}
+        </section>
+      </div>
+    </>
   );
 }

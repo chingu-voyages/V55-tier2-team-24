@@ -46,12 +46,18 @@ export default function StoreContextProvider({
 
     const fuse = new Fuse(store.resources, {
       keys: ["name", "author", "resourceType"],
-      threshold: 0.3,
+      threshold: 0.1,
       includeScore: true,
       minMatchCharLength: 2,
       isCaseSensitive: false,
       ignoreLocation: true,
     });
+
+    // const phraseMatches = fuse.search(query.trim().toLowerCase());
+    // const phraseResults = new Map<string, { item: Resources; score: number | undefined }>();
+    // phraseMatches.forEach(({ item, score }) => {
+    //   phraseResults.set(item.id, { item, score });
+    // });
 
     const uniqueResultsMatched = new Set<Resources>();
     expandedWords.forEach((word) => {
