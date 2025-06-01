@@ -22,9 +22,7 @@ export default function TagsContainer() {
         <h4>Tags</h4>
         <section>
           {store.tags.map((tag) => {
-            console.log(tag.tag);
             if (tagsToDisplay.includes(tag.tag.toLocaleLowerCase())) {
-              console.log(tag.tag);
               return (
                 <button
                   onClick={() => handleTagClick(tag)}

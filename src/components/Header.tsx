@@ -28,7 +28,7 @@ export default function Header() {
           <NavLink to={"/"} className="hover:text-gray-600">
             Home
           </NavLink>
-          <NavLink to={"/Resources"} className="hover:text-gray-600">
+          <NavLink to={"/Discover"} className="hover:text-gray-600">
             Discover
           </NavLink>
           <NavLink to={"/About"} className="hover:text-gray-600">

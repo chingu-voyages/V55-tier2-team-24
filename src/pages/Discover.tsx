@@ -6,13 +6,14 @@ import ResourceType from "../components/ResourceType";
 import TagsContainer from "../components/TagsContainer";
 // import Topics from "../components/Topics";
 
-export default function Resources() {
+export default function Discover() {
   return (
     <main className="flex  flex-grow bg-white w-full">
       <aside className=" flex flex-col items-center w-[20%]">
         <Form />
         <TagsContainer />
         <Authors />
+        {/* replace resource type with topics */}
         {/* <Topics /> */}
         <ResourceType />
         <ResetFilters />
