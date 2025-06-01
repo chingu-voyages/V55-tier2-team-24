@@ -31,7 +31,7 @@ export default function HomeForm() {
     setPlaceHolder(searchPlaceHolders[randomNumber]);
     searchResources(store.query);
     searchRef?.current?.focus();
-    navigate("Resources");
+    navigate("Discover");
   }
 
   function handleInputClear() {
