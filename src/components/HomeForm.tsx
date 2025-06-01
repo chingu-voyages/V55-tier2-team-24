@@ -5,10 +5,7 @@ import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import { useStoreContext } from "../context/StoreContext";
 import { MdClear, MdSearch } from "react-icons/md";
-import {
-  searchPlaceHolders,
-  resultsPlaceHolders,
-} from "../helpers/placeHolders";
+import { searchPlaceHolders } from "../helpers/placeHolders";
 import { useNavigate } from "react-router-dom";
 
 export default function HomeForm() {
@@ -30,8 +27,8 @@ export default function HomeForm() {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const randomNumber = Math.floor(Math.random() * resultsPlaceHolders.length);
-    setPlaceHolder(resultsPlaceHolders[randomNumber]);
+    const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
+    setPlaceHolder(searchPlaceHolders[randomNumber]);
     searchResources(store.query);
     searchRef?.current?.focus();
     navigate("Resources");

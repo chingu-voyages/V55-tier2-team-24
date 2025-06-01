@@ -1,10 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useStoreContext } from "../context/StoreContext";
 import { MdClear } from "react-icons/md";
-import {
-  searchPlaceHolders,
-  resultsPlaceHolders,
-} from "../helpers/placeHolders";
+import { searchPlaceHolders } from "../helpers/placeHolders";
 
 export default function Form() {
   const searchRef = useRef<HTMLInputElement | null>(null);
@@ -25,8 +22,8 @@ export default function Form() {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const randomNumber = Math.floor(Math.random() * resultsPlaceHolders.length);
-    setPlaceHolder(resultsPlaceHolders[randomNumber]);
+    const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
+    setPlaceHolder(searchPlaceHolders[randomNumber]);
     searchResources(store.query);
     searchRef?.current?.focus();
   }

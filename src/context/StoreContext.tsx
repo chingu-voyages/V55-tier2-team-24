@@ -36,49 +36,42 @@ export default function StoreContextProvider({
 
   function combineFilters(query: string, tags: Tags[]) {
     const words = query
-      .replace(/,/g, "")
+      .replace(/[^\w\s]/g, "")
       .toLowerCase()
       .split(" ")
       .filter(Boolean);
     const importantWords = removeStopwords(words, eng);
-    console.log(importantWords, "important words");
     const expandedWords = expandSearch(importantWords);
-    // console.log(expandedWords, "expanded words");
     const selectedTags = tags.filter((tag) => tag.selected);
-    console.log(selectedTags, "selected tags");
 
     const fuse = new Fuse(store.resources, {
-      keys: ["name", "description", "author", "resourceType"],
-      threshold: 0.1,
+      keys: ["name", "author", "resourceType"],
+      threshold: 0.3,
       includeScore: true,
       minMatchCharLength: 2,
       isCaseSensitive: false,
       ignoreLocation: true,
     });
 
-    const uniqueFuseResults = new Set<Resources>();
+    const uniqueResultsMatched = new Set<Resources>();
     expandedWords.forEach((word) => {
       const matches = fuse.search(word);
-
       matches.forEach((match) => {
-        uniqueFuseResults.add(match.item);
+        //add score to results?
+        uniqueResultsMatched.add(match.item);
       });
     });
 
-    const fusedResults = expandedWords.length
-      ? Array.from(uniqueFuseResults)
-      : store.resources;
-
-    console.log(fusedResults, "fuse results");
+    const fusedResults =
+      expandedWords.length > 0
+        ? Array.from(uniqueResultsMatched)
+        : store.resources;
 
     const results = fusedResults.filter((post) => {
-      return (
-        selectedTags.length === 0 ||
-        selectedTags.some((tag) => post.appliedTags.includes(tag.id))
-      );
+      return selectedTags.length === 0
+        ? true
+        : selectedTags.some((tag) => post.appliedTags.includes(tag.id));
     });
-
-    console.log(results);
 
     setStore((prev) => ({ ...prev, filteredResources: results }));
   }

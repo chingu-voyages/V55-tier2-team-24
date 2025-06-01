@@ -5,9 +5,7 @@ export const searchPlaceHolders = [
   "What do you want to learn today?",
   "Search for a topic, like CSS",
   "Looking for something specific?",
-];
-export const resultsPlaceHolders = [
-  "Nice!, here is what I found",
-  "Aha this is what I found!",
-  "Are you still searching?",
+  "Search for resources to learn typescript",
+  "How to build a portfolio?",
+  "How to use github on a team?",
 ];

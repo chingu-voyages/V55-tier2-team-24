@@ -6,7 +6,6 @@ export function expandSearch(words: string[]) {
   words.forEach((word) => {
     const mapped = KEYWORDS_MAP[word];
     if (mapped) {
-      console.log(mapped);
       mapped.forEach((mappedWord) => expanded.add(mappedWord));
     }
   });
