@@ -1,5 +1,6 @@
 import { useStoreContext } from "../context/StoreContext";
 import { FALLBACK_TAGS } from "../helpers/fallbackData";
+import NotFound from "./NotFound";
 
 export default function ResourcesC() {
   const { store } = useStoreContext();
@@ -14,7 +15,7 @@ export default function ResourcesC() {
   if (filteredResources.length === 0) {
     return (
       <div className="bg-white w-full">
-        <h1>No Found</h1>
+        <NotFound />
       </div>
     );
   } else {
