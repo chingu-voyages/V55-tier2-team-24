@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useState, type FormEvent, useRef, useEffect } from 'react'
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export default function Prompt() {
