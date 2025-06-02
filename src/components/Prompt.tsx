@@ -65,6 +65,13 @@ export default function Prompt() {
         setMessages((prev) => [...prev, { role: "ai", text: aiResponse }]); 
     };
 
+    const handleSuggestionClick = (suggestion: string) => {
+        setInputValue(suggestion);
+        setTimeout(() => {
+            formRef.current?.requestSubmit();
+        }, 0);
+    };
+
     return (
         <section 
             className="flex p-8 justify-center items-start gap-6 w-[401px] h-80 mt-10 rounded-[8px] border-[0px] border-[#E5E7EB] bg-[#1F2937] 
