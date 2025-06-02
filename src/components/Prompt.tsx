@@ -45,7 +45,7 @@ export default function Prompt() {
         setMessages((prev) => [...prev, { role: "user", text: userMessage }]);
         setInputValue("");
 
-        // Initialize the context information
+        // Context information feed to Gemini API
         const contextInfo =
         'Use the following context information to answer the question: ' +
         '1. Users can search for these tags: react, typescript, ai, css, python, javascript, or next.js.' +
