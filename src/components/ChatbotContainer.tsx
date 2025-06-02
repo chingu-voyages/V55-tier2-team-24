@@ -11,11 +11,11 @@ export default function ChatBotContainer() {
   };
 
   return (
-    <div className="w-full flex flex-col items-end px-4 py-4">
+    <div className="relative w-full max-w-sm flex flex-col items-end z-50"> 
       {/* Chat Toggle Button */}
       <button
         onClick={toggleChat}
-        className="flex items-center gap-2 text-xs sm:text-sm px-3 py-2 sm:px-4 sm:py-2 rounded-full border-2 border-neutral-50 text-neutral-50 bg-[#1F2937] hover:border-neutral-300 focus:border-neutral-300 focus:outline-none dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
+        className="flex items-center text-base px-3 py-2 rounded border-2 border-neutral-50 text-neutral-50 bg-[#2A598F] hover:border-neutral-300 focus:outline-none dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
         type="button"
         aria-label="Toggle Chatbot"
       >
@@ -25,10 +25,12 @@ export default function ChatBotContainer() {
 
       {/* Chat Window */}
       {showChat && (
-        <div className="w-full max-w-md mt-4 bg-white text-black border border-gray-300 rounded-lg shadow-lg p-4 dark:bg-gray-800 dark:text-white">
+        <div className="absolute bottom-full mb-3 w-full z-40">
           <Prompt />
         </div>
       )}
     </div>
   );
 }
+
+
