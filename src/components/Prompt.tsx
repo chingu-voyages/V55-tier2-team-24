@@ -111,19 +111,21 @@ export default function Prompt() {
             </div>
 
             <form ref={formRef} id="ai-form" onSubmit={handleSubmit} className="flex gap-2">
-              <input 
-                        name="aiPrompt"
-                        className=" bg-[hsla(221,_39%,_11%,_1)] text-[#ADAEBC] font-[Inter] text-[18px] not-italic font-normal leading-[28px] inline-flex h-[62px] pl-[20px] justify-end items-center w-full pr-1"/>
-                    </label>
-                    <div className='flex'>
-                        <button type="reset" className="text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-2 rounded-full border-2 border-neutral-50 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-300 focus:border-neutral-300 focus:outline-none dark:hover:bg-neutral-600 dark:focus:bg-neutral-600">Reset</button>
-                        <button type="submit" className="text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-2 rounded-full border-2 border-neutral-50 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-300 focus:border-neutral-300 focus:outline-none dark:hover:bg-neutral-600 dark:focus:bg-neutral-600">Submit</button>
-                    </div>
-                </form>
-                <hr />
-                <h1>Results:</h1>
-                {aiAnswer !== '' && <p>{ aiAnswer } </p>}
-            </div>
-        </section>            
-    )
-};
+              <input
+                name="aiPrompt"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder="Ask a question..."
+                className="flex-grow px-4 py-2 rounded-md border border-gray-300"
+              />
+              <button
+                type="submit"
+                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+              >
+                Send
+              </button>
+            </form>
+          </div>
+        </section>
+      );
+    }
