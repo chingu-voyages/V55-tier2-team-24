@@ -22,15 +22,28 @@ export default function Prompt() {
         "How do I view all the results of a search?",
     ];
 
+    
+    const scrollToBottom = () => {
+        chatContainerRef.current?.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: "smooth",
+        });
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
+
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         // Prevent the browser from reloading the page
         e.preventDefault()
 
-        // Read the form data
-        const form = e.currentTarget;
-        const formData = new FormData(form);
-        const formJson = Object.fromEntries(formData.entries()) as { aiPrompt: string};
+        const userMessage = inputValue.trim();
+        if (!userMessage) return;
+
+        setMessages((prev) => [...prev, { role: "user", text: userMessage }]);
+        setInputValue("");
 
         // Initialize the context information
         const contextInfo =
@@ -46,10 +59,12 @@ export default function Prompt() {
         // Execute the query
         const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY as string);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-        const result = await model.generateContent(`${contextInfo} ${formJson.aiPrompt}`)
-        setAiAnswer(result.response.text())
-    }
-    
+        const result = await model.generateContent(`${contextInfo} ${userMessage}`)
+        const aiResponse = result.response.text();
+
+        setMessages((prev) => [...prev, { role: "ai", text: aiResponse }]); 
+    };
+
     return (
         <section 
             className="flex p-8 justify-center items-start gap-6 w-[401px] h-80 mt-10 rounded-[8px] border-[0px] border-[#E5E7EB] bg-[#1F2937] 
