@@ -1,6 +1,11 @@
 import { useState, type FormEvent, useRef, useEffect } from 'react'
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+interface Message {
+    role: "user" | "ai";
+    text: string;
+}
+
 export default function Prompt() {
     // Suggested questions given to users
     const suggestions = [
