@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Prompt from './Prompt';
-import { IoChatbubblesOutline } from 'react-icons/io5';
+import { FaRobot } from "react-icons/fa6";
+
 
 export default function ChatBotContainer() {
   const [showChat, setShowChat] = useState<boolean>(false);
@@ -18,8 +19,8 @@ export default function ChatBotContainer() {
         type="button"
         aria-label="Toggle Chatbot"
       >
-        {showChat ? 'Close' : 'Chat'}
-        <IoChatbubblesOutline />
+        <FaRobot />
+        {showChat ? 'Close' : 'Chat with AI Agent'}
       </button>
 
       {/* Chat Window */}
