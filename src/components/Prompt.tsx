@@ -7,6 +7,11 @@ interface Message {
 }
 
 export default function Prompt() {
+    const [inputValue, setInputValue] = useState<string>('');
+    const [messages, setMessages] = useState<Message[]>([]);
+    const chatContainerRef = useRef<HTMLDivElement>(null);
+    const formRef = useRef<HTMLFormElement>(null);
+
     // Suggested questions given to users
     const suggestions = [
         "What tags can I search for?",
