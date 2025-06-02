@@ -73,16 +73,45 @@ export default function Prompt() {
     };
 
     return (
-        <section 
-            className="flex p-8 justify-center items-start gap-6 w-[401px] h-80 mt-10 rounded-[8px] border-[0px] border-[#E5E7EB] bg-[#1F2937] 
-            [box-shadow:0px_4px_6px_0px_rgba(0,_0,_0,_0.10),_0px_10px_15px_0px_rgba(0,_0,_0,_0.10)]
-            text-[#F3F4F6] font-[Inter] text-[18px] not-italic font-normal leading-[normal]" 
+        <section
+          className="flex flex-col w-full max-w-xl h-[500px] bg-white rounded-md shadow-lg overflow-hidden"
         >
-            <div>
-                <form method="post" onSubmit={ handleSubmit }>
-                    <label>
-                        What's your question? 
-                        <input 
+          {/* Chat log */}
+          <div
+            ref={chatContainerRef}
+            className="flex-grow p-4 overflow-y-auto space-y-3 bg-gray-100"
+          >
+            {messages.map((msg, idx) => (
+              <div
+                key={idx}
+                className={`max-w-[80%] px-4 py-2 rounded-lg ${
+                  msg.role === "user"
+                    ? "ml-auto bg-blue-500 text-white text-right"
+                    : "mr-auto bg-gray-300 text-gray-800 text-left"
+                }`}
+              >
+                {msg.text}
+              </div>
+            ))}
+          </div>
+    
+          {/* Suggested questions */}
+          <div className="px-4 py-2 border-t bg-white">
+            <div className="flex flex-wrap gap-2 mb-2">
+              {suggestions.map((s, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => handleSuggestionClick(s)}
+                  className="bg-blue-200 hover:bg-blue-300 px-3 py-1 rounded-full text-sm text-gray-800"
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+
+            <form ref={formRef} id="ai-form" onSubmit={handleSubmit} className="flex gap-2">
+              <input 
                         name="aiPrompt"
                         className=" bg-[hsla(221,_39%,_11%,_1)] text-[#ADAEBC] font-[Inter] text-[18px] not-italic font-normal leading-[28px] inline-flex h-[62px] pl-[20px] justify-end items-center w-full pr-1"/>
                     </label>
