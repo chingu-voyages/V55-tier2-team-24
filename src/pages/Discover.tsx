@@ -8,8 +8,8 @@ import TagsContainer from "../components/TagsContainer";
 
 export default function Discover() {
   return (
-    <main className="flex  flex-grow bg-white w-full">
-      <aside className=" flex flex-col items-center w-[20%]">
+    <main className="flex min-h-screen bg-white w-full">
+      <aside className="w-96 p-4 border-gray-400">
         <Form />
         <TagsContainer />
         <Authors />
@@ -18,7 +18,7 @@ export default function Discover() {
         <ResourceType />
         <ResetFilters />
       </aside>
-      <section className=" flex flex-col items-center justify-items-start flex-grow  w-[60%]">
+      <section className="flex flex-col items-start overflow-auto flex-1 p-6">
         <ResourcesC />
       </section>
     </main>

@@ -55,7 +55,7 @@ export default function Form() {
           </div>
 
           <label htmlFor="search-input">What should we dig up for you?</label>
-          <div className="relative mt-3.5 mb-5">
+          <div className="relative  mt-3.5 mb-5">
             <input
               autoComplete="off"
               required
