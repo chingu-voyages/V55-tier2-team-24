@@ -14,6 +14,8 @@
 
 # Live version
 
+https://dev-vault-chingu.netlify.app/
+
 # Tech Stack
 
 - Vite
@@ -37,6 +39,8 @@
 - Maria Nathalie Chejin (Shadow Scrum Master): [GitHub](https://github.com/nath8815) / [LinkedIn](http://linkedin.com/in/marianathaliechejin)
 
 ### Voyage Guide
+
+- Olga Yudkin (Developer): [GitHub](https://github.com/cvtqx) / [LinkedIn](https://www.linkedin.com/in/olga-yudkin/)
 
 ### Developers
 
