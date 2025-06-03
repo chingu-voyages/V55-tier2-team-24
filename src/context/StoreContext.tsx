@@ -52,10 +52,11 @@ export default function StoreContextProvider({
       .toLowerCase()
       .split(" ")
       .filter(Boolean);
+
     const importantWords = removeStopwords(words, eng);
     const expandedWords = expandSearch(importantWords);
-    const selectedTags = tags.filter((tag) => tag.selected);
 
+    const selectedTags = tags.filter((tag) => tag.selected);
     const fuse = new Fuse(store.resources, {
       keys: ["name", "author", "resourceType"],
       threshold: 0.1,
@@ -65,7 +66,6 @@ export default function StoreContextProvider({
       ignoreLocation: true,
     });
 
-    //Filter by whole frases first to get a better result do this latter?
     const uniqueResultsMatched = new Set<Resources>();
     expandedWords.forEach((word) => {
       const matches = fuse.search(word);
