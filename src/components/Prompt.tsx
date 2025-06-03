@@ -17,7 +17,7 @@ export default function Prompt() {
         "What tags can I search for?",
         "What types of resources can I search for?",
         "What authors have contributed to this database?",
-        "How do I save or remove a favorite resource from my list?",
+        "How do I save or remove a resource from my favorites list?",
         "Where can I view my saved resources?",
         "How do I view all the results of a search?",
     ];
