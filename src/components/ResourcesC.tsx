@@ -36,7 +36,7 @@ export default function ResourcesC() {
                   (tag) => tag.id === tagId
                 )?.tag;
                 return (
-                  <div className="bg-amber-400 w-20 " key={tagName}>
+                  <div className="bg-amber-400 w-20 " key={tagId}>
                     {tagName}
                   </div>
                 );
