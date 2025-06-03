@@ -50,7 +50,7 @@ export default function Prompt() {
         'Use the following context information to answer the question: ' +
         '1. Users can search for these tags: react, typescript, ai, css, python, javascript, or next.js.' +
         '2. Users can search for these resources: video or article.' +
-        '3. Users can search by author: jdmedlock or andresc1310.' +
+        '3. Users can search by author: jdmedlock, andresc1310, ivanrebolledo, Interviewing.io, yangshun, Josh Comeau, roadmap.sh, Chingu, totaltypescript, aihero, or a11y.coffee.' +
         '4. Users can save resources to their favorites section by clicking the "Save to favorites" button.' +
         '5. Users can remove resources from their favorites section by clicking the "_" button.' +
         '6. Users can view their favorited resources by ___.' +
