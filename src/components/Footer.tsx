@@ -68,11 +68,10 @@ export default function Footer() {
           rel="noopener noreferrer"
         >
           <img
-            src="/images/githubIcon.svg"
+            src="/images/github-mark.png"
             alt="Github icon"
             width={30}
             height={30}
-            className="bg-gray-100 rounded p-1"
           ></img>
           <span>See our code on GitHub</span>
           <span className="sr-only">(opens in a new tab)</span>
