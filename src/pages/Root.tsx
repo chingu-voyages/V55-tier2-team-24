@@ -2,6 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ChatBotContainer from "../components/ChatbotContainer";
+import BackToTop from "../components/BackToTop";
 
 export default function RootLayout() {
   const location = useLocation();
@@ -25,6 +26,7 @@ export default function RootLayout() {
         <ChatBotContainer />
       </div>
       <Footer />
+      <BackToTop />
     </div>
   );
 }
