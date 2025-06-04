@@ -62,7 +62,7 @@ export default function HomeForm() {
             className="w-full px-4 py-3 text-lg border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-[#41A3C9] focus:border-transparent pr-10"
             aria-label="Search for developer resources"
           />
-          {store.query.length > 0 ? (
+          {store.query?.length > 0 ? (
             <button
               type="button"
               onClick={(event) => {

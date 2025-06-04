@@ -16,6 +16,7 @@ export const storeContext = createContext<StoreContext>({
     query: "",
     authors: [],
     resourcesType: [],
+    queryHistory: [],
   },
   clearFilterResources: () => undefined,
   searchResources: () => undefined,
@@ -24,6 +25,8 @@ export const storeContext = createContext<StoreContext>({
   handleAuthorSelected: () => undefined,
   handleResourceTypeSelected: () => undefined,
   resetFilters: () => undefined,
+  saveToQueryHistory: () => undefined,
+  clearQueryHistory: () => undefined,
 });
 
 export default function StoreContextProvider({
@@ -39,7 +42,25 @@ export default function StoreContextProvider({
     query: "",
     authors: [],
     resourcesType: [],
+    queryHistory: [],
   });
+
+  function saveToQueryHistory(query: string) {
+    if (!query.trim()) return;
+
+    setStore((prev) => {
+      if (prev.queryHistory.includes(query)) return prev;
+
+      return {
+        ...prev,
+        queryHistory: [query, ...prev.queryHistory],
+      };
+    });
+  }
+
+  function clearQueryHistory() {
+    setStore((prev) => ({ ...prev, queryHistory: [] }));
+  }
 
   function combineFilters(
     query: string,
@@ -210,6 +231,8 @@ export default function StoreContextProvider({
         handleAuthorSelected,
         handleResourceTypeSelected,
         resetFilters,
+        saveToQueryHistory,
+        clearQueryHistory,
       }}
     >
       {children}
