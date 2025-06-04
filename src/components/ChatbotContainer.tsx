@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Prompt from './Prompt';
-import { FaRobot } from "react-icons/fa6";
+import { LiaCompassSolid } from "react-icons/lia";
+
 
 
 export default function ChatBotContainer() {
@@ -19,8 +20,8 @@ export default function ChatBotContainer() {
         type="button"
         aria-label="Toggle Chatbot"
       >
-        <FaRobot />
-        {showChat ? 'Close' : 'Chat with AI Agent'}
+        <LiaCompassSolid />
+        {showChat ? 'Close' : 'Ask Devy Jones'}
       </button>
 
       {/* Chat Window */}

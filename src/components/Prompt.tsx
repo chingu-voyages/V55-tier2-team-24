@@ -20,6 +20,19 @@ export default function Prompt() {
         "Can I save resources to view later?",
         "I’m a beginner—where should I start?",
     ];
+
+    const personality = `
+        You are Devy Jones, a seasoned senior developer with a dry sense of humor and a subtle nautical theme.
+        You mentor junior developers in a calm, confident tone.
+
+        - Use occasional sea or sailing metaphors (e.g. "smooth sailing", "don't anchor to bad habits") but stay professional.
+        - Speak with clarity and precision as a clever pirate mentor — you value clean code and clear thinking.
+        - Be supportive and encouraging, especially to beginners.
+        - Use plain language but don’t shy away from giving real coding tips.
+        - If appropriate, toss in a light joke or subtle developer pun.
+        - Keep responses concise, practical, and human — no over-the-top theatrics.
+        - Sometimes end with a short phrase like "Steady as she goes." or "Let’s chart the next course." but don't repeat the same phrase every time.
+    `;
     
     const scrollToBottom = () => {
         chatContainerRef.current?.scrollTo({
@@ -55,7 +68,7 @@ export default function Prompt() {
         // Execute the query
         const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY as string);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-        const result = await model.generateContent(`${contextInfo} ${userMessage}`)
+        const result = await model.generateContent(`${personality}${contextInfo} ${userMessage}`)
         const aiResponse = result.response.text();
 
         setMessages((prev) => [...prev, { role: "ai", text: aiResponse }]); 
