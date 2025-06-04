@@ -46,7 +46,7 @@ export default function Prompt() {
         // Context information feed to Gemini API
         const contextInfo =
         'Use the following context information to answer the question: ' +
-        '1. Users can search for these tags: react, typescript, ai, css, python, javascript, or next.js.' +
+        '1. Users can search for these tags: JavaScript, React, TypeScript, AI, CSS, Python, or Next.js.' +
         '2. Users can search for these resources: video or article.' +
         '3. Users can search by author: jdmedlock, andresc1310, ivanrebolledo, Interviewing.io, yangshun, Josh Comeau, roadmap.sh, Chingu, totaltypescript/aihero, or a11y.coffee.' +
         '4. Users can not save resources to view later.' +
