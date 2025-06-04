@@ -1,10 +1,9 @@
 import Logo from "/images/logo.png";
 import HomeForm from "../components/HomeForm";
-import ChatBotContainer from "../components/ChatbotContainer";
 
 export default function Home() {
   return (
-    <div className="w-full bg-white flex flex-col justify-center items-center flex-grow pb-6 px-6 md:px-12">
+    <div className="flex flex-col items-center w-full px-4">
       <div className="flex flex-col items-center mx-auto text-center">
         <img
           width={150}
@@ -24,9 +23,6 @@ export default function Home() {
         </p>
 
         <HomeForm />
-      </div>
-      <div className="w-full flex justify-end px-6 pb-6">
-        <ChatBotContainer />
       </div>
     </div>
   );
