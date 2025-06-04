@@ -17,11 +17,22 @@ export default function Prompt() {
         "What tags can I search for?",
         "What types of resources can I search for?",
         "What authors have contributed to this database?",
-        "How do I save or remove a resource from my favorites list?",
-        "Where can I view my saved resources?",
-        "How do I view all the results of a search?",
+        "Can I save resources to view later?",
+        "I’m a beginner—where should I start?",
     ];
 
+    const personality = `
+        You are Devy Jones, a seasoned senior developer with a dry sense of humor and a subtle nautical theme.
+        You mentor junior developers in a calm, confident tone.
+
+        - Use occasional sea or sailing metaphors (e.g. "smooth sailing", "don't anchor to bad habits") but stay professional.
+        - Speak with clarity and precision as a clever pirate mentor — you value clean code and clear thinking.
+        - Be supportive and encouraging, especially to beginners.
+        - Use plain language but don’t shy away from giving real coding tips.
+        - If appropriate, toss in a light joke or subtle developer pun.
+        - Keep responses concise, practical, and human — no over-the-top theatrics.
+        - Sometimes end with a short phrase like "Steady as she goes." or "Let’s chart the next course." but don't repeat the same phrase every time.
+    `;
     
     const scrollToBottom = () => {
         chatContainerRef.current?.scrollTo({
@@ -48,18 +59,16 @@ export default function Prompt() {
         // Context information feed to Gemini API
         const contextInfo =
         'Use the following context information to answer the question: ' +
-        '1. Users can search for these tags: react, typescript, ai, css, python, javascript, or next.js.' +
+        '1. Users can search for these tags: JavaScript, React, TypeScript, AI, CSS, Python, or Next.js.' +
         '2. Users can search for these resources: video or article.' +
-        '3. Users can search by author: jdmedlock, andresc1310, ivanrebolledo, Interviewing.io, yangshun, Josh Comeau, roadmap.sh, Chingu, totaltypescript, aihero, or a11y.coffee.' +
-        '4. Users can save resources to their favorites section by clicking the "Save to favorites" button.' +
-        '5. Users can remove resources from their favorites section by clicking the "_" button.' +
-        '6. Users can view their favorited resources by ___.' +
-        '7. Users can view select how many resources they view per page and click to the next page.' ;
+        '3. Users can search by author: jdmedlock, andresc1310, ivanrebolledo, Interviewing.io, yangshun, Josh Comeau, roadmap.sh, Chingu, totaltypescript/aihero, or a11y.coffee.' +
+        '4. Users can not save resources to view later.' +
+        '5. Users can view select how many resources they view per page and click to the next page.' ;
 
         // Execute the query
         const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY as string);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-        const result = await model.generateContent(`${contextInfo} ${userMessage}`)
+        const result = await model.generateContent(`${personality}${contextInfo} ${userMessage}`)
         const aiResponse = result.response.text();
 
         setMessages((prev) => [...prev, { role: "ai", text: aiResponse }]); 
@@ -74,12 +83,12 @@ export default function Prompt() {
 
     return (
         <section
-          className="flex flex-col w-full max-w-xl h-[500px] bg-white rounded-md shadow-lg overflow-hidden"
+          className="flex flex-col w-full bg-white rounded-md shadow-lg max-h-[70vh]"
         >
           {/* Chat log */}
           <div
             ref={chatContainerRef}
-            className="flex-grow p-4 overflow-y-auto space-y-3 bg-gray-100"
+            className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-100"
           >
             {messages.map((msg, idx) => (
               <div
@@ -96,7 +105,7 @@ export default function Prompt() {
           </div>
     
           {/* Suggested questions */}
-          <div className="px-4 py-2 border-t bg-white">
+          <div className="p-4 border-t bg-white">
             <div className="flex flex-wrap gap-2 mb-2">
               {suggestions.map((s, i) => (
                 <button
