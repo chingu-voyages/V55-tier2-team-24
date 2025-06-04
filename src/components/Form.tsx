@@ -4,19 +4,11 @@ import { FaFilter } from "react-icons/fa6";
 import SearchInput from "./SearchInput";
 
 export default function Form() {
-  const {
-    clearFilterResources,
-    searchResources,
-    store,
-
-    saveToQueryHistory,
-  } = useStoreContext();
+  const { clearFilterResources, searchResources, store, saveToQueryHistory } =
+    useStoreContext();
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log("submit");
-    // const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
-    // setPlaceHolder(searchPlaceHolders[randomNumber]); ///move place hooder state here?
     searchResources(store.query);
     saveToQueryHistory(store.query);
   }

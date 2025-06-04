@@ -36,4 +36,6 @@ export interface StoreContext {
   resetFilters: () => void;
   saveToQueryHistory: (query: string) => void;
   clearQueryHistory: () => void;
+  placeholder: string;
+  updatePlaceholder: () => void;
 }

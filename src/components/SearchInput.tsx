@@ -1,12 +1,16 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { TextField, Autocomplete, IconButton } from "@mui/material";
 import { MdClear, MdSearch } from "react-icons/md";
-import { searchPlaceHolders } from "../helpers/placeHolders";
 import { useStoreContext } from "../context/StoreContext";
 
 export default function SearchInput() {
-  const { store, updateQuery, clearQueryHistory } = useStoreContext();
-  const [placeholder, setPlaceHolder] = useState("");
+  const {
+    store,
+    updateQuery,
+    clearQueryHistory,
+    placeholder,
+    updatePlaceholder,
+  } = useStoreContext();
   const pastQueries = store.queryHistory;
   const optionsWithClear =
     pastQueries.length > 0 ? [...pastQueries, "Clear History"] : [];
@@ -19,6 +23,7 @@ export default function SearchInput() {
     if (value === "Clear History") {
       clearQueryHistory();
       updateQuery("");
+      updatePlaceholder();
       return;
     }
 
@@ -26,8 +31,6 @@ export default function SearchInput() {
   }
 
   useEffect(() => {
-    const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
-    setPlaceHolder(searchPlaceHolders[randomNumber]);
     searchRef?.current?.focus();
   }, []);
 
@@ -64,11 +67,8 @@ export default function SearchInput() {
                 {store.query ? (
                   <IconButton
                     onClick={() => {
-                      const randomNumber = Math.floor(
-                        Math.random() * searchPlaceHolders.length
-                      );
-                      setPlaceHolder(searchPlaceHolders[randomNumber]);
                       updateQuery("");
+                      updatePlaceholder();
                     }}
                   >
                     {" "}
