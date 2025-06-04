@@ -17,11 +17,9 @@ export default function Prompt() {
         "What tags can I search for?",
         "What types of resources can I search for?",
         "What authors have contributed to this database?",
-        "How do I save or remove a resource from my favorites list?",
-        "Where can I view my saved resources?",
-        "How do I view all the results of a search?",
+        "Can I save resources to view later?",
+        "I’m a beginner—where should I start?",
     ];
-
     
     const scrollToBottom = () => {
         chatContainerRef.current?.scrollTo({
@@ -50,11 +48,9 @@ export default function Prompt() {
         'Use the following context information to answer the question: ' +
         '1. Users can search for these tags: react, typescript, ai, css, python, javascript, or next.js.' +
         '2. Users can search for these resources: video or article.' +
-        '3. Users can search by author: jdmedlock, andresc1310, ivanrebolledo, Interviewing.io, yangshun, Josh Comeau, roadmap.sh, Chingu, totaltypescript, aihero, or a11y.coffee.' +
-        '4. Users can save resources to their favorites section by clicking the "Save to favorites" button.' +
-        '5. Users can remove resources from their favorites section by clicking the "_" button.' +
-        '6. Users can view their favorited resources by ___.' +
-        '7. Users can view select how many resources they view per page and click to the next page.' ;
+        '3. Users can search by author: jdmedlock, andresc1310, ivanrebolledo, Interviewing.io, yangshun, Josh Comeau, roadmap.sh, Chingu, totaltypescript/aihero, or a11y.coffee.' +
+        '4. Users can not save resources to view later.' +
+        '5. Users can view select how many resources they view per page and click to the next page.' ;
 
         // Execute the query
         const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY as string);
