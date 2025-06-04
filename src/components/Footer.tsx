@@ -64,15 +64,17 @@ export default function Footer() {
         <a
           className="flex items-center gap-2 hover:underline underline-offset-2"
           href="https://github.com/chingu-voyages/V55-tier2-team-24"
+          target="_blank" 
+          rel="noopener noreferrer"
         >
           <img
-            src="/images/githubIcon.svg"
+            src="/images/github-mark.png"
             alt="Github icon"
             width={30}
             height={30}
-            className="bg-gray-100 rounded p-1"
           ></img>
-          <span>GitHub Repo</span>
+          <span>See our code on GitHub</span>
+          <span className="sr-only">(opens in a new tab)</span>
         </a>
       </section>
       <section className="flex items-center">

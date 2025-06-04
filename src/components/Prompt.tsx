@@ -1,53 +1,131 @@
-import { useState, type FormEvent } from 'react'
+import { useState, type FormEvent, useRef, useEffect } from 'react'
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+interface Message {
+    role: "user" | "ai";
+    text: string;
+}
+
 export default function Prompt() {
-    const [aiAnswer, setAiAnswer] = useState<string>(''); // Declare a state variable...
+    const [inputValue, setInputValue] = useState<string>('');
+    const [messages, setMessages] = useState<Message[]>([]);
+    const chatContainerRef = useRef<HTMLDivElement>(null);
+    const formRef = useRef<HTMLFormElement>(null);
+
+    // Suggested questions given to users
+    const suggestions = [
+        "What tags can I search for?",
+        "What types of resources can I search for?",
+        "What authors have contributed to this database?",
+        "How do I save or remove a resource from my favorites list?",
+        "Where can I view my saved resources?",
+        "How do I view all the results of a search?",
+    ];
+
+    
+    const scrollToBottom = () => {
+        chatContainerRef.current?.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: "smooth",
+        });
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
+
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         // Prevent the browser from reloading the page
         e.preventDefault()
 
-        // Read the form data
-        const form = e.currentTarget;
-        const formData = new FormData(form);
-        const formJson = Object.fromEntries(formData.entries()) as { aiPrompt: string};
+        const userMessage = inputValue.trim();
+        if (!userMessage) return;
 
-        // Initialize the context information
+        setMessages((prev) => [...prev, { role: "user", text: userMessage }]);
+        setInputValue("");
+
+        // Context information feed to Gemini API
         const contextInfo =
         'Use the following context information to answer the question: ' +
-        '1. This app helps users interact with an AI assistant by asking questions relevant to the context provided.';
+        '1. Users can search for these tags: react, typescript, ai, css, python, javascript, or next.js.' +
+        '2. Users can search for these resources: video or article.' +
+        '3. Users can search by author: jdmedlock, andresc1310, ivanrebolledo, Interviewing.io, yangshun, Josh Comeau, roadmap.sh, Chingu, totaltypescript, aihero, or a11y.coffee.' +
+        '4. Users can save resources to their favorites section by clicking the "Save to favorites" button.' +
+        '5. Users can remove resources from their favorites section by clicking the "_" button.' +
+        '6. Users can view their favorited resources by ___.' +
+        '7. Users can view select how many resources they view per page and click to the next page.' ;
 
         // Execute the query
         const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY as string);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-        const result = await model.generateContent(`${contextInfo} ${formJson.aiPrompt}`)
-        setAiAnswer(result.response.text())
-    }
-    
+        const result = await model.generateContent(`${contextInfo} ${userMessage}`)
+        const aiResponse = result.response.text();
+
+        setMessages((prev) => [...prev, { role: "ai", text: aiResponse }]); 
+    };
+
+    const handleSuggestionClick = (suggestion: string) => {
+        setInputValue(suggestion);
+        setTimeout(() => {
+            formRef.current?.requestSubmit();
+        }, 0);
+    };
+
     return (
-        <section 
-            className="flex p-8 justify-center items-start gap-6 w-[401px] h-80 mt-10 rounded-[8px] border-[0px] border-[#E5E7EB] bg-[#1F2937] 
-            [box-shadow:0px_4px_6px_0px_rgba(0,_0,_0,_0.10),_0px_10px_15px_0px_rgba(0,_0,_0,_0.10)]
-            text-[#F3F4F6] font-[Inter] text-[18px] not-italic font-normal leading-[normal]" 
+        <section
+          className="flex flex-col w-full max-w-xl h-[500px] bg-white rounded-md shadow-lg overflow-hidden"
         >
-            <div>
-                <form method="post" onSubmit={ handleSubmit }>
-                    <label>
-                        What's your question? 
-                        <input 
-                        name="aiPrompt"
-                        className=" bg-[hsla(221,_39%,_11%,_1)] text-[#ADAEBC] font-[Inter] text-[18px] not-italic font-normal leading-[28px] inline-flex h-[62px] pl-[20px] justify-end items-center w-full pr-1"/>
-                    </label>
-                    <div className='flex'>
-                        <button type="reset" className="text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-2 rounded-full border-2 border-neutral-50 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-300 focus:border-neutral-300 focus:outline-none dark:hover:bg-neutral-600 dark:focus:bg-neutral-600">Reset</button>
-                        <button type="submit" className="text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-2 rounded-full border-2 border-neutral-50 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-300 focus:border-neutral-300 focus:outline-none dark:hover:bg-neutral-600 dark:focus:bg-neutral-600">Submit</button>
-                    </div>
-                </form>
-                <hr />
-                <h1>Results:</h1>
-                {aiAnswer !== '' && <p>{ aiAnswer } </p>}
+          {/* Chat log */}
+          <div
+            ref={chatContainerRef}
+            className="flex-grow p-4 overflow-y-auto space-y-3 bg-gray-100"
+          >
+            {messages.map((msg, idx) => (
+              <div
+                key={idx}
+                className={`max-w-[80%] px-4 py-2 rounded-lg ${
+                  msg.role === "user"
+                    ? "ml-auto bg-blue-500 text-white text-right"
+                    : "mr-auto bg-gray-300 text-gray-800 text-left"
+                }`}
+              >
+                {msg.text}
+              </div>
+            ))}
+          </div>
+    
+          {/* Suggested questions */}
+          <div className="px-4 py-2 border-t bg-white">
+            <div className="flex flex-wrap gap-2 mb-2">
+              {suggestions.map((s, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => handleSuggestionClick(s)}
+                  className="bg-blue-200 hover:bg-blue-300 px-3 py-1 rounded-full text-sm text-gray-800"
+                >
+                  {s}
+                </button>
+              ))}
             </div>
-        </section>            
-    )
-};
+
+            <form ref={formRef} id="ai-form" onSubmit={handleSubmit} className="flex gap-2">
+              <input
+                name="aiPrompt"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder="Ask a question..."
+                className="flex-grow px-4 py-2 rounded-md border border-gray-300"
+              />
+              <button
+                type="submit"
+                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+              >
+                Send
+              </button>
+            </form>
+          </div>
+        </section>
+      );
+    }
