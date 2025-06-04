@@ -25,7 +25,7 @@ export default function ChatBotContainer() {
 
       {/* Chat Window */}
       {showChat && (
-        <div className="absolute bottom-full mb-3 w-full z-40">
+        <div className="absolute bottom-full mb-3 w-full z-40 max-h-[70vh] overflow-y-auto">
           <Prompt />
         </div>
       )}

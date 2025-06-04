@@ -74,12 +74,12 @@ export default function Prompt() {
 
     return (
         <section
-          className="flex flex-col w-full max-w-xl h-[500px] bg-white rounded-md shadow-lg overflow-hidden"
+          className="flex flex-col w-full bg-white rounded-md shadow-lg max-h-[70vh]"
         >
           {/* Chat log */}
           <div
             ref={chatContainerRef}
-            className="flex-grow p-4 overflow-y-auto space-y-3 bg-gray-100"
+            className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-100"
           >
             {messages.map((msg, idx) => (
               <div
@@ -96,7 +96,7 @@ export default function Prompt() {
           </div>
     
           {/* Suggested questions */}
-          <div className="px-4 py-2 border-t bg-white">
+          <div className="p-4 border-t bg-white">
             <div className="flex flex-wrap gap-2 mb-2">
               {suggestions.map((s, i) => (
                 <button
