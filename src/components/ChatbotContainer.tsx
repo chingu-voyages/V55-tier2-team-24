@@ -11,7 +11,7 @@ export default function ChatBotContainer() {
   };
 
   return (
-    <div className="relative w-full max-w-sm flex flex-col items-end z-50"> 
+    <div className="relative w-full max-w-sm flex flex-col items-end z-40"> 
       {/* Chat Toggle Button */}
       <button
         onClick={toggleChat}

@@ -10,7 +10,7 @@ export default function Discover() {
   return (
     <main>
       <div className="flex flex-1">
-        <aside className="w-96 p-4 border-gray-400">
+        <aside className="w-96 p-4 border-gray-400 z-10">
           <Form />
           <TagsContainer />
           <Authors />

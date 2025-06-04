@@ -16,7 +16,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 flex px-2 py-3 w-full h-20 border-1 border-[#E5E7EB] bg-[#F9FAFB] items-center">
+    <header className="sticky top-0 flex px-2 py-3 w-full h-20 border-1 border-[#E5E7EB] bg-[#F9FAFB] items-center z-50">
       <section className="w-[95%] ml-4 flex items-center justify-between">
         <NavLink
           to={"/"}
