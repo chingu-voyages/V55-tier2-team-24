@@ -2,6 +2,11 @@ import { useState } from "react";
 
 export default function Footer() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const [showContributors, setShowContributors] = useState<boolean>(false);
+
+  const toggleContributors = () => {
+    setShowContributors((prev) => !prev);
+  };
 
   const contributors = [
     {
@@ -59,12 +64,12 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="flex items-center justify-between text-sm px-4 py-3 w-full h-20 border-1 border-[#E5E7EB] bg-[#F9FAFB]">
+    <footer className="flex items-center justify-between text-sm px-8 md:px-4 py-3 w-full h-20 border-1 border-[#E5E7EB] bg-[#F9FAFB] text-gray-800">
       <section>
         <a
           className="flex items-center gap-2 hover:underline underline-offset-2"
           href="https://github.com/chingu-voyages/V55-tier2-team-24"
-          target="_blank" 
+          target="_blank"
           rel="noopener noreferrer"
         >
           <img
@@ -73,13 +78,15 @@ export default function Footer() {
             width={30}
             height={30}
           ></img>
-          <span>See our code on GitHub</span>
+          <span className="hidden md:block">GitHub Repo</span>
           <span className="sr-only">(opens in a new tab)</span>
         </a>
       </section>
-      <section className="flex items-center">
-        <p>Contributors:</p>
-        <div className="flex">
+
+      {/* Desktop */}
+      <section className="hidden md:flex items-center gap-2">
+        <p className="cursor-default">Contributors</p>
+        <div className="flex gap-1">
           {contributors.map((contributor, index) => (
             <div key={index} className="relative">
               <img
@@ -87,8 +94,10 @@ export default function Footer() {
                 alt={contributor.name}
                 width={30}
                 height={30}
-                className="rounded-full m-1 cursor-pointer"
-                onClick={() => window.open(contributor.link, "_blank")}
+                className="rounded-full cursor-pointer"
+                onClick={() =>
+                  window.open(contributor.link, "_blank noopener noreferrer")
+                }
                 onMouseEnter={() => setHoveredId(index)}
                 onMouseLeave={() => setHoveredId(null)}
               />
@@ -103,6 +112,38 @@ export default function Footer() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* Mobile */}
+      <section className="md:hidden relative">
+        <p
+          className="cursor-pointer hover:text-gray-600"
+          onClick={toggleContributors}
+        >
+          Contributors
+        </p>
+        {showContributors && (
+          <div className="absolute bottom-full right-0 transform mb-2 px-2 py-1 text-[#41A3C9] bg-[#F9FAFB] text-xs rounded-md shadow-lg whitespace-nowrap z-60">
+            <div className="flex flex-col gap-2">
+              {contributors.map((contributor, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-2 p-1 border-b border-gray-200 last:border-0 cursor-pointer"
+                  onClick={() =>
+                    window.open(contributor.link, "_blank noopener noreferrer")
+                  }
+                >
+                  <div>
+                    <p className="font-medium">{contributor.name}</p>
+                    <p className="text-gray-400 text-[10px]">
+                      {contributor.role}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
     </footer>
   );
