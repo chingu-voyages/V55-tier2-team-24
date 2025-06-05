@@ -24,7 +24,13 @@ export default function ResourcesC() {
         {filteredResources.map((resource) => (
           <div key={resource.id} className="m-8 bg-amber-100">
             <div>{resource.name}</div>
-            <h4>{resource.author}</h4>
+            <h4>
+              {resource.author === "jdmedlock"
+                ? "Jim"
+                : resource.author === "andresc1310"
+                ? "Andres"
+                : resource.author}
+            </h4>
             <h4>{resource.resourceType}</h4>
             <a href={resource.url} className="text-blue-900">
               {resource.url}{" "}

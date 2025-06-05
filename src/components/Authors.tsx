@@ -5,12 +5,19 @@ import { useStoreContext } from "../context/StoreContext";
 
 export default function Authors() {
   const { store, handleAuthorSelected } = useStoreContext();
-  const authors = ["jdmedlock", "andresc1310"];
+  const allAuthors = [
+    ...new Set(store.resources.map((resource) => resource.author)),
+  ];
+
+  const authorsToDisplay = allAuthors.filter((autor) =>
+    ["jdmedlock", "andresc1310", "Chingu", "Josh Comeau"].includes(autor)
+  );
+
   return (
-    <section className="w-80 flex flex-col mt-20">
-      <h4>Author</h4>
-      <FormGroup className=" ml-4">
-        {authors.map((author) => (
+    <section className="flex flex-col mt-5">
+      <h4 className=" mb-2">Author</h4>
+      <FormGroup className="ml-2">
+        {authorsToDisplay.map((author) => (
           <FormControlLabel
             key={author}
             control={
@@ -19,7 +26,13 @@ export default function Authors() {
                 onChange={() => handleAuthorSelected(author)}
               />
             }
-            label={author}
+            label={
+              author === "jdmedlock"
+                ? "Jim"
+                : author === "andresc1310"
+                ? "Andres"
+                : author
+            }
           />
         ))}
       </FormGroup>

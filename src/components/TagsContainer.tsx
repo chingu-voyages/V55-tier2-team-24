@@ -1,8 +1,19 @@
 import { useContext } from "react";
 import type { Tags } from "../Types";
 import { storeContext } from "../context/StoreContext";
+import {
+  SiReact,
+  SiTypescript,
+  SiCss3,
+  SiPython,
+  SiJavascript,
+  SiNextdotjs,
+} from "react-icons/si";
+import { FaRobot } from "react-icons/fa";
 
 export default function TagsContainer() {
+  const { handleClickedTags, store } = useContext(storeContext);
+
   const tagsToDisplay = [
     "react",
     "typescript",
@@ -12,26 +23,42 @@ export default function TagsContainer() {
     "javascript",
     "next.js",
   ];
-  const { handleClickedTags, store } = useContext(storeContext);
+
+  const tagsIcons = {
+    react: <SiReact className="text-blue-500" />,
+    typescript: <SiTypescript className="text-blue-500" />,
+    css: <SiCss3 className="text-red-500" />,
+    python: <SiPython className="text-yellow-500 " />,
+    javascript: <SiJavascript className="text-yellow-500 bg-black" />,
+    "next.js": <SiNextdotjs className="text-black" />,
+    ai: <FaRobot className="text-slate-500" />,
+  };
+
   function handleTagClick(tagClicked: Tags) {
     handleClickedTags(tagClicked);
   }
   return (
     <>
-      <div className="flex flex-col w-80 gap-2">
-        <h4>Tags</h4>
-        <section>
+      <div className="flex flex-col">
+        <h4 className="mb-2">Tags</h4>
+        <section className="flex flex-wrap gap-2">
           {store.tags.map((tag) => {
             if (tagsToDisplay.includes(tag.tag.toLocaleLowerCase())) {
               return (
                 <button
                   onClick={() => handleTagClick(tag)}
                   key={tag.id}
-                  className={` m-1 hover:scale-105  p-1 rounded-sm ${
-                    tag.selected === true ? "bg-red-700" : "bg-gray-200"
+                  className={` m-1 hover:scale-105  p-1 rounded-sm flex items-center gap-0.5 ${
+                    tag.selected === true
+                      ? "bg-cyan-500 text-black"
+                      : "bg-gray-200"
                   }`}
                 >
-                  {tag.tag}
+                  <span>
+                    {tagsIcons[tag.tag.toLowerCase() as keyof typeof tagsIcons]}
+                  </span>
+
+                  <span>{tag.tag}</span>
                 </button>
               );
             }
