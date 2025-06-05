@@ -14,11 +14,11 @@ export default function ChatBotContainer() {
       {/* Chat Toggle Button */}
       <button
         onClick={toggleChat}
-        className="flex items-center text-base px-3 py-2 rounded-md border-2 border-neutral-50 text-neutral-50 bg-[#2A598F] hover:border-neutral-300 focus:outline-none dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
+        className="flex items-center text-base px-3 py-2 rounded-md border-2 border-neutral-50 text-neutral-50 bg-[#2A598F] hover:bg-[#2A598F]/90 cursor-pointer"
         type="button"
         aria-label="Toggle Chatbot"
       >
-        <LiaCompassSolid />
+        <LiaCompassSolid className="size-5 mr-1" />
         {showChat ? "Close" : "Ask Devy Jones"}
       </button>
 
