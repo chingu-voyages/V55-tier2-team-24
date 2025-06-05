@@ -7,9 +7,9 @@ export default function ResourceType() {
   const { store, handleResourceTypeSelected } = useStoreContext();
   const resourcesTypes = ["video", "article"];
   return (
-    <section className="w-80 flex flex-col mt-20">
-      <h4>Type</h4>
-      <FormGroup className=" ml-4">
+    <section className="flex flex-col mt-5">
+      <h4 className=" mb-2">Type</h4>
+      <FormGroup className="ml-2">
         {resourcesTypes.map((resourceType) => (
           <FormControlLabel
             key={resourceType}
