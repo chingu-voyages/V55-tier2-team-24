@@ -22,6 +22,7 @@ export interface Store {
   query: string;
   authors: string[];
   resourcesType: string[];
+  queryHistory: string[];
 }
 
 export interface StoreContext {
@@ -33,4 +34,8 @@ export interface StoreContext {
   handleAuthorSelected: (selectedAuthor: string) => void;
   handleResourceTypeSelected: (resourceTypeSelected: string) => void;
   resetFilters: () => void;
+  saveToQueryHistory: (query: string) => void;
+  clearQueryHistory: () => void;
+  placeholder: string;
+  updatePlaceholder: () => void;
 }

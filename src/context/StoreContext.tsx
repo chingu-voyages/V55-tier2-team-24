@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import type { Resources, Store, StoreContext, Tags } from "../Types";
 import { usePersistedState } from "../hooks/usePersistedState";
 import getDataFromApi from "../helpers/getDataFromApi";
@@ -6,6 +6,7 @@ import { FALLBACK_RESOURCES, FALLBACK_TAGS } from "../helpers/fallbackData";
 import Fuse from "fuse.js";
 import { removeStopwords, eng } from "stopword";
 import { expandSearch } from "../helpers/expandSearch";
+import { searchPlaceHolders } from "../helpers/placeHolders";
 
 export const storeContext = createContext<StoreContext>({
   store: {
@@ -16,6 +17,7 @@ export const storeContext = createContext<StoreContext>({
     query: "",
     authors: [],
     resourcesType: [],
+    queryHistory: [],
   },
   clearFilterResources: () => undefined,
   searchResources: () => undefined,
@@ -24,6 +26,10 @@ export const storeContext = createContext<StoreContext>({
   handleAuthorSelected: () => undefined,
   handleResourceTypeSelected: () => undefined,
   resetFilters: () => undefined,
+  saveToQueryHistory: () => undefined,
+  clearQueryHistory: () => undefined,
+  placeholder: "",
+  updatePlaceholder: () => undefined,
 });
 
 export default function StoreContextProvider({
@@ -39,7 +45,35 @@ export default function StoreContextProvider({
     query: "",
     authors: [],
     resourcesType: [],
+    queryHistory: [],
   });
+
+  const [placeholder, setPlaceHolder] = useState(
+    searchPlaceHolders[Math.floor(Math.random() * searchPlaceHolders.length)]
+  );
+
+  function updatePlaceholder() {
+    setPlaceHolder(
+      searchPlaceHolders[Math.floor(Math.random() * searchPlaceHolders.length)]
+    );
+  }
+
+  function saveToQueryHistory(query: string) {
+    if (!query.trim()) return;
+
+    setStore((prev) => {
+      if (prev.queryHistory.includes(query)) return prev;
+
+      return {
+        ...prev,
+        queryHistory: [query, ...prev.queryHistory],
+      };
+    });
+  }
+
+  function clearQueryHistory() {
+    setStore((prev) => ({ ...prev, queryHistory: [] }));
+  }
 
   function combineFilters(
     query: string,
@@ -210,6 +244,10 @@ export default function StoreContextProvider({
         handleAuthorSelected,
         handleResourceTypeSelected,
         resetFilters,
+        saveToQueryHistory,
+        clearQueryHistory,
+        placeholder,
+        updatePlaceholder,
       }}
     >
       {children}

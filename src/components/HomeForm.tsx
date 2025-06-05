@@ -2,44 +2,22 @@
 
 import type React from "react";
 
-import { useEffect, useRef, useState } from "react";
 import { useStoreContext } from "../context/StoreContext";
-import { MdClear, MdSearch } from "react-icons/md";
-import { searchPlaceHolders } from "../helpers/placeHolders";
+import { MdSearch } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import SearchInput from "./SearchInput";
 
 export default function HomeForm() {
-  const searchRef = useRef<HTMLInputElement | null>(null);
-  const [placeholder, setPlaceHolder] = useState("");
-
-  const { searchResources, store, updateQuery } = useStoreContext();
+  const { searchResources, store, saveToQueryHistory } = useStoreContext();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
-    setPlaceHolder(searchPlaceHolders[randomNumber]);
-    searchRef?.current?.focus();
-  }, []);
-
-  function handleUserInput(event: React.ChangeEvent<HTMLInputElement>) {
-    updateQuery(event.target.value);
-  }
-
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    if (!store.query.trim()) return;
     event.preventDefault();
-    const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
-    setPlaceHolder(searchPlaceHolders[randomNumber]);
     searchResources(store.query);
-    searchRef?.current?.focus();
-    navigate("Discover");
-  }
+    saveToQueryHistory(store.query);
 
-  function handleInputClear() {
-    const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
-    setPlaceHolder(searchPlaceHolders[randomNumber]);
-    searchResources("");
-    updateQuery("");
-    searchRef?.current?.focus();
+    navigate("Discover");
   }
 
   return (
@@ -50,7 +28,8 @@ export default function HomeForm() {
         className="w-full flex flex-col md:flex-row items-center justify-between gap-6"
       >
         <div className="relative w-full md:w-2/3">
-          <input
+          <SearchInput />
+          {/* <input
             autoComplete="off"
             required
             onChange={(event) => handleUserInput(event)}
@@ -62,7 +41,7 @@ export default function HomeForm() {
             className="w-full px-4 py-3 text-lg border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-[#41A3C9] focus:border-transparent pr-10"
             aria-label="Search for developer resources"
           />
-          {store.query.length > 0 ? (
+          {store.query?.length > 0 ? (
             <button
               type="button"
               onClick={(event) => {
@@ -78,7 +57,7 @@ export default function HomeForm() {
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
               <MdSearch className="text-xl" />
             </span>
-          )}
+          )} */}
         </div>
         <div className="w-full md:w-1/3">
           <button

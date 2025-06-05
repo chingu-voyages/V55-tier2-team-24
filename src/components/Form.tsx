@@ -1,40 +1,16 @@
-import { useEffect, useRef, useState } from "react";
 import { useStoreContext } from "../context/StoreContext";
-import { MdClear, MdSearch } from "react-icons/md";
-import { searchPlaceHolders } from "../helpers/placeHolders";
+import { MdSearch } from "react-icons/md";
 import { FaFilter } from "react-icons/fa6";
+import SearchInput from "./SearchInput";
 
 export default function Form() {
-  const searchRef = useRef<HTMLInputElement | null>(null);
-  const [placeholder, setPlaceHolder] = useState("");
-
-  const { clearFilterResources, searchResources, store, updateQuery } =
+  const { clearFilterResources, searchResources, store, saveToQueryHistory } =
     useStoreContext();
-
-  useEffect(() => {
-    const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
-    setPlaceHolder(searchPlaceHolders[randomNumber]);
-    searchRef?.current?.focus();
-  }, []);
-
-  function handleUserInput(event: React.ChangeEvent<HTMLInputElement>) {
-    updateQuery(event.target.value);
-  }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
-    setPlaceHolder(searchPlaceHolders[randomNumber]);
     searchResources(store.query);
-    searchRef?.current?.focus();
-  }
-
-  function handleInputClear() {
-    const randomNumber = Math.floor(Math.random() * searchPlaceHolders.length);
-    setPlaceHolder(searchPlaceHolders[randomNumber]);
-    searchResources("");
-    updateQuery("");
-    searchRef?.current?.focus();
+    saveToQueryHistory(store.query);
   }
 
   return (
@@ -55,31 +31,9 @@ export default function Form() {
           </div>
 
           <label htmlFor="search-input">What should we dig up for you?</label>
+
           <div className="relative  mt-3.5 mb-5">
-            <input
-              autoComplete="off"
-              required
-              onChange={(event) => handleUserInput(event)}
-              value={store.query}
-              ref={searchRef}
-              name="search"
-              id="search-input"
-              placeholder={placeholder}
-              className=" border-sm outline-solid text-[#ADAEBC] font-[Inter] text-[18px] not-italic font-normal leading-[28px] inline-flex h-[62px] pl-[20px] justify-end items-center w-full pr-1"
-            />
-            {store.query.length > 0 ? (
-              <button
-                type="button"
-                onClick={(event) => {
-                  event.stopPropagation();
-                  handleInputClear();
-                }}
-              >
-                <MdClear className="absolute right-1  top-1/4 fill-red-600  hover:-scale-125 hover:cursor-pointer" />
-              </button>
-            ) : (
-              ""
-            )}
+            <SearchInput />
           </div>
         </div>
         <div className="flex flex-col">
@@ -109,5 +63,3 @@ export default function Form() {
     </section>
   );
 }
-
-//  onClick={clearFilterResources}
