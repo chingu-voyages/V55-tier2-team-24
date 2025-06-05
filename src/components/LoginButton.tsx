@@ -57,7 +57,7 @@ export const LoginButton = () => {
       {!isLoggedIn ? (
         <button
           onClick={handleLogin}
-          className="text-sm px-4 py-2 rounded-full transition duration-150 ease-in-out text-white bg-[#41A3C9] border-2 hover:bg-[#41A3C9]/90 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600 cursor-pointer"
+          className="text-sm px-4 py-2 w-full rounded-full transition duration-150 ease-in-out text-white bg-[#41A3C9] border-2 hover:bg-[#41A3C9]/90 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600 cursor-pointer"
           type="button"
           aria-label="Login with Google"
         >

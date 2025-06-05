@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { LoginButton } from "./LoginButton";
 import { NavLink } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 
 export default function Header() {
   const [currentDate, setCurrentDate] = useState("");
@@ -43,46 +44,37 @@ export default function Header() {
 
         {/* Menu Button */}
         <button
-          className="md:hidden text-gray-800"
+          className="md:hidden text-gray-600"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          </svg>
+          {isMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
         </button>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden fixed top-20 left-0 w-full bg-white border-t border-gray-200 shadow-lg">
-            <div className="flex flex-col p-4 space-y-4">
+          <div className="md:hidden fixed top-20 left-0 w-full bg-[#F9FAFB] shadow-md">
+            <div className="flex flex-col p-4 space-y-4 text-[#41A3C9]">
               <NavLink
                 to={"/"}
-                className="hover:text-gray-600"
+                className="border-b border-[#E5E7EB] px-2 py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Home
               </NavLink>
               <NavLink
                 to={"/Discover"}
-                className="hover:text-gray-600"
+                className="border-b border-[#E5E7EB] px-2 py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Discover
               </NavLink>
               <NavLink
                 to={"/About"}
-                className="hover:text-gray-600"
+                className="border-b border-[#E5E7EB] px-2 py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 About
