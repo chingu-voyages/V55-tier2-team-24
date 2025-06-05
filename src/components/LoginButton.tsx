@@ -53,11 +53,11 @@ export const LoginButton = () => {
   };
 
   return (
-    <div className="items-center ">
+    <div className="items-center">
       {!isLoggedIn ? (
         <button
           onClick={handleLogin}
-          className="text-sm px-4 py-2 mr-4 rounded-full transition duration-150 ease-in-out text-white bg-[#41A3C9] border-2 hover:bg-[#41A3C9]/90 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600 cursor-pointer"
+          className="text-sm px-4 py-2 w-full rounded-full transition duration-150 ease-in-out text-white bg-[#41A3C9] border-2 hover:bg-[#41A3C9]/90 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600 cursor-pointer"
           type="button"
           aria-label="Login with Google"
         >
@@ -65,29 +65,42 @@ export const LoginButton = () => {
         </button>
       ) : (
         <>
+          {/* Mobile */}
           <button
-            onClick={toggleDropdown}
-            className="cursor-pointer"
+            onClick={handleLogout}
+            className="md:hidden text-sm px-4 py-2 w-full rounded-full transition duration-150 ease-in-out text-white bg-[#41A3C9] border-2 hover:bg-[#41A3C9]/90 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600 cursor-pointer"
             type="button"
-            aria-label="User logout menu"
+            aria-label="Logout"
           >
-            <img
-              src={avatar}
-              alt="user's avatar"
-              className="block w-10 h-15 sm:w-30 md:w-15 rounded-full mr-4 overflow-hidden border-2 border-gray-500 focus:outline-none focus:border-white"
-            />
+            LOGOUT
           </button>
-          <div className="rounded-lg mr-4 mt-1 flex flex-col items-center absolute right-0 bg-white shadow-lg">
-            {showDropdown && (
-              <div>
-                <button
-                  onClick={handleLogout}
-                  className="block rounded-lg px-4 py-2 text-gray-800 hover:bg-gray-400 hover:text-white"
-                >
-                  LOGOUT
-                </button>
-              </div>
-            )}
+
+          {/* Desktop */}
+          <div className="hidden md:block">
+            <button
+              onClick={toggleDropdown}
+              className="cursor-pointer"
+              type="button"
+              aria-label="User logout menu"
+            >
+              <img
+                src={avatar}
+                alt="user's avatar"
+                className="block w-12 rounded-full overflow-hidden border-2 border-[#41A3C9] hover:border-[#41A3C9]/70 transition duration-150 ease-in-out"
+              />
+            </button>
+            <div className="rounded-lg mr-4 mt-1 flex flex-col items-center absolute right-0 bg-white shadow-lg">
+              {showDropdown && (
+                <div>
+                  <button
+                    onClick={handleLogout}
+                    className="block rounded-lg px-4 py-2 text-gray-600 hover:bg-[#41A3C9] hover:text-white cursor-pointer transition duration-150 ease-in-out"
+                  >
+                    LOGOUT
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </>
       )}
