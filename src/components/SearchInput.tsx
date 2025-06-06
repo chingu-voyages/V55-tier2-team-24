@@ -2,14 +2,20 @@ import { useEffect, useRef } from "react";
 import { TextField, Autocomplete, IconButton } from "@mui/material";
 import { MdClear, MdSearch } from "react-icons/md";
 import { useStoreContext } from "../context/StoreContext";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function SearchInput() {
+  const location = useLocation();
+  const currentUrlLocation = location.pathname;
+  const navigate = useNavigate();
+
   const {
     store,
     updateQuery,
     clearQueryHistory,
     placeholder,
     updatePlaceholder,
+    searchResources,
   } = useStoreContext();
   const pastQueries = store.queryHistory;
   const optionsWithClear =
@@ -20,6 +26,7 @@ export default function SearchInput() {
     _event: React.SyntheticEvent<Element, Event>,
     value: string
   ) {
+    //handle keyword entered
     if (value === "Clear History") {
       clearQueryHistory();
       updateQuery("");
@@ -41,17 +48,36 @@ export default function SearchInput() {
       autoHighlight
       options={optionsWithClear}
       renderOption={(props, option) => {
+        const { key, ...rest } = props;
         if (option === "Clear History") {
           return (
-            <li {...props} style={{ color: "blue" }}>
+            <li key={key} {...rest} style={{ color: "blue" }}>
               Clear Search History
             </li>
           );
         }
-        return <li {...props}>{option}</li>;
+        return (
+          <li key={key} {...rest}>
+            {option}
+          </li>
+        );
       }}
       inputValue={store.query}
       onInputChange={handleSearchQueryChange}
+      onChange={(_event, value) => {
+        if (value === "Clear History") {
+          clearQueryHistory();
+          updateQuery("");
+          updatePlaceholder();
+          return;
+        }
+        if (value) {
+          searchResources(value);
+          if (currentUrlLocation === "/") {
+            navigate("Discover");
+          }
+        }
+      }}
       id="userQuery"
       renderInput={(params) => (
         <TextField
@@ -63,7 +89,7 @@ export default function SearchInput() {
             ...params.InputProps,
 
             endAdornment: (
-              <>
+              <div className="absolute right-2">
                 {store.query ? (
                   <IconButton
                     onClick={() => {
@@ -79,7 +105,7 @@ export default function SearchInput() {
                     <MdSearch />
                   </IconButton>
                 )}
-              </>
+              </div>
             ),
           }}
         />
