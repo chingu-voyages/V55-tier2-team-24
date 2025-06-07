@@ -4,6 +4,7 @@ import Home from "./pages/Home.tsx";
 import StoreContextProvider from "./context/StoreContext.js";
 import About from "./pages/About.tsx";
 import Discover from "./pages/Discover.tsx";
+import BrokenURLPage from "./components/BrokenURLPage.tsx"
 
 export default function App() {
   const router = createBrowserRouter([
@@ -24,6 +25,10 @@ export default function App() {
           path: "About",
           element: <About />,
         },
+        {
+          path: "*",
+          element: <BrokenURLPage />
+        }
       ],
     },
   ]);
