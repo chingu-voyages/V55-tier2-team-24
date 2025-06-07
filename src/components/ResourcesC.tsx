@@ -1,6 +1,7 @@
 import { useStoreContext } from "../context/StoreContext";
 import { FALLBACK_TAGS } from "../helpers/fallbackData";
 import NotFound from "./NotFound";
+import EmptySearchPage from "./EmptySearchPage";
 
 export default function ResourcesC() {
   const { store } = useStoreContext();
@@ -8,7 +9,7 @@ export default function ResourcesC() {
   if (filteredResources.length === store.resources.length) {
     return (
       <div className="bg-white h-full w-full">
-        <h1>Search</h1>
+        <EmptySearchPage />
       </div>
     );
   }
