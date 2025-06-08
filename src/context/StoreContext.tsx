@@ -18,6 +18,7 @@ export const storeContext = createContext<StoreContext>({
     authors: [],
     resourcesType: [],
     queryHistory: [],
+    sortedValue: "",
   },
   clearFilterResources: () => undefined,
   searchResources: () => undefined,
@@ -31,6 +32,7 @@ export const storeContext = createContext<StoreContext>({
   placeholder: "",
   updatePlaceholder: () => undefined,
   updateFilteredResources: () => undefined,
+  updateSortedValue: () => undefined,
 });
 
 export default function StoreContextProvider({
@@ -47,6 +49,7 @@ export default function StoreContextProvider({
     authors: [],
     resourcesType: [],
     queryHistory: [],
+    sortedValue: "newest",
   });
 
   const [placeholder, setPlaceHolder] = useState(
@@ -105,7 +108,6 @@ export default function StoreContextProvider({
     expandedWords.forEach((word) => {
       const matches = fuse.search(word);
       matches.forEach((match) => {
-        //add score to results to show most relevant results?
         uniqueResultsMatched.add(match.item);
       });
     });
@@ -129,7 +131,17 @@ export default function StoreContextProvider({
       return matchesTags && matchesAuthor && matchResourceType;
     });
 
-    setStore((prev) => ({ ...prev, filteredResources: results }));
+    const sorted = results.sort((a, b) => {
+      const aDate = new Date(a.createdAt).getTime();
+      const bDate = new Date(b.createdAt).getTime();
+      return bDate - aDate;
+    });
+
+    setStore((prev) => ({
+      ...prev,
+      filteredResources: sorted,
+      sortedValue: "newest",
+    }));
   }
 
   function searchResources(query: string) {
@@ -213,6 +225,10 @@ export default function StoreContextProvider({
     setStore((prev) => ({ ...prev, filteredResources: sortedResources }));
   }
 
+  function updateSortedValue(newValue: string) {
+    setStore((prev) => ({ ...prev, sortedValue: newValue }));
+  }
+
   useEffect(() => {
     const today = new Date().toLocaleDateString();
     if (store.resources.length === 0 || today !== store.lastUpdate) {
@@ -253,6 +269,7 @@ export default function StoreContextProvider({
         placeholder,
         updatePlaceholder,
         updateFilteredResources,
+        updateSortedValue,
       }}
     >
       {children}

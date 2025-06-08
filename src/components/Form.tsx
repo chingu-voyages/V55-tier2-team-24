@@ -14,12 +14,8 @@ export default function Form() {
   }
 
   return (
-    <section>
-      <form
-        role="search"
-        onSubmit={handleSubmit}
-        className="w-80 h-72 bg-white"
-      >
+    <section className="w-full">
+      <form role="search" onSubmit={handleSubmit} className="w-full bg-white">
         <div>
           <div className="flex items-center gap-1 mb-7">
             <span className=" pt-0.5 mt-3.5 pl-3">

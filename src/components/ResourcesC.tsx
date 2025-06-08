@@ -6,6 +6,8 @@ import { IoPersonOutline } from "react-icons/io5";
 import { RiArticleLine } from "react-icons/ri";
 import { IoIosStarOutline } from "react-icons/io";
 import { useState } from "react";
+import SortBy from "./SortBy";
+import { formatDate } from "../helpers/formatDate";
 
 export default function ResourcesC() {
   const [favorite, setFavorite] = useState(new Set());
@@ -40,65 +42,72 @@ export default function ResourcesC() {
     );
   } else {
     return (
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-6 p-5">
-        {filteredResources.map((resource) => (
-          <div
-            key={resource.id}
-            className="w-full max-w-md mx-auto bg-[#E5E7Eb] rounded-lg p-6"
-          >
-            <div className="flex justify-end">
-              <IoIosStarOutline
-                onClick={() => toggleStar(resource.id)}
-                className={`text-2xl cursor-pointer ${
-                  favorite.has(resource.id)
-                    ? "text-yellow-500"
-                    : "text-gray-400"
-                }`}
-              />
-            </div>
-            <div className="text-xl md:text-2xl underline underline-offset-4 mb-5 break-words">
-              {resource.name}
-            </div>
-            <div className="w-full break-words">
-              <a href={resource.url} className="text-blue-900 break-all">
-                {resource.url}{" "}
-              </a>
-            </div>
-            <div className="flex flex-wrap items-center justify-between gap-2 pt-4 text-gray-600 text-sm md:text-base">
-              <div className="flex items-center gap-1">
-                <IoPersonOutline />
-                <h4 className="text-sm md:text-base">
-                  {resource.author === "jdmedlock"
-                    ? "Jim"
-                    : resource.author === "andresc1310"
-                    ? "Andres"
-                    : resource.author}
-                </h4>
+      <>
+        {" "}
+        <SortBy />
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-6 p-5">
+          {filteredResources.map((resource) => (
+            <div
+              key={resource.id}
+              className="w-full max-w-md mx-auto bg-[#E5E7Eb] rounded-lg p-6"
+            >
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-500">
+                  {formatDate(resource.createdAt)}
+                </span>
+                <IoIosStarOutline
+                  onClick={() => toggleStar(resource.id)}
+                  className={`text-2xl cursor-pointer ${
+                    favorite.has(resource.id)
+                      ? "text-yellow-500"
+                      : "text-gray-400"
+                  }`}
+                />
               </div>
-              <div className="flex items-center gap-1">
-                <RiArticleLine />
+              <div className="text-xl md:text-2xl underline underline-offset-4 mb-5 break-words">
+                {resource.name}
+              </div>
+              <div className="w-full break-words">
+                <a href={resource.url} className="text-blue-900 break-all">
+                  {resource.url}{" "}
+                </a>
+              </div>
+              <div className="flex flex-wrap items-center justify-between gap-2 pt-4 text-gray-600 text-sm md:text-base">
+                <div className="flex items-center gap-1">
+                  <IoPersonOutline />
+                  <h4 className="text-sm md:text-base">
+                    {resource.author === "jdmedlock"
+                      ? "Jim"
+                      : resource.author === "andresc1310"
+                      ? "Andres"
+                      : resource.author}
+                  </h4>
+                </div>
+                <div className="flex items-center gap-1">
+                  <RiArticleLine />
 
-                <h4>{resource.resourceType}</h4>
+                  <h4>{resource.resourceType}</h4>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2 mt-4 text-gray-400">
+                {resource.appliedTags.map((tagId) => {
+                  const tagName = FALLBACK_TAGS.find(
+                    (tag) => tag.id === tagId
+                  )?.tag;
+                  return (
+                    <div
+                      className="bg-[#E5E7Eb] border px-3 py-1 rounded text-center bg-gray-50 mt-5 shadow-sm"
+                      key={tagId}
+                    >
+                      {tagName}
+                    </div>
+                  );
+                })}
               </div>
             </div>
-            <div className="flex flex-wrap gap-2 mt-4 text-gray-400">
-              {resource.appliedTags.map((tagId) => {
-                const tagName = FALLBACK_TAGS.find(
-                  (tag) => tag.id === tagId
-                )?.tag;
-                return (
-                  <div
-                    className="bg-[#E5E7Eb] border px-3 py-1 rounded text-center bg-gray-50 mt-5 shadow-sm"
-                    key={tagId}
-                  >
-                    {tagName}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-      </section>
+          ))}
+        </section>
+      </>
     );
   }
 }
