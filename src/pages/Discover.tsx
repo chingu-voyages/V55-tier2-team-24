@@ -8,7 +8,7 @@ import TagsContainer from "../components/TagsContainer";
 export default function Discover() {
   return (
     <main>
-      <div className="flex flex-1">
+      <div className="flex flex-col w-full md:flex-row mr-10">
         <aside className="w-96 px-4 py-6 border-gray-200 z-10">
           <Form />
           <TagsContainer />

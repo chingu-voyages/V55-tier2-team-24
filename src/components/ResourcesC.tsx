@@ -2,9 +2,28 @@ import { useStoreContext } from "../context/StoreContext";
 import { FALLBACK_TAGS } from "../helpers/fallbackData";
 import NotFound from "./NotFound";
 import EmptySearchPage from "./EmptySearchPage";
+import { IoPersonOutline } from "react-icons/io5";
+import { RiArticleLine } from "react-icons/ri";
+import { IoIosStarOutline } from "react-icons/io";
+import { useState } from "react";
 
 export default function ResourcesC() {
+  const [favorite, setFavorite] = useState(new Set());
+
   const { store } = useStoreContext();
+
+  const toggleStar = (id: string | number) => {
+  setFavorite(prev => {
+    const newSet = new Set(prev);
+    if (newSet.has(id)) {
+      newSet.delete(id);
+    } else {
+      newSet.add(id);
+    }
+    return newSet;
+  });
+};
+
   const filteredResources = store.filteredResources;
   if (filteredResources.length === store.resources.length) {
     return (
@@ -21,37 +40,52 @@ export default function ResourcesC() {
     );
   } else {
     return (
-      <section className="bg-white w-[100%]">
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-6 p-5">
+        
         {filteredResources.map((resource) => (
-          <div key={resource.id} className="m-8 bg-amber-100">
-            <div>{resource.name}</div>
-            <h4>
+          <div key={resource.id} 
+              className="w-full max-w-md mx-auto bg-[#E5E7Eb] rounded-lg p-6">
+            <div className="flex justify-end">
+           <IoIosStarOutline 
+           onClick={()=> toggleStar(resource.id)}
+           className={`text-2xl cursor-pointer ${favorite.has(resource.id) ? "text-yellow-500" : "text-gray-400"}`}/>
+           </div>
+            <div className="text-xl md:text-2xl underline underline-offset-4 mb-5 break-words">{resource.name}</div>
+            <div className="w-full break-words">
+            <a href={resource.url} className="text-blue-900 break-all">
+              {resource.url}{" "}
+            </a>
+            </div>
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-4 text-gray-600 text-sm md:text-base">
+              <div className="flex items-center gap-1">
+            <IoPersonOutline/>
+            <h4 className="text-sm md:text-base">
               {resource.author === "jdmedlock"
                 ? "Jim"
                 : resource.author === "andresc1310"
                 ? "Andres"
                 : resource.author}
             </h4>
+            </div>
+            <div className="flex items-center gap-1">
+             <RiArticleLine/>
+         
             <h4>{resource.resourceType}</h4>
-            <a href={resource.url} className="text-blue-900">
-              {resource.url}{" "}
-            </a>
-
-            <div className="flex gap-1.5">
+            </div>
+            </div>
+            <div className="flex flex-wrap gap-2 mt-4 text-gray-400">
               {resource.appliedTags.map((tagId) => {
                 const tagName = FALLBACK_TAGS.find(
                   (tag) => tag.id === tagId
                 )?.tag;
                 return (
-                  <div className="bg-amber-400 w-20 " key={tagId}>
+                  <div className="bg-[#E5E7Eb] border px-3 py-1 rounded text-center bg-gray-50 mt-5 shadow-sm" key={tagId}>
                     {tagName}
                   </div>
                 );
               })}
             </div>
-            <button className="bg-red-600 w-40 hover:scale-105">
-              Save to favorites
-            </button>
+            
           </div>
         ))}
       </section>
