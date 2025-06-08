@@ -41,14 +41,19 @@ export default function SearchInput() {
       autoHighlight
       options={optionsWithClear}
       renderOption={(props, option) => {
+        const { key, ...rest } = props;
         if (option === "Clear History") {
           return (
-            <li {...props} style={{ color: "blue" }}>
+            <li key={key} {...rest} style={{ color: "blue" }}>
               Clear Search History
             </li>
           );
         }
-        return <li {...props}>{option}</li>;
+        return (
+          <li key={key} {...rest}>
+            {option}
+          </li>
+        );
       }}
       inputValue={store.query}
       onInputChange={handleSearchQueryChange}
@@ -63,7 +68,7 @@ export default function SearchInput() {
             ...params.InputProps,
 
             endAdornment: (
-              <>
+              <div className="absolute right-2">
                 {store.query ? (
                   <IconButton
                     onClick={() => {
@@ -79,7 +84,7 @@ export default function SearchInput() {
                     <MdSearch />
                   </IconButton>
                 )}
-              </>
+              </div>
             ),
           }}
         />

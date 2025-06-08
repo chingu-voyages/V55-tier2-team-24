@@ -2,6 +2,7 @@ import { useStoreContext } from "../context/StoreContext";
 import { FALLBACK_TAGS } from "../helpers/fallbackData";
 import NotFound from "./NotFound";
 import EmptySearchPage from "./EmptySearchPage";
+import SortByDate from "./SortByDate";
 
 export default function ResourcesC() {
   const { store } = useStoreContext();
@@ -22,6 +23,7 @@ export default function ResourcesC() {
   } else {
     return (
       <section className="bg-white w-[100%]">
+        <SortByDate />
         {filteredResources.map((resource) => (
           <div key={resource.id} className="m-8 bg-amber-100">
             <div>{resource.name}</div>

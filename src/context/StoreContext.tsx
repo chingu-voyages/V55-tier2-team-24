@@ -30,6 +30,7 @@ export const storeContext = createContext<StoreContext>({
   clearQueryHistory: () => undefined,
   placeholder: "",
   updatePlaceholder: () => undefined,
+  updateFilteredResources: () => undefined,
 });
 
 export default function StoreContextProvider({
@@ -208,6 +209,9 @@ export default function StoreContextProvider({
 
     combineFilters(store.query, clearedTags, [], []);
   }
+  function updateFilteredResources(sortedResources: Resources[]) {
+    setStore((prev) => ({ ...prev, filteredResources: sortedResources }));
+  }
 
   useEffect(() => {
     const today = new Date().toLocaleDateString();
@@ -248,6 +252,7 @@ export default function StoreContextProvider({
         clearQueryHistory,
         placeholder,
         updatePlaceholder,
+        updateFilteredResources,
       }}
     >
       {children}

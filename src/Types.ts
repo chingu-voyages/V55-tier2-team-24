@@ -38,4 +38,5 @@ export interface StoreContext {
   clearQueryHistory: () => void;
   placeholder: string;
   updatePlaceholder: () => void;
+  updateFilteredResources: (resources: Resources[]) => void;
 }

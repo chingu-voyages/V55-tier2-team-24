@@ -6,3 +6,10 @@ export const searchPlaceHolders = [
   "Search for a topic, like CSS",
   "Looking for something specific?",
 ];
+
+///What to expect from Chingu
+///How to get hired without a CS degree
+///How to use Git in a team
+///Working with designers
+///AI engineer roadmap
+///Why daily standups matter
