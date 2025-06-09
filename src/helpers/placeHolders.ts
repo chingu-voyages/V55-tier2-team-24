@@ -1,15 +1,8 @@
 export const searchPlaceHolders = [
-  "Ready to search! 😊",
-  "Type a keyword, like Javascript",
-  "Type a skill, like React",
-  "What do you want to learn today?",
-  "Search for a topic, like CSS",
-  "Looking for something specific?",
+  "Search for how to build a portfolio",
+  "What is a Chingu voyage",
+  "Search for how to use Git on a team",
+  "Try how to become a 10x developer",
+  "Search for frontend interview tips",
+  "How to get hired without a cs degree",
 ];
-
-///What to expect from Chingu
-///How to get hired without a CS degree
-///How to use Git in a team
-///Working with designers
-///AI engineer roadmap
-///Why daily standups matter
