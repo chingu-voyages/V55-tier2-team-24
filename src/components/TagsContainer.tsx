@@ -41,14 +41,14 @@ export default function TagsContainer() {
     <>
       <div className="flex flex-col">
         <h4 className="mb-2">Tags</h4>
-        <section className="flex flex-wrap gap-2">
+        <section className="flex flex-wrap gap-2 w-full max-width-full">
           {store.tags.map((tag) => {
             if (tagsToDisplay.includes(tag.tag.toLocaleLowerCase())) {
               return (
                 <button
                   onClick={() => handleTagClick(tag)}
                   key={tag.id}
-                  className={` m-1 hover:scale-105  p-1 rounded-sm flex items-center gap-0.5 ${
+                  className={`p-1 text-sm flex items-center m-1 hover:scale-105 rounded-sm whitespace-nowrap gap-0.5 ${
                     tag.selected === true
                       ? "bg-cyan-500 text-black"
                       : "bg-gray-200"
