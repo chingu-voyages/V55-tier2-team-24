@@ -18,7 +18,7 @@ export default function Footer() {
     },
     {
       avatar:
-        "https://media.licdn.com/dms/image/v2/D5635AQE5aJZSGcp1rA/profile-framedphoto-shrink_800_800/B56ZV5YWcEGsAo-/0/1741498181741?e=1749254400&v=beta&t=mZcBL8iolShHVdAgeikHEmE5GMuw7_1CYSkMnYjckDg",
+        "https://media.licdn.com/dms/image/v2/D5635AQE5aJZSGcp1rA/profile-framedphoto-shrink_800_800/B56ZV5YWcEGsAo-/0/1741498181741?e=1750104000&v=beta&t=J1L3t0YMElSCz8Bul5uYrDk3CGGPvMohvbYZlRLv6Cg",
       name: "Jennie Glass",
       role: "UI/UX",
       link: "https://www.linkedin.com/in/jennie-glass-design/",
@@ -32,7 +32,7 @@ export default function Footer() {
     },
     {
       avatar:
-        "https://media.licdn.com/dms/image/v2/D4D35AQEi-Rs75YpsCA/profile-framedphoto-shrink_800_800/profile-framedphoto-shrink_800_800/0/1690907819752?e=1749254400&v=beta&t=UoarTrzht2Qskahe35q4eYxIcO47i97jm3E27Jlfpz8",
+        "https://media.licdn.com/dms/image/v2/D4D35AQEi-Rs75YpsCA/profile-framedphoto-shrink_800_800/profile-framedphoto-shrink_800_800/0/1690907819752?e=1750104000&v=beta&t=VWEc7f94hVzK1RIQC_p7zU78KYqjBapQp3AHyYctTzk",
       name: "Maria Nathalie Chejin",
       role: "Shadow Scrum Master",
       link: "https://www.linkedin.com/in/marianathaliechejin/",
