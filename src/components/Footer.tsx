@@ -64,7 +64,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="flex items-center justify-between text-sm px-8 md:px-4 py-3 w-full h-20 border-1 border-[#E5E7EB] bg-[#F9FAFB] text-gray-800">
+    <footer className="flex items-center justify-between text-sm px-8 md:px-4 py-3 w-full h-20 border-1 border-[#E5E7EB] bg-[#F9FAFB] text-gray-800 z-50">
       <section>
         <a
           className="flex items-center gap-2 hover:underline underline-offset-2"
