@@ -27,13 +27,31 @@ export default function Header() {
           DevVault
         </NavLink>
         <div className="hidden md:flex items-center gap-10 text-gray-800">
-          <NavLink to={"/"} className="hover:text-gray-600">
+          <NavLink to={"/"} 
+            className={({ isActive }) =>
+              isActive
+                ? "px-3 py-2 rounded-md hover:bg-gray-200 text-[#41A3C9]"
+                : "px-3 py-2 rounded-md text-gray-700 hover:bg-gray-200"
+            }
+          >
             Home
           </NavLink>
-          <NavLink to={"/Discover"} className="hover:text-gray-600">
+          <NavLink to={"/Discover"} 
+            className={({ isActive }) =>
+              isActive
+                ? "px-3 py-2 rounded-md hover:bg-gray-200 text-[#41A3C9]"
+                : "px-3 py-2 rounded-md text-gray-700 hover:bg-gray-200"
+            }
+          >
             Discover
           </NavLink>
-          <NavLink to={"/About"} className="hover:text-gray-600">
+          <NavLink to={"/About"} 
+            className={({ isActive }) =>
+              isActive
+                ? "px-3 py-2 rounded-md hover:bg-gray-200 text-[#41A3C9]"
+                : "px-3 py-2 rounded-md text-gray-700 hover:bg-gray-200"
+            }
+          >
             About
           </NavLink>
         </div>
@@ -57,24 +75,36 @@ export default function Header() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden fixed top-20 left-0 w-full bg-[#F9FAFB] shadow-md">
-            <div className="flex flex-col p-4 space-y-4 text-[#41A3C9]">
+            <div className="flex flex-col p-4 space-y-4">
               <NavLink
                 to={"/"}
-                className="border-b border-[#E5E7EB] px-2 py-2"
+                className={({ isActive }) =>
+                  isActive
+                    ? "border-b border-[#E5E7EB] px-2 py-2 text-[#41A3C9]"
+                    : "border-b border-[#E5E7EB] px-2 py-2 text-gray-700"
+                }
                 onClick={() => setIsMenuOpen(false)}
               >
                 Home
               </NavLink>
               <NavLink
                 to={"/Discover"}
-                className="border-b border-[#E5E7EB] px-2 py-2"
+                className={({ isActive }) =>
+                  isActive
+                    ? "border-b border-[#E5E7EB] px-2 py-2 text-[#41A3C9]"
+                    : "border-b border-[#E5E7EB] px-2 py-2 text-gray-700"
+                }
                 onClick={() => setIsMenuOpen(false)}
               >
                 Discover
               </NavLink>
               <NavLink
                 to={"/About"}
-                className="border-b border-[#E5E7EB] px-2 py-2"
+                className={({ isActive }) =>
+                  isActive
+                    ? "border-b border-[#E5E7EB] px-2 py-2 text-[#41A3C9]"
+                    : "border-b border-[#E5E7EB] px-2 py-2 text-gray-700"
+                }
                 onClick={() => setIsMenuOpen(false)}
               >
                 About
