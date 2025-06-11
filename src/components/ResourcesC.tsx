@@ -4,27 +4,11 @@ import NotFound from "./NotFound";
 import EmptySearchPage from "./EmptySearchPage";
 import { IoPersonOutline } from "react-icons/io5";
 import { RiArticleLine } from "react-icons/ri";
-import { IoIosStarOutline } from "react-icons/io";
-import { useState } from "react";
 import SortBy from "./SortBy";
 import { formatDate } from "../helpers/formatDate";
 
 export default function ResourcesC() {
-  const [favorite, setFavorite] = useState(new Set());
-
   const { store } = useStoreContext();
-
-  const toggleStar = (id: string | number) => {
-    setFavorite((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
-      return newSet;
-    });
-  };
 
   const filteredResources = store.filteredResources;
   if (filteredResources.length === store.resources.length) {
@@ -55,14 +39,7 @@ export default function ResourcesC() {
                 <span className="text-sm text-gray-500">
                   {formatDate(resource.createdAt)}
                 </span>
-                <IoIosStarOutline
-                  onClick={() => toggleStar(resource.id)}
-                  className={`text-2xl cursor-pointer ${
-                    favorite.has(resource.id)
-                      ? "text-yellow-500"
-                      : "text-gray-400"
-                  }`}
-                />
+                
               </div>
               <div className="text-xl md:text-2xl underline underline-offset-4 mb-5 break-words">
                 {resource.name}
@@ -96,7 +73,7 @@ export default function ResourcesC() {
                   )?.tag;
                   return (
                     <div
-                      className="bg-[#E5E7Eb] border px-3 py-1 rounded text-center bg-gray-50 mt-5 shadow-sm"
+                      className="border px-3 py-1 rounded text-center bg-gray-50 mt-5 shadow-sm"
                       key={tagId}
                     >
                       {tagName}
