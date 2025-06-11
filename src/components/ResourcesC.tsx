@@ -16,6 +16,18 @@ export default function ResourcesC() {
   const itemsPerPage = 8;
 
   const { store } = useStoreContext();
+  
+  const toggleStar = (id: string | number) => {
+    setFavorite((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
+  };
 
   const filteredResources = store.filteredResources;
   useEffect(() => {
@@ -59,7 +71,14 @@ export default function ResourcesC() {
                 <span className="text-sm text-gray-500">
                   {formatDate(resource.createdAt)}
                 </span>
-                
+                <IoIosStarOutline
+                  onClick={() => toggleStar(resource.id)}
+                  className={`text-2xl cursor-pointer ${
+                    favorite.has(resource.id)
+                      ? "text-yellow-500"
+                      : "text-gray-400"
+                  }`}
+                />
               </div>
               <div className="text-xl md:text-2xl underline underline-offset-4 mb-5 break-words">
                 {resource.name}
