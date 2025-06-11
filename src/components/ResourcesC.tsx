@@ -16,7 +16,7 @@ export default function ResourcesC() {
   const itemsPerPage = 8;
 
   const { store } = useStoreContext();
-
+  
   const toggleStar = (id: string | number) => {
     setFavorite((prev) => {
       const newSet = new Set(prev);
@@ -112,7 +112,7 @@ export default function ResourcesC() {
                   )?.tag;
                   return (
                     <div
-                      className="bg-[#E5E7Eb] border px-3 py-1 rounded text-center bg-gray-50 mt-5 shadow-sm"
+                      className="border px-3 py-1 rounded text-center bg-gray-50 mt-5 shadow-sm"
                       key={tagId}
                     >
                       {tagName}

@@ -59,7 +59,7 @@ export default function Header() {
           <span className="text-sm">{currentDate}</span>
           <LoginButton />
         </div>
-
+        
         {/* Menu Button */}
         <button
           className="md:hidden text-gray-600"
