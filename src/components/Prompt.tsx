@@ -1,5 +1,6 @@
 import { useState, type FormEvent, useRef, useEffect } from 'react'
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import ReactMarkdown from 'react-markdown';
 
 interface Message {
     role: "user" | "ai";
@@ -31,6 +32,7 @@ export default function Prompt() {
         - Use plain language but don’t shy away from giving real coding tips.
         - If appropriate, toss in a light joke or subtle developer pun.
         - Keep responses concise, practical, and human — no over-the-top theatrics.
+        - Insert line breaks between ideas. Use bullet points when providing lists. Use bold to emphaisze ideas. 
         - Sometimes end with a short phrase like "Steady as she goes." or "Let’s chart the next course." but don't repeat the same phrase every time.
     `;
     
@@ -93,13 +95,17 @@ export default function Prompt() {
             {messages.map((msg, idx) => (
               <div
                 key={idx}
-                className={`max-w-[80%] px-4 py-2 rounded-lg ${
-                  msg.role === "user"
-                    ? "ml-auto bg-blue-500 text-white text-right"
-                    : "mr-auto bg-gray-300 text-gray-800 text-left"
-                }`}
+                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
-                {msg.text}
+                <div
+                  className={`max-w-[75%] px-4 py-2 rounded-lg ${
+                    msg.role === "user"
+                      ? "bg-[#41A3C9] text-white text-right"
+                      : "bg-gray-300 text-gray-800 text-left"
+                  }`}
+                >
+                  <ReactMarkdown>{msg.text}</ReactMarkdown>
+                </div>
               </div>
             ))}
           </div>
@@ -112,7 +118,7 @@ export default function Prompt() {
                   key={i}
                   type="button"
                   onClick={() => handleSuggestionClick(s)}
-                  className="bg-blue-200 hover:bg-blue-300 px-3 py-1 rounded-full text-sm text-gray-800"
+                  className="bg-[#41A3C9] hover:bg-blue-300 px-3 py-1 rounded-full text-sm text-white"
                 >
                   {s}
                 </button>
@@ -120,16 +126,20 @@ export default function Prompt() {
             </div>
 
             <form ref={formRef} id="ai-form" onSubmit={handleSubmit} className="flex gap-2">
-              <input
+              <textarea
                 name="aiPrompt"
                 value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Ask a question..."
-                className="flex-grow px-4 py-2 rounded-md border border-gray-300"
+                onChange={(e) => {
+                  setInputValue(e.target.value);
+                  e.target.style.height = "auto"; 
+                  e.target.style.height = `${e.target.scrollHeight}px`;
+                }}
+                placeholder="Ask Devy Jones something..."
+                className="w-full resize-none overflow-hidden rounded-md border border-gray-300 p-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
               />
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                className="bg-[#2A598F] text-white px-4 py-2 rounded-md hover:bg-blue-600"
               >
                 Send
               </button>
