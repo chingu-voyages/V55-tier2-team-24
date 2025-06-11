@@ -5,24 +5,14 @@ import EmptySearchPage from "./EmptySearchPage";
 import { IoPersonOutline } from "react-icons/io5";
 import { RiArticleLine } from "react-icons/ri";
 import { IoIosStarOutline } from "react-icons/io";
-import { useState } from "react";
+
 
 export default function ResourcesC() {
-  const [favorite, setFavorite] = useState(new Set());
+ 
 
   const { store } = useStoreContext();
 
-  const toggleStar = (id: string | number) => {
-  setFavorite(prev => {
-    const newSet = new Set(prev);
-    if (newSet.has(id)) {
-      newSet.delete(id);
-    } else {
-      newSet.add(id);
-    }
-    return newSet;
-  });
-};
+ 
 
   const filteredResources = store.filteredResources;
   if (filteredResources.length === store.resources.length) {
@@ -45,11 +35,7 @@ export default function ResourcesC() {
         {filteredResources.map((resource) => (
           <div key={resource.id} 
               className="w-full max-w-md mx-auto bg-[#E5E7Eb] rounded-lg p-6">
-            <div className="flex justify-end">
-           <IoIosStarOutline 
-           onClick={()=> toggleStar(resource.id)}
-           className={`text-2xl cursor-pointer ${favorite.has(resource.id) ? "text-yellow-500" : "text-gray-400"}`}/>
-           </div>
+           
             <div className="text-xl md:text-2xl underline underline-offset-4 mb-5 break-words">{resource.name}</div>
             <div className="w-full break-words">
             <a href={resource.url} className="text-blue-900 break-all">
