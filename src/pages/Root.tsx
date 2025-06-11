@@ -22,7 +22,7 @@ export default function RootLayout() {
       </main>
 
       {/* Chatbot container aligned to bottom right of the full layout */}
-      <div className="w-full flex justify-end px-6 pb-6">
+      <div className="w-full flex justify-end p-6">
         <ChatBotContainer />
       </div>
       <Footer />
