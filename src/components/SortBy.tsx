@@ -50,7 +50,7 @@ export default function SortBy() {
   return (
     <section className="flex w-full gap-3  items-center p-5 h-11">
       <div className="flex w-1/2 gap-3 justify-start items-center h-11">
-        <h4>{`Showing ${numberOfResults} results`}</h4>
+        <h4>{`${numberOfResults} total results`}</h4>
       </div>
       <div className="flex w-1/2 gap-3 justify-end items-center p-5 h-11">
         <h4 className="w-fit">Sort by</h4>
