@@ -11,37 +11,26 @@ import { formatDate } from "../helpers/formatDate";
 import Pagination from "./Paginate";
 
 export default function ResourcesC() {
-  const [favorite, setFavorite] = useState(new Set());
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 8;
 
-  const { store } = useStoreContext();
-  
-  const toggleStar = (id: string | number) => {
-    setFavorite((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
-      return newSet;
-    });
-  };
+  const { store, updateFavorites } = useStoreContext();
 
   const filteredResources = store.filteredResources;
   useEffect(() => {
     setCurrentPage(0);
   }, [store.filteredResources]);
-  // Used to calclate the starting index of the items to display
+  // Used to calculate the starting index of the items to display
   const offset = currentPage * itemsPerPage;
-  const paginatedResources = filteredResources.slice(offset, offset + itemsPerPage);
+  const paginatedResources = filteredResources.slice(
+    offset,
+    offset + itemsPerPage
+  );
   const pageCount = Math.ceil(filteredResources.length / itemsPerPage);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected);
   };
-  
 
   if (filteredResources.length === store.resources.length) {
     return (
@@ -68,13 +57,14 @@ export default function ResourcesC() {
               className="w-full max-w-md mx-auto bg-[#E5E7Eb] rounded-lg p-6"
             >
               <div className="flex justify-between items-center">
+                {resource.isFavorite}
                 <span className="text-sm text-gray-500">
                   {formatDate(resource.createdAt)}
                 </span>
                 <IoIosStarOutline
-                  onClick={() => toggleStar(resource.id)}
+                  onClick={() => updateFavorites(resource.id)}
                   className={`text-2xl cursor-pointer ${
-                    favorite.has(resource.id)
+                    resource.isFavorite === true
                       ? "text-yellow-500"
                       : "text-gray-400"
                   }`}
@@ -130,7 +120,7 @@ export default function ResourcesC() {
               currentPage={currentPage}
               onPageChange={handlePageChange}
             />
-        </div>
+          </div>
         )}
         <p className="w-full text-center text-sm text-gray-500 mt-2">
           Page {currentPage + 1} of {pageCount}

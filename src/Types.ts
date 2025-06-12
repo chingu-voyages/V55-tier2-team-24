@@ -12,6 +12,7 @@ export interface Resources {
   createdAt: string;
   id: string;
   resourceType: string;
+  isFavorite: boolean;
 }
 
 export interface Store {
@@ -41,4 +42,5 @@ export interface StoreContext {
   updatePlaceholder: () => void;
   updateFilteredResources: (resources: Resources[]) => void;
   updateSortedValue: (newValue: string) => void;
+  updateFavorites: (favoriteToRemove: string) => void;
 }

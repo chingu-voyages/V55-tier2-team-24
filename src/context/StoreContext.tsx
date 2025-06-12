@@ -33,6 +33,7 @@ export const storeContext = createContext<StoreContext>({
   updatePlaceholder: () => undefined,
   updateFilteredResources: () => undefined,
   updateSortedValue: () => undefined,
+  updateFavorites: () => undefined,
 });
 
 export default function StoreContextProvider({
@@ -229,6 +230,29 @@ export default function StoreContextProvider({
     setStore((prev) => ({ ...prev, sortedValue: newValue }));
   }
 
+  function updateFavorites(favoriteResourceId: string) {
+    const updatedResources = store.resources.map((resource) => {
+      if (resource.id === favoriteResourceId) {
+        return { ...resource, isFavorite: !resource.isFavorite };
+      } else {
+        return resource;
+      }
+    });
+
+    const updatedFilterResources = store.filteredResources.map((resource) => {
+      if (resource.id === favoriteResourceId) {
+        return { ...resource, isFavorite: !resource.isFavorite };
+      } else {
+        return resource;
+      }
+    });
+    setStore((prev) => ({
+      ...prev,
+      resources: updatedResources,
+      filteredResources: updatedFilterResources,
+    }));
+  }
+
   useEffect(() => {
     const today = new Date().toLocaleDateString();
     if (store.resources.length === 0 || today !== store.lastUpdate) {
@@ -270,6 +294,7 @@ export default function StoreContextProvider({
         updatePlaceholder,
         updateFilteredResources,
         updateSortedValue,
+        updateFavorites,
       }}
     >
       {children}
