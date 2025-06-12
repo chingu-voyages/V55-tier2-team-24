@@ -39,7 +39,6 @@ export interface StoreContext {
   saveToQueryHistory: (query: string) => void;
   clearQueryHistory: () => void;
   placeholder: string;
-  updatePlaceholder: () => void;
   updateFilteredResources: (resources: Resources[]) => void;
   updateSortedValue: (newValue: string) => void;
   updateFavorites: (favoriteToRemove: string) => void;
