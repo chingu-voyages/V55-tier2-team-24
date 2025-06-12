@@ -7,6 +7,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-01T17:20:31.541Z",
     id: "1378785297604542584",
     resourceType: "video",
+    isFavorite: false,
   },
   {
     author: "ivanrebolledo",
@@ -16,6 +17,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-31T15:03:46.394Z",
     id: "1378388494858195055",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "ivanrebolledo",
@@ -25,6 +27,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-31T14:57:09.738Z",
     id: "1378386831162347570",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -34,6 +37,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-31T11:59:56.887Z",
     id: "1378342233752731798",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -43,6 +47,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-31T11:56:19.851Z",
     id: "1378341323438030939",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "ivanrebolledo",
@@ -52,6 +57,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-30T19:09:07.027Z",
     id: "1378087849802334228",
     resourceType: "video",
+    isFavorite: false,
   },
   {
     author: "ivanrebolledo",
@@ -61,6 +67,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-30T19:01:34.356Z",
     id: "1378085951162683492",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "andresc1310",
@@ -70,6 +77,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-30T12:16:57.659Z",
     id: "1377984127315480657",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "andresc1310",
@@ -79,6 +87,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-30T12:15:59.223Z",
     id: "1377983882217132052",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -88,6 +97,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-29T14:08:49.811Z",
     id: "1377649892255596574",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -97,6 +107,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-28T12:53:57.576Z",
     id: "1377268662590771220",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -106,6 +117,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-28T12:53:00.666Z",
     id: "1377268423893188690",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -115,6 +127,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-28T12:51:11.217Z",
     id: "1377267964830810222",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -124,6 +137,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-28T12:50:01.155Z",
     id: "1377267670969352304",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -133,6 +147,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-28T12:48:49.173Z",
     id: "1377267369054834708",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -142,6 +157,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-26T13:11:12.843Z",
     id: "1376548229084086381",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -151,6 +167,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-26T13:09:55.227Z",
     id: "1376547903539249152",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -160,6 +177,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-26T13:06:55.897Z",
     id: "1376547151374712972",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -169,6 +187,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-25T15:15:20.921Z",
     id: "1376217080721969193",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -178,6 +197,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-25T15:12:41.546Z",
     id: "1376216412254900244",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -187,6 +207,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-25T15:11:28.042Z",
     id: "1376216103956643840",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -196,6 +217,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-25T15:09:33.653Z",
     id: "1376215624174272572",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -205,6 +227,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-24T21:56:52.557Z",
     id: "1375955740501737634",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -214,6 +237,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-22T13:22:15.194Z",
     id: "1375101455723135119",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -223,6 +247,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-21T13:08:36.694Z",
     id: "1374735634819846218",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -232,6 +257,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-20T12:50:53.361Z",
     id: "1374368787012518079",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -241,6 +267,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-20T12:48:40.683Z",
     id: "1374368230520520804",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -250,6 +277,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-20T12:26:28.534Z",
     id: "1374362643082510406",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -259,6 +287,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-20T12:08:36.916Z",
     id: "1374358148390850663",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -268,6 +297,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-17T12:26:25.699Z",
     id: "1373275467594858496",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "msrissaxo",
@@ -281,6 +311,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-17T02:34:23.617Z",
     id: "1373126477184237629",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -290,6 +321,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-16T15:06:24.413Z",
     id: "1372953339653918891",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -299,6 +331,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-16T15:04:36.438Z",
     id: "1372952886774075412",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -308,6 +341,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-15T16:55:35.351Z",
     id: "1372618428413771878",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -317,6 +351,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-15T16:50:03.109Z",
     id: "1372617034889826304",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -326,6 +361,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-14T13:58:25.943Z",
     id: "1372211457579810933",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -335,6 +371,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-13T14:37:42.831Z",
     id: "1371858955218718830",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -344,6 +381,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-13T13:36:01.453Z",
     id: "1371843430514294854",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -353,6 +391,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-13T13:33:47.608Z",
     id: "1371842869127811265",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -362,6 +401,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-13T13:31:52.538Z",
     id: "1371842386489245766",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -371,6 +411,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-12T15:57:38.167Z",
     id: "1371516680450347038",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "andresc1310",
@@ -380,6 +421,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-12T01:00:05.760Z",
     id: "1371290807084253274",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -389,6 +431,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-11T00:59:19.076Z",
     id: "1370928223411765390",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -398,6 +441,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-10T12:55:18.962Z",
     id: "1370746022367596574",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -407,6 +451,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-08T22:49:39.798Z",
     id: "1370170819023605780",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -416,6 +461,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-08T15:32:10.481Z",
     id: "1370060721408311396",
     resourceType: "video",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -425,6 +471,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-07T21:11:15.280Z",
     id: "1369783665814671510",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -434,6 +481,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-07T21:10:02.252Z",
     id: "1369783359512907907",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -443,6 +491,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-07T21:05:01.319Z",
     id: "1369782097308422316",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -452,6 +501,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-07T21:03:21.456Z",
     id: "1369781678452637871",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "timdehof",
@@ -465,6 +515,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-03T04:30:10.935Z",
     id: "1368082186229514370",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "andresc1310",
@@ -474,6 +525,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-05-02T22:07:32.065Z",
     id: "1367985889749241938",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -483,6 +535,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-03-28T13:54:53.564Z",
     id: "1355178337114390700",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "yangshun",
@@ -492,6 +545,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-02T18:00:00.000Z",
     id: "frontend-interview-handbook-2025",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "Interviewing.io",
@@ -501,6 +555,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-02T18:01:00.000Z",
     id: "mock-interviews-2025",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "Josh Comeau",
@@ -510,6 +565,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-02T18:02:00.000Z",
     id: "no-cs-degree-josh-2025",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "roadmap.sh",
@@ -519,6 +575,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-02T18:03:00.000Z",
     id: "roadmap-dev-2025",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "Chingu",
@@ -528,6 +585,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-02T19:00:00.000Z",
     id: "chingu-git-github-team-2025",
     resourceType: "video",
+    isFavorite: false,
   },
   {
     author: "Chingu",
@@ -537,6 +595,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-02T19:01:00.000Z",
     id: "chingu-voyage-overview-2025",
     resourceType: "video",
+    isFavorite: false,
   },
   {
     author: "Chingu",
@@ -546,6 +605,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-02T19:02:00.000Z",
     id: "chingu-teamwork-tips-2025",
     resourceType: "video",
+    isFavorite: false,
   },
   {
     author: "Chingu",
@@ -555,6 +615,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-02T19:03:00.000Z",
     id: "chingu-agile-role-2025",
     resourceType: "video",
+    isFavorite: false,
   },
   {
     author: "Chingu",
@@ -564,6 +625,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-02T19:04:00.000Z",
     id: "chingu-daily-standup-2025",
     resourceType: "video",
+    isFavorite: false,
   },
   {
     author: "Chingu",
@@ -573,6 +635,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-02T20:00:00.000Z",
     id: "chingu-tjh-agile-mba-2025",
     resourceType: "video",
+    isFavorite: false,
   },
   {
     author: "totaltypescript",
@@ -582,6 +645,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-02T22:00:00.000Z",
     id: "new-001",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "totaltypescript",
@@ -591,6 +655,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-02T22:00:00.000Z",
     id: "new-002",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "aihero",
@@ -600,6 +665,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-02T22:00:00.000Z",
     id: "new-003",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "a11y.coffee",
@@ -609,6 +675,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-02T22:00:00.000Z",
     id: "new-004",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "aihero",
@@ -618,6 +685,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-02T22:00:00.000Z",
     id: "new-005",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -627,6 +695,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-07T12:34:15.781Z",
     id: "1380887584439271546",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -636,6 +705,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-07T12:31:57.251Z",
     id: "1380887003402338354",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -645,6 +715,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-06T11:45:56.004Z",
     id: "1380513034027405362",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -654,6 +725,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-06T11:44:48.471Z",
     id: "1380512750773473450",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -667,6 +739,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-06T11:42:17.444Z",
     id: "1380512117320323072",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -676,6 +749,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-05T12:40:56.959Z",
     id: "1380164491370696734",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -685,6 +759,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-05T12:37:22.604Z",
     id: "1380163592300793907",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -694,6 +769,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-04T23:24:37.961Z",
     id: "1379964091728265317",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -703,6 +779,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-04T16:59:52.011Z",
     id: "1379867262235709602",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "jdmedlock",
@@ -712,6 +789,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-04T15:36:01.874Z",
     id: "1379846164312227901",
     resourceType: "article",
+    isFavorite: false,
   },
   {
     author: "Davy Jones",
@@ -721,6 +799,7 @@ export const FALLBACK_RESOURCES = [
     createdAt: "2025-06-07T13:00:00.000Z",
     id: "10x-developer-meme-2025",
     resourceType: "article",
+    isFavorite: false,
   },
 ];
 

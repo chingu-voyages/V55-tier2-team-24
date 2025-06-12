@@ -27,7 +27,8 @@ export default function Header() {
           DevVault
         </NavLink>
         <div className="hidden md:flex items-center gap-10 text-gray-800">
-          <NavLink to={"/"} 
+          <NavLink
+            to={"/"}
             className={({ isActive }) =>
               isActive
                 ? "px-3 py-2 rounded-md hover:bg-gray-200 text-[#41A3C9]"
@@ -36,7 +37,8 @@ export default function Header() {
           >
             Home
           </NavLink>
-          <NavLink to={"/Discover"} 
+          <NavLink
+            to={"/Discover"}
             className={({ isActive }) =>
               isActive
                 ? "px-3 py-2 rounded-md hover:bg-gray-200 text-[#41A3C9]"
@@ -45,21 +47,22 @@ export default function Header() {
           >
             Discover
           </NavLink>
-          <NavLink to={"/About"} 
+          <NavLink
+            to={"/Favorites"}
             className={({ isActive }) =>
               isActive
                 ? "px-3 py-2 rounded-md hover:bg-gray-200 text-[#41A3C9]"
                 : "px-3 py-2 rounded-md text-gray-700 hover:bg-gray-200"
             }
           >
-            About
+            Favorites
           </NavLink>
         </div>
         <div className="hidden md:flex items-center gap-4">
           <span className="text-sm">{currentDate}</span>
           <LoginButton />
         </div>
-        
+
         {/* Menu Button */}
         <button
           className="md:hidden text-gray-600"
@@ -99,7 +102,7 @@ export default function Header() {
                 Discover
               </NavLink>
               <NavLink
-                to={"/About"}
+                to={"/Favorites"}
                 className={({ isActive }) =>
                   isActive
                     ? "border-b border-[#E5E7EB] px-2 py-2 text-[#41A3C9]"
@@ -107,7 +110,7 @@ export default function Header() {
                 }
                 onClick={() => setIsMenuOpen(false)}
               >
-                About
+                Favorites
               </NavLink>
               <div onClick={() => setIsMenuOpen(false)}>
                 <LoginButton />

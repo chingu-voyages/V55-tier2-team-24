@@ -23,9 +23,11 @@ export default async function getDataFromApi(): Promise<
       isValidUrl(resource)
     );
 
+    //change name of this variable since i also adding isFavorite not just type
     const resourcesWithType = validUrlResources.map((resource) => ({
       ...resource,
       resourceType: getResourceType(resource.url),
+      isFavorite: false,
     }));
 
     const uniqueResources = Array.from(
