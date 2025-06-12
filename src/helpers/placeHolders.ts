@@ -5,4 +5,6 @@ export const searchPlaceHolders = [
   "Try how to become a 10x developer",
   "Search for frontend interview tips",
   "How to get hired without a cs degree",
+  "Search for ai roadmap for devs",
+  "Wow to solve TypeScript Errors",
 ];

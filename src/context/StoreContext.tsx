@@ -30,7 +30,6 @@ export const storeContext = createContext<StoreContext>({
   saveToQueryHistory: () => undefined,
   clearQueryHistory: () => undefined,
   placeholder: "",
-  updatePlaceholder: () => undefined,
   updateFilteredResources: () => undefined,
   updateSortedValue: () => undefined,
   updateFavorites: () => undefined,
@@ -56,12 +55,6 @@ export default function StoreContextProvider({
   const [placeholder, setPlaceHolder] = useState(
     searchPlaceHolders[Math.floor(Math.random() * searchPlaceHolders.length)]
   );
-
-  function updatePlaceholder() {
-    setPlaceHolder(
-      searchPlaceHolders[Math.floor(Math.random() * searchPlaceHolders.length)]
-    );
-  }
 
   function saveToQueryHistory(query: string) {
     if (!query.trim()) return;
@@ -275,6 +268,16 @@ export default function StoreContextProvider({
           console.log("error when fetching", error);
         });
     }
+
+    const timeInterval = setInterval(() => {
+      setPlaceHolder(
+        searchPlaceHolders[
+          Math.floor(Math.random() * searchPlaceHolders.length)
+        ]
+      );
+    }, 6000);
+
+    return () => clearInterval(timeInterval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -291,7 +294,6 @@ export default function StoreContextProvider({
         saveToQueryHistory,
         clearQueryHistory,
         placeholder,
-        updatePlaceholder,
         updateFilteredResources,
         updateSortedValue,
         updateFavorites,
