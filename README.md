@@ -12,8 +12,6 @@ Bonus feature? An interactive AI assistant powered by the **Google Gemini API** 
 
 # Features
 
-## Features
-
 - **Searchable Resource Library**
 Find links to helpful articles, videos, and tools focused on software development.,
 
