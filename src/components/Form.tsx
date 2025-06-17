@@ -2,6 +2,7 @@ import { useStoreContext } from "../context/StoreContext";
 import { MdSearch } from "react-icons/md";
 import { FaFilter } from "react-icons/fa6";
 import SearchInput from "./SearchInput";
+import ChinguButton from "./ChinguButton";
 
 export default function Form() {
   const { clearFilterResources, searchResources, store, saveToQueryHistory } =
@@ -41,6 +42,7 @@ export default function Form() {
               <MdSearch className="mr-2 text-xl" /> Search
             </button>
           </div>
+          <ChinguButton />
           <button
             type="button"
             className="text-blue-500 mt-4 underline hover:cursor-pointer"
