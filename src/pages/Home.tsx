@@ -3,14 +3,14 @@ import HomeForm from "../components/HomeForm";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center w-full px-4">
+    <div className="flex flex-col items-center w-full h-[80vh] px-4">
       <div className="flex flex-col items-center mx-auto text-center">
         <img
           width={150}
           height={150}
           src={Logo}
           alt="DevVault Logo"
-          className="mb-6"
+          className="my-6"
         />
         <h1 className="text-4xl md:text-5xl mb-10 text-gray-800">
           Your Unified Gateway to Developer Resources
