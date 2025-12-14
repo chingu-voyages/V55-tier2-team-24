@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { LoginButton } from "./LoginButton";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
@@ -60,7 +59,6 @@ export default function Header() {
         </div>
         <div className="hidden md:flex items-center gap-4">
           <span className="text-sm">{currentDate}</span>
-          <LoginButton />
         </div>
 
         {/* Menu Button */}
@@ -112,9 +110,6 @@ export default function Header() {
               >
                 Favorites
               </NavLink>
-              <div onClick={() => setIsMenuOpen(false)}>
-                <LoginButton />
-              </div>
             </div>
           </div>
         )}
