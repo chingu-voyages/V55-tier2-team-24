@@ -12,6 +12,7 @@ import { FALLBACK_RESOURCES, FALLBACK_TAGS } from "../helpers/fallbackData";
 import Fuse from "fuse.js";
 import { removeStopwords, eng } from "stopword";
 import { expandSearch } from "../helpers/expandSearch";
+import logError from "../helpers/logError";
 
 export const storeContext = createContext<StoreContext>({
   store: {
@@ -118,7 +119,7 @@ export default function StoreContextProvider({
         sortedValue: "newest",
       }));
     },
-    [store.resources]
+    [setStore, store.resources]
   );
 
   const searchResources = useCallback(
@@ -282,7 +283,6 @@ export default function StoreContextProvider({
   useEffect(() => {
     const today = new Date().toLocaleDateString();
     if (store.resources.length === 0 || today !== store.lastUpdate) {
-      console.log("fetching data");
       getDataFromApi()
         .then((data) => {
           if (data) {
@@ -298,7 +298,7 @@ export default function StoreContextProvider({
           }
         })
         .catch((error) => {
-          console.log("error when fetching", error);
+          logError(error);
         });
     }
   }, [setStore, store.lastUpdate, store.resources.length]);
