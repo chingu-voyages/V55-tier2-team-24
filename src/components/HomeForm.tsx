@@ -3,12 +3,14 @@
 import type React from "react";
 
 import { useStoreContext } from "../context/StoreContext";
+import { useQueryHistoryContext } from "../context/QueryHistoryContext";
 import { MdSearch } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import SearchInput from "./SearchInput";
 
 export default function HomeForm() {
-  const { searchResources, store, saveToQueryHistory } = useStoreContext();
+  const { searchResources, store } = useStoreContext();
+  const { saveToQueryHistory } = useQueryHistoryContext();
   const navigate = useNavigate();
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {

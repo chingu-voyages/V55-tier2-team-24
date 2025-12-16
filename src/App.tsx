@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./pages/Root.tsx";
 import Home from "./pages/Home.tsx";
 import StoreContextProvider from "./context/StoreContext.js";
+import QueryHistoryContextProvider from "./context/QueryHistoryContext.tsx";
 import Favorites from "./pages/Favorites.tsx";
 import Discover from "./pages/Discover.tsx";
 import BrokenURLPage from "./components/BrokenURLPage.tsx";
@@ -34,8 +35,10 @@ export default function App() {
   ]);
 
   return (
-    <StoreContextProvider>
-      <RouterProvider router={router} />
-    </StoreContextProvider>
+    <QueryHistoryContextProvider>
+      <StoreContextProvider>
+        <RouterProvider router={router} />
+      </StoreContextProvider>
+    </QueryHistoryContextProvider>
   );
 }

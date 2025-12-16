@@ -1,8 +1,9 @@
 import { useStoreContext } from "../context/StoreContext";
+import { useQueryHistoryContext } from "../context/QueryHistoryContext";
 
 export default function ChinguButton() {
-  const { updateQuery, searchResources, saveToQueryHistory } =
-    useStoreContext();
+  const { updateQuery, searchResources } = useStoreContext();
+  const { saveToQueryHistory } = useQueryHistoryContext();
 
   function handleClick() {
     updateQuery("Chingu Starter Pack");
