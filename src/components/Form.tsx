@@ -1,12 +1,13 @@
 import { useStoreContext } from "../context/StoreContext";
+import { useQueryHistoryContext } from "../context/QueryHistoryContext";
 import { MdSearch } from "react-icons/md";
 import { FaFilter } from "react-icons/fa6";
 import SearchInput from "./SearchInput";
 import ChinguButton from "./ChinguButton";
 
 export default function Form() {
-  const { clearFilterResources, searchResources, store, saveToQueryHistory } =
-    useStoreContext();
+  const { clearFilterResources, searchResources, store } = useStoreContext();
+  const { saveToQueryHistory } = useQueryHistoryContext();
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

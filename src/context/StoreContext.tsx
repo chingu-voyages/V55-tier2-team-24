@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+} from "react";
 import type { Resources, Store, StoreContext, Tags } from "../Types";
 import { usePersistedState } from "../hooks/usePersistedState";
 import getDataFromApi from "../helpers/getDataFromApi";
@@ -6,7 +12,6 @@ import { FALLBACK_RESOURCES, FALLBACK_TAGS } from "../helpers/fallbackData";
 import Fuse from "fuse.js";
 import { removeStopwords, eng } from "stopword";
 import { expandSearch } from "../helpers/expandSearch";
-import { searchPlaceHolders } from "../helpers/placeHolders";
 
 export const storeContext = createContext<StoreContext>({
   store: {
@@ -17,7 +22,6 @@ export const storeContext = createContext<StoreContext>({
     query: "",
     authors: [],
     resourcesType: [],
-    queryHistory: [],
     sortedValue: "",
   },
   clearFilterResources: () => undefined,
@@ -27,9 +31,6 @@ export const storeContext = createContext<StoreContext>({
   handleAuthorSelected: () => undefined,
   handleResourceTypeSelected: () => undefined,
   resetFilters: () => undefined,
-  saveToQueryHistory: () => undefined,
-  clearQueryHistory: () => undefined,
-  placeholder: "",
   updateFilteredResources: () => undefined,
   updateSortedValue: () => undefined,
   updateFavorites: () => undefined,
@@ -48,141 +49,161 @@ export default function StoreContextProvider({
     query: "",
     authors: [],
     resourcesType: [],
-    queryHistory: [],
     sortedValue: "newest",
   });
 
-  const [placeholder, setPlaceHolder] = useState(
-    searchPlaceHolders[Math.floor(Math.random() * searchPlaceHolders.length)]
+  const combineFilters = useCallback(
+    (
+      query: string,
+      tags: Tags[],
+      selectedAuthors: string[],
+      selectedTypes: string[]
+    ) => {
+      const words = query
+        .replace(/[^\w\s]/g, "")
+        .toLowerCase()
+        .split(" ")
+        .filter(Boolean);
+
+      const importantWords = removeStopwords(words, eng);
+      const expandedWords = expandSearch(importantWords);
+
+      const selectedTags = tags.filter((tag) => tag.selected);
+      const fuse = new Fuse(store.resources, {
+        keys: ["name", "author", "resourceType"],
+        threshold: 0.1,
+        includeScore: true,
+        minMatchCharLength: 2,
+        isCaseSensitive: false,
+        ignoreLocation: true,
+      });
+
+      const uniqueResultsMatched = new Set<Resources>();
+      expandedWords.forEach((word) => {
+        const matches = fuse.search(word);
+        matches.forEach((match) => {
+          uniqueResultsMatched.add(match.item);
+        });
+      });
+
+      const fusedResults =
+        expandedWords.length > 0
+          ? Array.from(uniqueResultsMatched)
+          : store.resources;
+
+      const results = fusedResults.filter((post) => {
+        const matchesTags =
+          selectedTags.length === 0 ||
+          selectedTags.some((tag) => post.appliedTags.includes(tag.id));
+
+        const matchesAuthor =
+          selectedAuthors.length === 0 || selectedAuthors.includes(post.author);
+
+        const matchResourceType =
+          selectedTypes.length === 0 ||
+          selectedTypes.includes(post.resourceType);
+
+        return matchesTags && matchesAuthor && matchResourceType;
+      });
+
+      const sorted = results.sort((a, b) => {
+        const aDate = new Date(a.createdAt).getTime();
+        const bDate = new Date(b.createdAt).getTime();
+        return bDate - aDate;
+      });
+
+      setStore((prev) => ({
+        ...prev,
+        filteredResources: sorted,
+        sortedValue: "newest",
+      }));
+    },
+    [store.resources]
   );
 
-  function saveToQueryHistory(query: string) {
-    if (!query.trim()) return;
+  const searchResources = useCallback(
+    (query: string) => {
+      setStore((prev) => ({ ...prev, query: query }));
+      combineFilters(query, store.tags, store.authors, store.resourcesType);
+    },
+    [combineFilters, setStore, store.authors, store.resourcesType, store.tags]
+  );
 
-    setStore((prev) => {
-      if (prev.queryHistory.includes(query)) return prev;
+  const handleClickedTags = useCallback(
+    (clickedTag: Tags) => {
+      const updatedTags = store.tags.map((tag) =>
+        tag.id === clickedTag.id ? { ...tag, selected: !tag.selected } : tag
+      );
 
-      return {
-        ...prev,
-        queryHistory: [query, ...prev.queryHistory],
-      };
-    });
-  }
-
-  function clearQueryHistory() {
-    setStore((prev) => ({ ...prev, queryHistory: [] }));
-  }
-
-  function combineFilters(
-    query: string,
-    tags: Tags[],
-    selectedAuthors: string[],
-    selectedTypes: string[]
-  ) {
-    const words = query
-      .replace(/[^\w\s]/g, "")
-      .toLowerCase()
-      .split(" ")
-      .filter(Boolean);
-
-    const importantWords = removeStopwords(words, eng);
-    const expandedWords = expandSearch(importantWords);
-
-    const selectedTags = tags.filter((tag) => tag.selected);
-    const fuse = new Fuse(store.resources, {
-      keys: ["name", "author", "resourceType"],
-      threshold: 0.1,
-      includeScore: true,
-      minMatchCharLength: 2,
-      isCaseSensitive: false,
-      ignoreLocation: true,
-    });
-
-    const uniqueResultsMatched = new Set<Resources>();
-    expandedWords.forEach((word) => {
-      const matches = fuse.search(word);
-      matches.forEach((match) => {
-        uniqueResultsMatched.add(match.item);
-      });
-    });
-
-    const fusedResults =
-      expandedWords.length > 0
-        ? Array.from(uniqueResultsMatched)
-        : store.resources;
-
-    const results = fusedResults.filter((post) => {
-      const matchesTags =
-        selectedTags.length === 0 ||
-        selectedTags.some((tag) => post.appliedTags.includes(tag.id));
-
-      const matchesAuthor =
-        selectedAuthors.length === 0 || selectedAuthors.includes(post.author);
-
-      const matchResourceType =
-        selectedTypes.length === 0 || selectedTypes.includes(post.resourceType);
-
-      return matchesTags && matchesAuthor && matchResourceType;
-    });
-
-    const sorted = results.sort((a, b) => {
-      const aDate = new Date(a.createdAt).getTime();
-      const bDate = new Date(b.createdAt).getTime();
-      return bDate - aDate;
-    });
-
-    setStore((prev) => ({
-      ...prev,
-      filteredResources: sorted,
-      sortedValue: "newest",
-    }));
-  }
-
-  function searchResources(query: string) {
-    setStore((prev) => ({ ...prev, query: query }));
-    combineFilters(query, store.tags, store.authors, store.resourcesType);
-  }
-
-  function handleClickedTags(clickedTag: Tags) {
-    const updatedTags = store.tags.map((tag) =>
-      tag.id === clickedTag.id ? { ...tag, selected: !tag.selected } : tag
-    );
-
-    setStore((prev) => ({ ...prev, tags: updatedTags }));
-    combineFilters(
-      store.query,
-      updatedTags,
+      setStore((prev) => ({ ...prev, tags: updatedTags }));
+      combineFilters(
+        store.query,
+        updatedTags,
+        store.authors,
+        store.resourcesType
+      );
+    },
+    [
+      combineFilters,
+      setStore,
       store.authors,
-      store.resourcesType
-    );
-  }
-
-  function handleAuthorSelected(selectedAuthor: string) {
-    const isSelected = store.authors.includes(selectedAuthor);
-    const updatedAuthors = isSelected
-      ? store.authors.filter((author) => author !== selectedAuthor)
-      : [...store.authors, selectedAuthor];
-    setStore((prev) => ({ ...prev, authors: updatedAuthors }));
-    combineFilters(
       store.query,
+      store.resourcesType,
       store.tags,
-      updatedAuthors,
-      store.resourcesType
-    );
-  }
+    ]
+  );
 
-  function handleResourceTypeSelected(resourceTypeSelected: string) {
-    const isSelected = store.resourcesType.includes(resourceTypeSelected);
-    const updateResourcesType = isSelected
-      ? store.resourcesType.filter(
-          (resourceType) => resourceType !== resourceTypeSelected
-        )
-      : [...store.resourcesType, resourceTypeSelected];
-    setStore((prev) => ({ ...prev, resourcesType: updateResourcesType }));
-    combineFilters(store.query, store.tags, store.authors, updateResourcesType);
-  }
+  const handleAuthorSelected = useCallback(
+    (selectedAuthor: string) => {
+      const isSelected = store.authors.includes(selectedAuthor);
+      const updatedAuthors = isSelected
+        ? store.authors.filter((author) => author !== selectedAuthor)
+        : [...store.authors, selectedAuthor];
+      setStore((prev) => ({ ...prev, authors: updatedAuthors }));
+      combineFilters(
+        store.query,
+        store.tags,
+        updatedAuthors,
+        store.resourcesType
+      );
+    },
+    [
+      combineFilters,
+      setStore,
+      store.authors,
+      store.query,
+      store.resourcesType,
+      store.tags,
+    ]
+  );
 
-  function clearFilterResources() {
+  const handleResourceTypeSelected = useCallback(
+    (resourceTypeSelected: string) => {
+      const isSelected = store.resourcesType.includes(resourceTypeSelected);
+      const updateResourcesType = isSelected
+        ? store.resourcesType.filter(
+            (resourceType) => resourceType !== resourceTypeSelected
+          )
+        : [...store.resourcesType, resourceTypeSelected];
+      setStore((prev) => ({ ...prev, resourcesType: updateResourcesType }));
+      combineFilters(
+        store.query,
+        store.tags,
+        store.authors,
+        updateResourcesType
+      );
+    },
+    [
+      combineFilters,
+      setStore,
+      store.authors,
+      store.query,
+      store.resourcesType,
+      store.tags,
+    ]
+  );
+
+  const clearFilterResources = useCallback(() => {
     setStore((prev) => {
       const clearedTags = prev.tags.map((tag) => ({ ...tag, selected: false }));
       return {
@@ -194,13 +215,16 @@ export default function StoreContextProvider({
         filteredResources: prev.resources,
       };
     });
-  }
+  }, [setStore]);
 
-  function updateQuery(query: string) {
-    setStore((prev) => ({ ...prev, query }));
-  }
+  const updateQuery = useCallback(
+    (query: string) => {
+      setStore((prev) => ({ ...prev, query }));
+    },
+    [setStore]
+  );
 
-  function resetFilters() {
+  const resetFilters = useCallback(() => {
     const clearedTags = FALLBACK_TAGS.map((tag) => ({
       ...tag,
       selected: false,
@@ -214,37 +238,46 @@ export default function StoreContextProvider({
     }));
 
     combineFilters(store.query, clearedTags, [], []);
-  }
-  function updateFilteredResources(sortedResources: Resources[]) {
-    setStore((prev) => ({ ...prev, filteredResources: sortedResources }));
-  }
+  }, [combineFilters, setStore, store.query]);
 
-  function updateSortedValue(newValue: string) {
-    setStore((prev) => ({ ...prev, sortedValue: newValue }));
-  }
+  const updateFilteredResources = useCallback(
+    (sortedResources: Resources[]) => {
+      setStore((prev) => ({ ...prev, filteredResources: sortedResources }));
+    },
+    [setStore]
+  );
 
-  function updateFavorites(favoriteResourceId: string) {
-    const updatedResources = store.resources.map((resource) => {
-      if (resource.id === favoriteResourceId) {
-        return { ...resource, isFavorite: !resource.isFavorite };
-      } else {
-        return resource;
-      }
-    });
+  const updateSortedValue = useCallback(
+    (newValue: string) => {
+      setStore((prev) => ({ ...prev, sortedValue: newValue }));
+    },
+    [setStore]
+  );
 
-    const updatedFilterResources = store.filteredResources.map((resource) => {
-      if (resource.id === favoriteResourceId) {
-        return { ...resource, isFavorite: !resource.isFavorite };
-      } else {
-        return resource;
-      }
-    });
-    setStore((prev) => ({
-      ...prev,
-      resources: updatedResources,
-      filteredResources: updatedFilterResources,
-    }));
-  }
+  const updateFavorites = useCallback(
+    (favoriteResourceId: string) => {
+      setStore((prev) => {
+        const updatedResources = prev.resources.map((resource) =>
+          resource.id === favoriteResourceId
+            ? { ...resource, isFavorite: !resource.isFavorite }
+            : resource
+        );
+
+        const updatedFilterResources = prev.filteredResources.map((resource) =>
+          resource.id === favoriteResourceId
+            ? { ...resource, isFavorite: !resource.isFavorite }
+            : resource
+        );
+
+        return {
+          ...prev,
+          resources: updatedResources,
+          filteredResources: updatedFilterResources,
+        };
+      });
+    },
+    [setStore]
+  );
 
   useEffect(() => {
     const today = new Date().toLocaleDateString();
@@ -268,37 +301,39 @@ export default function StoreContextProvider({
           console.log("error when fetching", error);
         });
     }
+  }, [setStore, store.lastUpdate, store.resources.length]);
 
-    const timeInterval = setInterval(() => {
-      setPlaceHolder(
-        searchPlaceHolders[
-          Math.floor(Math.random() * searchPlaceHolders.length)
-        ]
-      );
-    }, 6000);
+  const contextValue = useMemo(
+    () => ({
+      store,
+      clearFilterResources,
+      searchResources,
+      handleClickedTags,
+      updateQuery,
+      handleAuthorSelected,
+      handleResourceTypeSelected,
+      resetFilters,
+      updateFilteredResources,
+      updateSortedValue,
+      updateFavorites,
+    }),
+    [
+      store,
+      clearFilterResources,
+      searchResources,
+      handleClickedTags,
+      updateQuery,
+      handleAuthorSelected,
+      handleResourceTypeSelected,
+      resetFilters,
+      updateFilteredResources,
+      updateSortedValue,
+      updateFavorites,
+    ]
+  );
 
-    return () => clearInterval(timeInterval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
-    <storeContext.Provider
-      value={{
-        store,
-        clearFilterResources,
-        searchResources,
-        handleClickedTags,
-        updateQuery,
-        handleAuthorSelected,
-        handleResourceTypeSelected,
-        resetFilters,
-        saveToQueryHistory,
-        clearQueryHistory,
-        placeholder,
-        updateFilteredResources,
-        updateSortedValue,
-        updateFavorites,
-      }}
-    >
+    <storeContext.Provider value={contextValue}>
       {children}
     </storeContext.Provider>
   );

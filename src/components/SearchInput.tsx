@@ -2,12 +2,15 @@ import { useEffect, useRef } from "react";
 import { TextField, Autocomplete, IconButton } from "@mui/material";
 import { MdClear, MdSearch } from "react-icons/md";
 import { useStoreContext } from "../context/StoreContext";
+import { useQueryHistoryContext } from "../context/QueryHistoryContext";
 import useAnimatedText from "../hooks/useAnimatedText";
+import usePlaceHolder from "../hooks/useplaceHolder";
 
 export default function SearchInput() {
-  const { store, updateQuery, clearQueryHistory, placeholder } =
-    useStoreContext();
-  const pastQueries = store.queryHistory;
+  const { store, updateQuery } = useStoreContext();
+  const { placeholder } = usePlaceHolder();
+  const { queryHistory, clearQueryHistory } = useQueryHistoryContext();
+  const pastQueries = queryHistory;
   const optionsWithClear =
     pastQueries.length > 0 ? [...pastQueries, "Clear History"] : [];
   const searchRef = useRef<HTMLInputElement | null>(null);
